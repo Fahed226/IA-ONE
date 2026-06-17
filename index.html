@@ -13,653 +13,608 @@
   --black:#080808;
   --white:#F2F2F0;
   --red:#E8001C;
-  --red2:#FF2D44;
-  --gray:#1A1A1A;
-  --gray2:#2E2E2E;
-  --muted:#888;
-  --ff-display:'Bebas Neue',sans-serif;
-  --ff-mono:'Space Mono',monospace;
-  --ff-body:'Inter',sans-serif;
+  --gray:#141414;
+  --gray2:#2A2A2A;
+  --muted:#777;
+  --ff-d:'Bebas Neue',sans-serif;
+  --ff-m:'Space Mono',monospace;
+  --ff-b:'Inter',sans-serif;
 }
 html{scroll-behavior:auto}
-body{background:var(--black);color:var(--white);font-family:var(--ff-body);overflow-x:hidden;cursor:none}
+body{background:var(--black);color:var(--white);font-family:var(--ff-b);overflow-x:hidden;cursor:none}
 ::selection{background:var(--red);color:var(--white)}
 
-/* ─── CURSOR ─── */
-#cur-dot{position:fixed;width:8px;height:8px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
-#cur-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(242,242,240,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,opacity .3s}
-body.hover-active #cur-dot{width:0;height:0}
-body.hover-active #cur-ring{width:64px;height:64px;border-color:var(--red);opacity:.7}
+/* ── CURSOR ── */
+#cd{position:fixed;width:8px;height:8px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cr{position:fixed;width:36px;height:36px;border:1.5px solid rgba(242,242,240,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s}
+body.ha #cd{opacity:0}
+body.ha #cr{width:60px;height:60px;border-color:var(--red)}
 
-/* ─── LOADER ─── */
-#loader{position:fixed;inset:0;background:var(--black);z-index:9000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:40px}
-.loader-logo{font-family:var(--ff-display);font-size:clamp(48px,8vw,120px);letter-spacing:.02em;overflow:hidden;display:flex}
-.loader-logo span{display:inline-block;transform:translateY(110%);opacity:0}
-.loader-bar-wrap{width:240px;height:1px;background:var(--gray2);overflow:hidden}
-.loader-bar{height:100%;width:0;background:var(--red)}
-.loader-pct{font-family:var(--ff-mono);font-size:11px;letter-spacing:.2em;color:var(--muted);text-align:center;margin-top:10px}
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--black);z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px}
+.ll{font-family:var(--ff-d);font-size:clamp(44px,7vw,100px);letter-spacing:.03em;display:flex}
+.ll span{display:inline-block;transform:translateY(110%);opacity:0}
+.lb-w{width:200px;height:1px;background:var(--gray2)}
+.lb{height:100%;width:0;background:var(--red)}
+.lp{font-family:var(--ff-m);font-size:10px;letter-spacing:.2em;color:var(--muted);margin-top:8px;text-align:center}
 
-/* ─── NAV ─── */
-nav{position:fixed;top:0;left:0;right:0;z-index:800;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
-.nav-logo{font-family:var(--ff-display);font-size:22px;letter-spacing:.04em;color:var(--white);text-decoration:none}
-.nav-logo span{color:var(--red)}
-.nav-links{display:flex;gap:40px;list-style:none}
-.nav-links a{color:var(--white);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;opacity:.6;transition:opacity .3s}
-.nav-links a:hover{opacity:1}
-.nav-cta{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:10px 24px;border:1px solid rgba(242,242,240,.3);color:var(--white);text-decoration:none;border-radius:2px;transition:background .3s,border-color .3s,color .3s}
-.nav-cta:hover{background:var(--red);border-color:var(--red);color:var(--white)}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:800;padding:22px 48px;display:flex;align-items:center;justify-content:space-between}
+.nl{font-family:var(--ff-d);font-size:20px;letter-spacing:.04em;color:var(--white);text-decoration:none}
+.nl span{color:var(--red)}
+.nm{display:flex;gap:36px;list-style:none}
+.nm a{color:var(--white);text-decoration:none;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;opacity:.5;transition:opacity .3s}
+.nm a:hover{opacity:1}
+.nc{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:9px 22px;border:1px solid rgba(242,242,240,.25);color:var(--white);text-decoration:none;border-radius:2px;transition:background .3s,border-color .3s}
+.nc:hover{background:var(--red);border-color:var(--red)}
 
-/* ─── HERO ─── */
-#hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:0 48px 80px;overflow:hidden}
-.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(242,242,240,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(242,242,240,.03) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
-.hero-noise{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 48px 80px;gap:60px;overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(242,242,240,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(242,242,240,.025) 1px,transparent 1px);background-size:72px 72px;pointer-events:none}
+.hero-noise{position:absolute;inset:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
 
-/* floating objects */
+/* floating objects - left side */
 .fobj{position:absolute;pointer-events:none;will-change:transform}
-.fb-bubble{top:12%;left:8%;opacity:0}
-.fb-bubble svg{width:80px;fill:none;stroke:var(--white);stroke-width:1.5;animation:floatA 6s ease-in-out infinite}
-.fb-at{top:20%;right:12%;opacity:0}
-.fb-at span{font-family:var(--ff-display);font-size:120px;color:transparent;-webkit-text-stroke:1px var(--red);line-height:1;animation:floatB 7s ease-in-out infinite;display:block}
-.fb-play{top:55%;left:5%;opacity:0}
-.fb-play svg{width:64px;fill:none;stroke:var(--white);stroke-width:1.5;animation:floatC 5.5s ease-in-out infinite}
-.fb-hash{bottom:30%;right:8%;opacity:0}
-.fb-hash span{font-family:var(--ff-display);font-size:88px;color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.3);line-height:1;animation:floatA 8s ease-in-out infinite 1s;display:block}
-.fb-notif{top:30%;left:14%;opacity:0}
-.fb-notif-inner{background:var(--gray);border:1px solid var(--gray2);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;width:220px;animation:floatB 6.5s ease-in-out infinite .5s}
-.fn-icon{width:32px;height:32px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.fn-text{font-size:11px;line-height:1.4}
-.fn-text strong{display:block;font-size:12px;font-weight:600;color:var(--white)}
-.fn-text span{color:var(--muted)}
-.fb-stat{bottom:40%;left:18%;opacity:0}
-.fb-stat-inner{border:1px solid var(--gray2);border-radius:8px;padding:16px 20px;background:rgba(26,26,26,.8);backdrop-filter:blur(12px);animation:floatC 7.5s ease-in-out infinite .8s}
-.fs-num{font-family:var(--ff-display);font-size:36px;line-height:1;color:var(--red)}
-.fs-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
-.fb-eye{top:68%;right:18%;opacity:0}
-.fb-eye svg{width:52px;fill:none;stroke:var(--muted);stroke-width:1.5;animation:floatA 9s ease-in-out infinite 2s}
-.fb-cursor{top:48%;right:28%;opacity:0}
-.fb-cursor svg{width:40px;fill:var(--white);filter:drop-shadow(0 0 12px rgba(232,0,28,.6));animation:floatB 5s ease-in-out infinite 1.5s}
-.fb-chart{bottom:22%;right:22%;opacity:0}
-.fb-chart svg{width:80px;fill:none;animation:floatC 6s ease-in-out infinite .3s}
-.fb-trend{top:80%;left:36%;opacity:0}
-.fb-trend svg{width:48px;fill:none;stroke:var(--red);stroke-width:2;animation:floatA 5.8s ease-in-out infinite 2.5s}
-.fb-heart{top:18%;left:48%;opacity:0}
-.fb-heart svg{width:44px;fill:transparent;stroke:var(--red);stroke-width:1.5;animation:heartbeat 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(232,0,28,.5))}
-.fb-bolt{bottom:50%;right:5%;opacity:0}
-.fb-bolt svg{width:40px;fill:var(--red);opacity:.8;animation:floatB 4.5s ease-in-out infinite 1s;filter:drop-shadow(0 0 16px rgba(232,0,28,.8))}
-.fb-share{top:42%;left:32%;opacity:0}
-.fb-share svg{width:36px;fill:none;stroke:rgba(242,242,240,.4);stroke-width:1.5;animation:floatC 7s ease-in-out infinite .6s}
-.fb-react{bottom:28%;left:42%;opacity:0}
-.fb-react-inner{display:flex;gap:6px;background:rgba(26,26,26,.9);border:1px solid var(--gray2);border-radius:32px;padding:8px 14px;animation:floatA 6.8s ease-in-out infinite 1.8s}
-.fr-item{font-size:18px;position:relative}
-.fr-item::after{content:attr(data-c);position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-family:var(--ff-mono);color:var(--red);white-space:nowrap}
-.fb-cam{top:35%;right:5%;opacity:0}
-.fb-cam svg{width:56px;fill:none;stroke:rgba(242,242,240,.25);stroke-width:1.5;animation:floatB 8s ease-in-out infinite .4s}
-.fb-tiktok{top:60%;left:26%;opacity:0}
-.fb-tiktok span{font-family:var(--ff-display);font-size:56px;color:transparent;-webkit-text-stroke:1px rgba(232,0,28,.5);animation:floatC 6.2s ease-in-out infinite 1.2s;display:block}
-.fb-wifi{top:25%;left:38%;opacity:0}
-.fb-wifi svg{width:48px;fill:none;stroke:rgba(242,242,240,.2);stroke-width:1.5;animation:floatA 7.8s ease-in-out infinite .9s}
+.f-at{top:15%;left:6%;opacity:0}
+.f-at span{font-family:var(--ff-d);font-size:110px;color:transparent;-webkit-text-stroke:1px var(--red);line-height:1;animation:fA 7s ease-in-out infinite;display:block}
+.f-hash{bottom:25%;right:6%;opacity:0}
+.f-hash span{font-family:var(--ff-d);font-size:80px;color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.2);line-height:1;animation:fB 8s ease-in-out infinite 1s;display:block}
+.f-notif{top:28%;left:12%;opacity:0}
+.f-notif-i{background:rgba(20,20,20,.95);border:1px solid var(--gray2);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;width:210px;animation:fB 6.5s ease-in-out infinite .5s;backdrop-filter:blur(8px)}
+.fni{width:30px;height:30px;background:var(--red);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fnt{font-size:10px;line-height:1.4}
+.fnt strong{display:block;font-size:11px;font-weight:600}
+.fnt span{color:var(--muted)}
+.f-stat{bottom:38%;left:8%;opacity:0}
+.f-stat-i{border:1px solid var(--gray2);border-radius:8px;padding:14px 18px;background:rgba(20,20,20,.85);backdrop-filter:blur(12px);animation:fC 7.5s ease-in-out infinite .8s}
+.fsn{font-family:var(--ff-d);font-size:32px;line-height:1;color:var(--red)}
+.fsl{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.f-heart{top:16%;left:44%;opacity:0}
+.f-heart svg{width:40px;fill:transparent;stroke:var(--red);stroke-width:1.5;animation:heartbeat 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(232,0,28,.5))}
+.f-play{bottom:48%;right:30%;opacity:0}
+.f-play svg{width:56px;fill:none;stroke:rgba(242,242,240,.25);stroke-width:1.5;animation:fA 6s ease-in-out infinite}
+.f-chart{bottom:20%;right:12%;opacity:0}
+.f-chart svg{width:72px;animation:fC 6s ease-in-out infinite .3s}
+.f-bolt{top:55%;right:8%;opacity:0}
+.f-bolt svg{width:36px;fill:var(--red);animation:fB 4.5s ease-in-out infinite 1s;filter:drop-shadow(0 0 14px rgba(232,0,28,.7))}
+.f-eye{top:70%;left:30%;opacity:0}
+.f-eye svg{width:48px;fill:none;stroke:rgba(242,242,240,.25);stroke-width:1.5;animation:fA 9s ease-in-out infinite 2s}
+.f-react{bottom:30%;left:40%;opacity:0}
+.f-react-i{display:flex;gap:5px;background:rgba(20,20,20,.9);border:1px solid var(--gray2);border-radius:28px;padding:7px 12px;animation:fA 6.8s ease-in-out infinite 1.8s}
+.fri{font-size:16px;position:relative}
+.fri::after{content:attr(data-c);position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:8px;font-family:var(--ff-m);color:var(--red);white-space:nowrap}
+.f-wifi{top:22%;right:40%;opacity:0}
+.f-wifi svg{width:44px;fill:none;animation:fB 7.8s ease-in-out infinite .9s}
+.f-share{top:42%;left:28%;opacity:0}
+.f-share svg{width:32px;fill:none;stroke:rgba(242,242,240,.3);stroke-width:1.5;animation:fC 7s ease-in-out infinite .6s}
+.f-cursor{top:50%;right:22%;opacity:0}
+.f-cursor svg{width:36px;fill:var(--white);filter:drop-shadow(0 0 10px rgba(232,0,28,.5));animation:fB 5s ease-in-out infinite 1.5s}
 
-@keyframes floatA{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(2deg)}}
-@keyframes floatB{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(-2deg)}}
-@keyframes floatC{0%,100%{transform:translateY(0) rotate(0deg)}33%{transform:translateY(-10px) rotate(1deg)}66%{transform:translateY(-20px) rotate(-1deg)}}
-@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.25)}28%{transform:scale(1)}}
+@keyframes fA{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-16px) rotate(2deg)}}
+@keyframes fB{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(-2deg)}}
+@keyframes fC{0%,100%{transform:translateY(0)}33%{transform:translateY(-8px)}66%{transform:translateY(-18px)}}
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.28)}28%{transform:scale(1)}}
 
-.hero-content{position:relative;z-index:2;max-width:1200px}
-.hero-eyebrow{font-family:var(--ff-mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:28px;display:flex;align-items:center;gap:12px}
-.hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--red)}
-.hero-title{font-family:var(--ff-display);font-size:clamp(72px,11vw,180px);line-height:.9;letter-spacing:-.01em}
+/* ── HERO LEFT ── */
+.hero-left{position:relative;z-index:2}
+.hero-eyebrow{font-family:var(--ff-m);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--red)}
+.hero-title{font-family:var(--ff-d);font-size:clamp(64px,8vw,140px);line-height:.88;letter-spacing:-.01em}
 .hero-title .line{display:block;overflow:hidden}
-.hero-title .word{display:inline-block;transform:translateY(105%)}
-.hero-title .accent{color:var(--red)}
-.hero-title .outline{color:transparent;-webkit-text-stroke:1px var(--white)}
-.hero-sub{max-width:480px;margin-top:40px;font-size:16px;line-height:1.65;color:rgba(242,242,240,.55);opacity:0;transform:translateY(20px)}
-.hero-actions{display:flex;gap:20px;align-items:center;margin-top:48px;opacity:0;transform:translateY(20px)}
-.btn-primary{display:inline-flex;align-items:center;gap:12px;background:var(--red);color:var(--white);padding:18px 36px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:none;border-radius:2px;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
-.btn-primary::after{content:'';position:absolute;inset:0;background:var(--white);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.btn-primary:hover::after{transform:scaleX(1)}
-.btn-primary:hover{box-shadow:0 0 40px rgba(232,0,28,.4);transform:translateY(-2px)}
-.btn-primary .btn-text{position:relative;z-index:1;transition:color .4s}
-.btn-primary .btn-icon{position:relative;z-index:1}
-.btn-primary:hover .btn-text{color:var(--red)}
-.btn-ghost{display:inline-flex;align-items:center;gap:10px;color:var(--white);font-size:13px;font-weight:500;letter-spacing:.08em;text-decoration:none;opacity:.6;transition:opacity .3s,gap .3s}
-.btn-ghost:hover{opacity:1;gap:16px}
-.hero-scroll{position:absolute;bottom:40px;right:48px;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0}
-.hs-label{font-family:var(--ff-mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-lr}
-.hs-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--red),transparent);animation:scrollDown 2s ease-in-out infinite}
-@keyframes scrollDown{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hero-title .word{display:inline-block;transform:translateY(108%)}
+.hero-title .acc{color:var(--red)}
+.hero-title .out{color:transparent;-webkit-text-stroke:1px var(--white)}
+.hero-sub{max-width:420px;margin-top:32px;font-size:15px;line-height:1.7;color:rgba(242,242,240,.5);opacity:0;transform:translateY(16px)}
+.hero-acts{display:flex;gap:16px;align-items:center;margin-top:40px;opacity:0;transform:translateY(16px)}
+.btn-p{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:var(--white);padding:16px 32px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.btn-p::after{content:'';position:absolute;inset:0;background:var(--white);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.btn-p:hover::after{transform:scaleX(1)}
+.btn-p:hover{box-shadow:0 0 36px rgba(232,0,28,.45);transform:translateY(-2px)}
+.btn-p .bt{position:relative;z-index:1;transition:color .4s}
+.btn-p .bi{position:relative;z-index:1}
+.btn-p:hover .bt{color:var(--red)}
+.btn-g{display:inline-flex;align-items:center;gap:8px;color:var(--white);font-size:12px;font-weight:500;letter-spacing:.08em;text-decoration:none;opacity:.5;transition:opacity .3s,gap .3s}
+.btn-g:hover{opacity:1;gap:14px}
+.hero-scroll{position:absolute;bottom:40px;right:0;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0}
+.hs-l{font-family:var(--ff-m);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-lr}
+.hs-bar{width:1px;height:56px;background:linear-gradient(to bottom,var(--red),transparent);animation:sd 2s ease-in-out infinite}
+@keyframes sd{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* ─── MARQUEE ─── */
-.marquee-section{overflow:hidden;border-top:1px solid var(--gray2);border-bottom:1px solid var(--gray2);background:var(--gray)}
-.marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
-.marquee-track.rev{animation:marquee2 22s linear infinite;background:var(--black)}
-.marquee-item{display:inline-flex;align-items:center;gap:32px;padding:20px 40px;font-family:var(--ff-display);font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-.marquee-item .dot{width:6px;height:6px;background:var(--red);border-radius:50%;flex-shrink:0}
-.marquee-item.hl{color:var(--white)}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes marquee2{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+/* ── HERO RIGHT — ROBOT ── */
+.hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;opacity:0}
+.robot-scene{position:relative;width:320px;height:420px}
+.robot-shadow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:120px;height:14px;background:radial-gradient(ellipse,rgba(232,0,28,.35) 0%,transparent 70%);border-radius:50%;animation:shadow-pulse 1s ease-in-out infinite alternate}
+@keyframes shadow-pulse{from{transform:translateX(-50%) scaleX(.8);opacity:.4}to{transform:translateX(-50%) scaleX(1.1);opacity:.8}}
 
-/* ─── TOGGLE ─── */
-#toggle-section{padding:140px 48px}
-.section-eyebrow{font-family:var(--ff-mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:48px;display:flex;align-items:center;gap:12px}
-.section-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--red)}
-.toggle-tabs{display:flex;gap:0;border:1px solid var(--gray2);border-radius:4px;overflow:hidden;width:fit-content;margin-bottom:80px}
-.toggle-tab{padding:14px 32px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--muted);border:none;cursor:pointer;transition:background .3s,color .3s}
-.toggle-tab.active{background:var(--red);color:var(--white)}
-.toggle-content{display:none}
-.toggle-content.active{display:block}
-.tc-headline{font-family:var(--ff-display);font-size:clamp(40px,6vw,88px);line-height:.95;letter-spacing:-.01em;margin-bottom:40px}
-.tc-headline em{color:var(--red);font-style:normal}
-.tc-body{font-size:17px;line-height:1.7;color:rgba(242,242,240,.55);max-width:600px;margin-bottom:56px}
-.tc-services{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gray2);border:1px solid var(--gray2);border-radius:4px;overflow:hidden;margin-bottom:56px}
-.tc-service{background:var(--black);padding:32px 28px;transition:background .3s}
-.tc-service:hover{background:var(--gray)}
-.tc-service-num{font-family:var(--ff-mono);font-size:10px;color:var(--red);letter-spacing:.15em;margin-bottom:16px}
-.tc-service-name{font-size:15px;font-weight:600;margin-bottom:8px}
-.tc-service-desc{font-size:13px;color:var(--muted);line-height:1.6}
-.tc-link{display:inline-flex;align-items:center;gap:10px;color:var(--white);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:4px;transition:gap .3s}
-.tc-link:hover{gap:18px}
+/* SVG Robot */
+.robot-svg{position:absolute;top:20px;left:50%;transform:translateX(-50%);animation:robot-bob 1s ease-in-out infinite alternate}
+@keyframes robot-bob{from{transform:translateX(-50%) translateY(0)}to{transform:translateX(-50%) translateY(8px)}}
 
-/* ─── KINETIC ─── */
-.kinetic-section{padding:100px 0;border-top:1px solid var(--gray2);overflow:hidden}
-.kinetic-row{display:flex;margin-bottom:16px}
-.kinetic-row:last-child{margin-bottom:0}
-.kinetic-text{font-family:var(--ff-display);font-size:clamp(60px,8vw,120px);white-space:nowrap;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.12);display:flex;align-items:center;gap:40px}
-.kinetic-text .solid{color:var(--white);-webkit-text-stroke:0}
-.kinetic-text .kr{color:var(--red);-webkit-text-stroke:0}
-.kinetic-text .kt-dot{width:12px;height:12px;background:var(--red);border-radius:50%;flex-shrink:0}
+/* Robot parts CSS */
+.robot-wrap{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:200px;height:380px}
 
-/* ─── PROCESS ─── */
-#process{padding:140px 48px;border-top:1px solid var(--gray2)}
-.section-tag{font-family:var(--ff-mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:80px;display:flex;align-items:center;gap:12px}
-.section-tag::before{content:'';display:block;width:32px;height:1px;background:var(--red)}
-.process-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px 120px;max-width:960px}
-.process-step{position:relative}
-.ps-num{font-family:var(--ff-display);font-size:80px;line-height:1;color:transparent;-webkit-text-stroke:1px var(--gray2);margin-bottom:24px;transition:color .4s,-webkit-text-stroke .4s}
-.process-step:hover .ps-num{color:var(--red);-webkit-text-stroke:1px var(--red)}
-.ps-title{font-size:20px;font-weight:600;margin-bottom:12px}
-.ps-desc{font-size:14px;line-height:1.7;color:var(--muted)}
+/* HEAD */
+.r-head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:80px;height:68px;background:var(--gray2);border-radius:8px;border:2px solid rgba(242,242,240,.1);animation:robot-bob 1s ease-in-out infinite alternate}
+.r-head::before{content:'NETF';position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-family:var(--ff-m);font-size:7px;color:rgba(242,242,240,.3);letter-spacing:.15em;white-space:nowrap}
+.r-antenna{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:2px;height:16px;background:rgba(242,242,240,.4)}
+.r-antenna::after{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:var(--red);border-radius:50%;animation:blink 1.4s ease-in-out infinite;box-shadow:0 0 8px var(--red)}
+@keyframes blink{0%,100%{opacity:1;transform:translateX(-50%) scale(1)}50%{opacity:.3;transform:translateX(-50%) scale(.7)}}
+.r-eye{position:absolute;top:18px;width:18px;height:18px;background:var(--black);border-radius:3px;border:1px solid var(--gray2)}
+.r-eye::after{content:'';position:absolute;inset:3px;background:var(--red);border-radius:2px;animation:eye-scan 3s ease-in-out infinite}
+@keyframes eye-scan{0%,100%{transform:scaleX(1);background:var(--red)}45%{transform:scaleX(0.1);background:var(--white)}55%{transform:scaleX(0.1)}70%{transform:scaleX(1);background:var(--red)}}
+.r-eye.l{left:12px}
+.r-eye.r{right:12px}
+.r-mouth{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:32px;height:3px;background:rgba(242,242,240,.2);border-radius:2px}
+.r-mouth::before,.r-mouth::after{content:'';position:absolute;top:0;width:8px;height:3px;background:var(--red);border-radius:2px;animation:mouth-move 2s ease-in-out infinite alternate}
+.r-mouth::before{left:0}
+.r-mouth::after{right:0;animation-delay:.3s}
+@keyframes mouth-move{from{transform:scaleY(1)}to{transform:scaleY(.3)}}
 
-/* ─── STATS ─── */
-#stats{padding:140px 48px;background:var(--gray);border-top:1px solid var(--gray2)}
-.stats-headline{font-family:var(--ff-display);font-size:clamp(36px,5vw,72px);margin-bottom:80px;max-width:600px;line-height:1;letter-spacing:-.01em}
-.stats-headline .accent{color:var(--red)}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gray2)}
-.stat-card{background:var(--gray);padding:48px 32px;border-bottom:3px solid transparent;transition:border-color .3s,background .3s}
-.stat-card:hover{background:var(--black);border-color:var(--red)}
-.stat-number{font-family:var(--ff-display);font-size:clamp(48px,6vw,88px);line-height:1;color:var(--white);margin-bottom:12px}
-.stat-number .red{color:var(--red)}
-.stat-label{font-size:13px;color:var(--muted);letter-spacing:.05em;line-height:1.5}
+/* NECK */
+.r-neck{position:absolute;top:66px;left:50%;transform:translateX(-50%);width:16px;height:12px;background:var(--gray2);animation:robot-bob 1s ease-in-out infinite alternate}
 
-/* ─── HORIZ CARDS ─── */
-#horiz{padding:140px 0;overflow:hidden;border-top:1px solid var(--gray2)}
-.horiz-head{padding:0 48px;margin-bottom:60px}
-.horiz-track{display:flex;gap:24px;padding:0 48px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab}
-.horiz-track:active{cursor:grabbing}
-.horiz-track::-webkit-scrollbar{display:none}
-.horiz-card{width:380px;flex-shrink:0;scroll-snap-align:start;border:1px solid var(--gray2);border-radius:4px;padding:48px 36px;background:var(--black);position:relative;overflow:hidden;transition:border-color .4s,background .4s}
-.horiz-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s}
-.horiz-card:hover{background:var(--gray)}
-.horiz-card:hover::before{transform:scaleX(1)}
-.hc-icon{width:52px;height:52px;border:1px solid var(--gray2);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:36px;transition:background .3s,border-color .3s}
-.horiz-card:hover .hc-icon{background:var(--red);border-color:var(--red)}
-.hc-icon svg{width:24px;fill:none;stroke:var(--muted);stroke-width:1.5;transition:stroke .3s}
-.horiz-card:hover .hc-icon svg{stroke:var(--white)}
-.hc-tag{font-family:var(--ff-mono);font-size:9px;letter-spacing:.2em;color:var(--red);text-transform:uppercase;margin-bottom:12px}
-.hc-title{font-size:22px;font-weight:600;margin-bottom:16px;line-height:1.3}
-.hc-desc{font-size:14px;line-height:1.7;color:var(--muted)}
-.hc-price{margin-top:32px;padding-top:32px;border-top:1px solid var(--gray2);font-family:var(--ff-display);font-size:40px;line-height:1;color:var(--white)}
-.hc-price small{font-family:var(--ff-body);font-size:12px;color:var(--muted);vertical-align:middle;margin-left:4px}
+/* TORSO */
+.r-torso{position:absolute;top:78px;left:50%;transform:translateX(-50%);width:100px;height:110px;background:var(--gray2);border-radius:6px;border:2px solid rgba(242,242,240,.08);animation:robot-bob 1s ease-in-out infinite alternate}
+.r-chest{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:44px;height:30px;background:var(--black);border-radius:4px;border:1px solid var(--gray2)}
+.r-chest-light{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:16px;height:16px;background:var(--red);border-radius:50%;box-shadow:0 0 16px var(--red),0 0 32px rgba(232,0,28,.4);animation:pulse-light 1.5s ease-in-out infinite}
+@keyframes pulse-light{0%,100%{box-shadow:0 0 16px var(--red),0 0 32px rgba(232,0,28,.4);transform:translateX(-50%) scale(1)}50%{box-shadow:0 0 24px var(--red),0 0 48px rgba(232,0,28,.6);transform:translateX(-50%) scale(1.15)}}
+.r-vents{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+.r-vent{width:6px;height:18px;background:rgba(0,0,0,.5);border-radius:2px;border:1px solid rgba(242,242,240,.06)}
 
-/* ─── BEFORE/AFTER ─── */
-#ba{padding:140px 48px;border-top:1px solid var(--gray2)}
-.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gray2);margin-top:80px;border-radius:4px;overflow:hidden}
-.ba-col{padding:60px 48px;background:var(--black)}
-.ba-col-head{margin-bottom:48px}
-.ba-pill{display:inline-block;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;border-radius:32px}
-.ba-pill.before{background:var(--gray2);color:var(--muted)}
-.ba-pill.after{background:var(--red);color:var(--white)}
-.ba-item{display:flex;align-items:flex-start;gap:14px;padding:20px 0;border-bottom:1px solid var(--gray2)}
+/* ARMS */
+.r-arm{position:absolute;top:80px;width:22px;height:90px;background:var(--gray2);border-radius:11px;border:2px solid rgba(242,242,240,.06);transform-origin:top center;animation:robot-bob 1s ease-in-out infinite alternate}
+.r-arm.l{left:calc(50% - 62px);animation:arm-l 1s ease-in-out infinite alternate}
+.r-arm.r{right:calc(50% - 62px);animation:arm-r 1s ease-in-out infinite alternate}
+@keyframes arm-l{from{transform:rotate(18deg) translateY(0)}to{transform:rotate(-18deg) translateY(6px)}}
+@keyframes arm-r{from{transform:rotate(-18deg) translateY(6px)}to{transform:rotate(18deg) translateY(0)}}
+.r-hand{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:18px;height:18px;background:var(--black);border-radius:50%;border:2px solid var(--gray2)}
+
+/* WAIST */
+.r-waist{position:absolute;top:186px;left:50%;transform:translateX(-50%);width:70px;height:16px;background:var(--gray2);border-radius:4px;border:2px solid rgba(242,242,240,.06);animation:robot-bob 1s ease-in-out infinite alternate}
+
+/* LEGS */
+.r-legs{position:absolute;top:200px;left:50%;transform:translateX(-50%);width:72px;display:flex;justify-content:space-between}
+.r-leg{width:28px;height:120px;position:relative;transform-origin:top center}
+.r-leg.l{animation:leg-l 1s ease-in-out infinite}
+.r-leg.r{animation:leg-r 1s ease-in-out infinite}
+@keyframes leg-l{0%{transform:rotate(-20deg)}50%{transform:rotate(20deg)}100%{transform:rotate(-20deg)}}
+@keyframes leg-r{0%{transform:rotate(20deg)}50%{transform:rotate(-20deg)}100%{transform:rotate(20deg)}}
+.r-thigh{position:absolute;top:0;left:50%;transform:translateX(-50%);width:24px;height:60px;background:var(--gray2);border-radius:6px;border:2px solid rgba(242,242,240,.07)}
+.r-knee{position:absolute;top:58px;left:50%;transform:translateX(-50%);width:16px;height:12px;background:rgba(232,0,28,.7);border-radius:4px}
+.r-shin{position:absolute;top:66px;left:50%;transform:translateX(-50%);width:20px;height:54px;background:var(--gray2);border-radius:4px;border:2px solid rgba(242,242,240,.07)}
+.r-foot{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:28px;height:12px;background:var(--black);border-radius:4px;border:2px solid var(--gray2)}
+
+/* robot glow ring */
+.robot-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:260px;height:260px;border-radius:50%;background:radial-gradient(ellipse,rgba(232,0,28,.08) 0%,transparent 70%);pointer-events:none;animation:glow-pulse 3s ease-in-out infinite}
+@keyframes glow-pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6}50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}}
+
+/* scan line on robot */
+.robot-scan{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:200px;height:2px;background:linear-gradient(90deg,transparent,rgba(232,0,28,.6),transparent);animation:scan 3s linear infinite;pointer-events:none}
+@keyframes scan{0%{top:20px;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:390px;opacity:0}}
+
+/* robot label */
+.robot-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-family:var(--ff-m);font-size:8px;letter-spacing:.2em;color:var(--red);text-transform:uppercase;white-space:nowrap}
+.robot-label::before,.robot-label::after{content:'—';margin:0 6px;opacity:.4}
+
+/* ── MARQUEE ── */
+.mq-wrap{overflow:hidden;border-top:1px solid var(--gray2);border-bottom:1px solid var(--gray2)}
+.mq-track{display:flex;white-space:nowrap;animation:mq 22s linear infinite}
+.mq-track.rev{animation:mq2 22s linear infinite;background:rgba(20,20,20,.5)}
+.mq-item{display:inline-flex;align-items:center;gap:28px;padding:18px 36px;font-family:var(--ff-d);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mq-item .d{width:5px;height:5px;background:var(--red);border-radius:50%;flex-shrink:0}
+.mq-item.h{color:var(--white)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mq2{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* ── TOGGLE ── */
+#toggle{padding:130px 48px}
+.s-tag{font-family:var(--ff-m);font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:44px;display:flex;align-items:center;gap:10px}
+.s-tag::before{content:'';display:block;width:28px;height:1px;background:var(--red)}
+.tt{display:flex;border:1px solid var(--gray2);border-radius:3px;overflow:hidden;width:fit-content;margin-bottom:72px}
+.tt button{padding:12px 28px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--muted);border:none;cursor:pointer;transition:background .3s,color .3s}
+.tt button.a{background:var(--red);color:var(--white)}
+.tc{display:none}
+.tc.a{display:block}
+.tc h2{font-family:var(--ff-d);font-size:clamp(38px,5.5vw,80px);line-height:.95;letter-spacing:-.01em;margin-bottom:36px}
+.tc h2 em{color:var(--red);font-style:normal}
+.tc p{font-size:16px;line-height:1.7;color:rgba(242,242,240,.5);max-width:560px;margin-bottom:52px}
+.tc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gray2);border:1px solid var(--gray2);border-radius:4px;overflow:hidden;margin-bottom:52px}
+.tc-card{background:var(--black);padding:28px 24px;transition:background .3s}
+.tc-card:hover{background:var(--gray)}
+.tc-n{font-family:var(--ff-m);font-size:9px;color:var(--red);letter-spacing:.14em;margin-bottom:14px}
+.tc-t{font-size:14px;font-weight:600;margin-bottom:7px}
+.tc-d{font-size:12px;color:var(--muted);line-height:1.6}
+.tc-lnk{display:inline-flex;align-items:center;gap:8px;color:var(--white);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:3px;transition:gap .3s}
+.tc-lnk:hover{gap:16px}
+
+/* ── KINETIC ── */
+.kin{padding:90px 0;border-top:1px solid var(--gray2);overflow:hidden}
+.kin-row{display:flex;margin-bottom:12px}
+.kin-t{font-family:var(--ff-d);font-size:clamp(56px,7.5vw,112px);white-space:nowrap;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.1);display:flex;align-items:center;gap:36px}
+.kin-t .s{color:var(--white);-webkit-text-stroke:0}
+.kin-t .r{color:var(--red);-webkit-text-stroke:0}
+.kin-t .dot{width:10px;height:10px;background:var(--red);border-radius:50%;flex-shrink:0}
+
+/* ── PROCESS ── */
+#process{padding:130px 48px;border-top:1px solid var(--gray2)}
+.pr-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px 112px;max-width:920px;margin-top:72px}
+.pr-step{position:relative}
+.pr-n{font-family:var(--ff-d);font-size:72px;line-height:1;color:transparent;-webkit-text-stroke:1px var(--gray2);margin-bottom:20px;transition:color .4s,-webkit-text-stroke .4s}
+.pr-step:hover .pr-n{color:var(--red);-webkit-text-stroke:1px var(--red)}
+.pr-t{font-size:18px;font-weight:600;margin-bottom:10px}
+.pr-d{font-size:13px;line-height:1.7;color:var(--muted)}
+
+/* ── STATS ── */
+#stats{padding:130px 48px;background:var(--gray);border-top:1px solid var(--gray2)}
+.st-h{font-family:var(--ff-d);font-size:clamp(34px,4.5vw,68px);line-height:1;letter-spacing:-.01em;margin-bottom:72px;max-width:540px}
+.st-h .a{color:var(--red)}
+.st-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gray2)}
+.st-card{background:var(--gray);padding:44px 28px;border-bottom:3px solid transparent;transition:border-color .3s,background .3s}
+.st-card:hover{background:var(--black);border-color:var(--red)}
+.st-num{font-family:var(--ff-d);font-size:clamp(44px,5.5vw,80px);line-height:1;margin-bottom:10px}
+.st-num .r{color:var(--red)}
+.st-lbl{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ── OFFERS ── */
+#offers{padding:130px 0;border-top:1px solid var(--gray2)}
+.of-h{padding:0 48px;margin-bottom:52px}
+.of-track{display:flex;gap:20px;padding:0 48px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab}
+.of-track:active{cursor:grabbing}
+.of-track::-webkit-scrollbar{display:none}
+.of-card{width:360px;flex-shrink:0;scroll-snap-align:start;border:1px solid var(--gray2);border-radius:4px;padding:44px 32px;background:var(--black);position:relative;overflow:hidden;transition:background .4s}
+.of-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.of-card:hover{background:var(--gray)}
+.of-card:hover::before{transform:scaleX(1)}
+.of-ico{width:48px;height:48px;border:1px solid var(--gray2);border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:32px;transition:background .3s,border-color .3s}
+.of-card:hover .of-ico{background:var(--red);border-color:var(--red)}
+.of-ico svg{width:22px;fill:none;stroke:var(--muted);stroke-width:1.5;transition:stroke .3s}
+.of-card:hover .of-ico svg{stroke:var(--white)}
+.of-tag{font-family:var(--ff-m);font-size:8px;letter-spacing:.18em;color:var(--red);text-transform:uppercase;margin-bottom:10px}
+.of-t{font-size:20px;font-weight:600;margin-bottom:14px;line-height:1.3}
+.of-d{font-size:13px;line-height:1.7;color:var(--muted)}
+.of-p{margin-top:28px;padding-top:28px;border-top:1px solid var(--gray2);font-family:var(--ff-d);font-size:36px;line-height:1}
+.of-p small{font-family:var(--ff-b);font-size:11px;color:var(--muted);vertical-align:middle;margin-left:3px}
+
+/* ── BEFORE/AFTER ── */
+#ba{padding:130px 48px;border-top:1px solid var(--gray2)}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gray2);margin-top:72px;border-radius:4px;overflow:hidden}
+.ba-col{padding:56px 44px;background:var(--black)}
+.ba-pill{display:inline-block;padding:5px 14px;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:28px;margin-bottom:44px}
+.ba-pill.b{background:var(--gray2);color:var(--muted)}
+.ba-pill.af{background:var(--red);color:var(--white)}
+.ba-item{display:flex;align-items:flex-start;gap:12px;padding:18px 0;border-bottom:1px solid var(--gray2)}
 .ba-item:last-child{border-bottom:none}
-.ba-item svg{width:18px;flex-shrink:0;margin-top:2px}
-.ba-item p{font-size:15px;line-height:1.5;color:rgba(242,242,240,.6)}
-.ba-col.after-col .ba-item p{color:rgba(242,242,240,.85)}
+.ba-item svg{width:16px;flex-shrink:0;margin-top:2px}
+.ba-item p{font-size:14px;line-height:1.5;color:rgba(242,242,240,.55)}
+.ba-col.a .ba-item p{color:rgba(242,242,240,.82)}
 
-/* ─── TESTIMONIALS ─── */
-#testimonials{padding:140px 48px;background:var(--red)}
-#testimonials .section-tag{color:rgba(242,242,240,.5)}
-#testimonials .section-tag::before{background:rgba(242,242,240,.5)}
-.testi-headline{font-family:var(--ff-display);font-size:clamp(40px,6vw,88px);line-height:.95;letter-spacing:-.01em;color:var(--white);margin-bottom:80px;max-width:800px}
+/* ── TESTI ── */
+#testi{padding:130px 48px;background:var(--red)}
+#testi .s-tag{color:rgba(242,242,240,.4)}
+#testi .s-tag::before{background:rgba(242,242,240,.4)}
+.testi-h{font-family:var(--ff-d);font-size:clamp(38px,5.5vw,82px);line-height:.93;letter-spacing:-.01em;color:var(--white);margin-bottom:72px;max-width:720px}
 .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,.2)}
-.testi-card{background:rgba(0,0,0,.15);padding:48px 36px;transition:background .3s}
-.testi-card:hover{background:rgba(0,0,0,.3)}
-.testi-quote{font-size:15px;line-height:1.7;color:rgba(242,242,240,.85);margin-bottom:36px;font-style:italic}
-.testi-author{display:flex;align-items:center;gap:12px}
-.testi-avatar{width:40px;height:40px;background:rgba(242,242,240,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-size:16px;color:var(--white)}
-.testi-name{font-size:14px;font-weight:600;color:var(--white)}
-.testi-role{font-size:11px;color:rgba(242,242,240,.5);margin-top:2px}
+.t-card{background:rgba(0,0,0,.15);padding:44px 32px;transition:background .3s}
+.t-card:hover{background:rgba(0,0,0,.3)}
+.t-quote{font-size:14px;line-height:1.75;color:rgba(242,242,240,.82);margin-bottom:32px;font-style:italic}
+.t-auth{display:flex;align-items:center;gap:10px}
+.t-av{width:36px;height:36px;background:rgba(242,242,240,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-d);font-size:14px;color:var(--white)}
+.t-nm{font-size:13px;font-weight:600;color:var(--white)}
+.t-rl{font-size:10px;color:rgba(242,242,240,.45);margin-top:2px}
 
-/* ─── CTA FINAL ─── */
-#cta-final{padding:180px 48px;text-align:center;border-top:1px solid var(--gray2);position:relative;overflow:hidden}
-.cta-bg-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--ff-display);font-size:30vw;color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.04);white-space:nowrap;pointer-events:none;line-height:1}
-.cta-headline{font-family:var(--ff-display);font-size:clamp(52px,9vw,160px);line-height:.9;letter-spacing:-.01em;position:relative;z-index:1;margin-bottom:48px}
-.cta-headline em{color:var(--red);font-style:normal}
-.cta-headline .outline{color:transparent;-webkit-text-stroke:1px var(--white)}
-.cta-sub{font-size:17px;color:var(--muted);max-width:480px;margin:0 auto 64px;line-height:1.65;position:relative;z-index:1}
-.cta-btn-wrap{position:relative;z-index:1;display:inline-block}
-.btn-mag{display:inline-flex;align-items:center;gap:16px;background:var(--red);color:var(--white);padding:24px 56px;font-size:14px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s;position:relative;overflow:hidden}
-.btn-mag:hover{transform:scale(1.04);box-shadow:0 20px 60px rgba(232,0,28,.5)}
-.btn-mag::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
+/* ── CTA ── */
+#cta{padding:160px 48px;text-align:center;border-top:1px solid var(--gray2);position:relative;overflow:hidden}
+.cta-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--ff-d);font-size:28vw;color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.035);white-space:nowrap;pointer-events:none;line-height:1}
+.cta-h{font-family:var(--ff-d);font-size:clamp(48px,8.5vw,150px);line-height:.88;letter-spacing:-.01em;position:relative;z-index:1;margin-bottom:44px}
+.cta-h em{color:var(--red);font-style:normal}
+.cta-h .out{color:transparent;-webkit-text-stroke:1px var(--white)}
+.cta-sub{font-size:16px;color:var(--muted);max-width:440px;margin:0 auto 56px;line-height:1.65;position:relative;z-index:1}
+.btn-mag{display:inline-flex;align-items:center;gap:14px;background:var(--red);color:var(--white);padding:22px 52px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s;position:relative;z-index:1;overflow:hidden}
+.btn-mag:hover{transform:scale(1.05);box-shadow:0 20px 56px rgba(232,0,28,.5)}
+.btn-mag::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);opacity:0;transition:opacity .3s}
 .btn-mag:hover::before{opacity:1}
-.cta-meta{margin-top:32px;font-size:12px;color:var(--muted);position:relative;z-index:1;letter-spacing:.05em}
+.cta-m{margin-top:28px;font-size:11px;color:var(--muted);position:relative;z-index:1;letter-spacing:.05em}
 
-/* ─── FOOTER ─── */
-footer{padding:60px 48px 40px;border-top:1px solid var(--gray2);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:40px}
-.footer-logo{font-family:var(--ff-display);font-size:20px;letter-spacing:.04em}
-.footer-logo span{color:var(--red)}
-.footer-links{display:flex;gap:32px;list-style:none;justify-content:center}
-.footer-links a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .3s}
-.footer-links a:hover{color:var(--white)}
-.footer-right{text-align:right;font-size:12px;color:var(--muted)}
-.footer-copy{margin-top:40px;padding-top:40px;border-top:1px solid var(--gray2);grid-column:1/-1;text-align:center;font-size:11px;color:rgba(242,242,240,.2);letter-spacing:.08em}
+/* ── FOOTER ── */
+footer{padding:56px 48px 36px;border-top:1px solid var(--gray2);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:36px}
+.fl{font-family:var(--ff-d);font-size:19px;letter-spacing:.04em}
+.fl span{color:var(--red)}
+.fm{display:flex;gap:28px;list-style:none;justify-content:center}
+.fm a{font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .3s}
+.fm a:hover{color:var(--white)}
+.fr{text-align:right;font-size:11px;color:var(--muted)}
+.fc{margin-top:36px;padding-top:36px;border-top:1px solid var(--gray2);grid-column:1/-1;text-align:center;font-size:10px;color:rgba(242,242,240,.15);letter-spacing:.08em}
 
-/* ─── REVEAL ─── */
-.reveal{opacity:0;transform:translateY(40px)}
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(36px)}
 
-/* ─── RED LINE HOVER ─── */
-.red-underline{position:relative;display:inline-block}
-.red-underline::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)}
-.red-underline:hover::after{transform:scaleX(1)}
-
-@media(max-width:768px){
-  nav{padding:20px 24px}
-  .nav-links{display:none}
-  #hero{padding:0 24px 60px}
-  .hero-title{font-size:clamp(52px,14vw,88px)}
-  #toggle-section,#process,#stats,#horiz,#ba,#testimonials,#cta-final{padding:80px 24px}
-  .tc-services{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .process-grid{grid-template-columns:1fr}
-  .ba-grid{grid-template-columns:1fr}
-  .testi-grid{grid-template-columns:1fr}
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;padding:100px 24px 60px}
+  .hero-right{display:none}
+  nav{padding:18px 24px}
+  .nm{display:none}
+  #toggle,#process,#stats,#offers,#ba,#testi,#cta{padding:80px 24px}
+  .tc-grid,.st-grid{grid-template-columns:1fr 1fr}
+  .pr-grid,.ba-grid,.testi-grid{grid-template-columns:1fr}
   footer{grid-template-columns:1fr;text-align:center}
-  .footer-right{text-align:center}
+  .fr{text-align:center}
 }
 </style>
 </head>
 <body>
 
-<div id="cur-dot"></div>
-<div id="cur-ring"></div>
+<div id="cd"></div>
+<div id="cr"></div>
 
 <!-- LOADER -->
 <div id="loader">
-  <div class="loader-logo">
+  <div class="ll">
     <span>N</span><span>E</span><span>T</span><span>F</span><span>L</span><span>U</span><span>E</span><span>N</span><span>T</span><span>I</span><span>A</span>
   </div>
   <div>
-    <div class="loader-bar-wrap"><div class="loader-bar" id="lbar"></div></div>
-    <div class="loader-pct" id="lpct">0%</div>
+    <div class="lb-w"><div class="lb" id="lb"></div></div>
+    <div class="lp" id="lp">0%</div>
   </div>
 </div>
 
 <!-- NAV -->
 <nav id="main-nav">
-  <a href="#" class="nav-logo">netfluentia<span>⚡</span></a>
-  <ul class="nav-links">
-    <li><a href="#toggle-section" class="red-underline">Services</a></li>
-    <li><a href="#process" class="red-underline">Méthode</a></li>
-    <li><a href="#stats" class="red-underline">Résultats</a></li>
+  <a href="#" class="nl">netfluentia<span>⚡</span></a>
+  <ul class="nm">
+    <li><a href="#toggle">Services</a></li>
+    <li><a href="#process">Méthode</a></li>
+    <li><a href="#stats">Résultats</a></li>
   </ul>
-  <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="nav-cta">Consultation gratuite</a>
+  <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="nc">Consultation gratuite</a>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg-grid"></div>
+  <div class="hero-grid-bg"></div>
   <div class="hero-noise"></div>
 
-  <!-- FLOATING OBJECTS -->
-  <div class="fobj fb-bubble">
-    <svg viewBox="0 0 80 72" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 4h64a4 4 0 0 1 4 4v44a4 4 0 0 1-4 4H28L8 72V52H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" stroke="rgba(242,242,240,0.25)" fill="none" stroke-width="1.5"/>
-      <circle cx="26" cy="28" r="4" fill="rgba(242,242,240,0.4)"/>
-      <circle cx="40" cy="28" r="4" fill="rgba(242,242,240,0.4)"/>
-      <circle cx="54" cy="28" r="4" fill="rgba(242,242,240,0.4)"/>
-    </svg>
-  </div>
-  <div class="fobj fb-at"><span>@</span></div>
-  <div class="fobj fb-play">
-    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="32" cy="32" r="30" stroke="rgba(242,242,240,0.2)" stroke-width="1.5"/>
-      <polygon points="26,20 48,32 26,44" fill="rgba(242,242,240,0.5)"/>
-    </svg>
-  </div>
-  <div class="fobj fb-hash"><span>#</span></div>
-  <div class="fobj fb-notif">
-    <div class="fb-notif-inner">
-      <div class="fn-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      </div>
-      <div class="fn-text" id="fnText">
-        <strong>Nouveau follower</strong>
-        <span>+2,847 cette semaine</span>
-      </div>
+  <!-- floating objects -->
+  <div class="fobj f-at"><span>@</span></div>
+  <div class="fobj f-hash"><span>#</span></div>
+  <div class="fobj f-notif">
+    <div class="f-notif-i">
+      <div class="fni"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div class="fnt" id="fnt"><strong>Nouveau follower</strong><span>+2,847 cette semaine</span></div>
     </div>
   </div>
-  <div class="fobj fb-stat">
-    <div class="fb-stat-inner">
-      <div class="fs-num">25M+</div>
-      <div class="fs-lbl">Vues générées</div>
+  <div class="fobj f-stat">
+    <div class="f-stat-i">
+      <div class="fsn">25M+</div>
+      <div class="fsl">Vues générées</div>
     </div>
   </div>
-  <div class="fobj fb-eye">
-    <svg viewBox="0 0 52 36" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1 18S10 2 26 2s25 16 25 16-9 16-25 16S1 18 1 18z" stroke="rgba(242,242,240,0.3)" stroke-width="1.5" fill="none"/>
-      <circle cx="26" cy="18" r="7" stroke="rgba(242,242,240,0.5)" stroke-width="1.5" fill="none"/>
+  <div class="fobj f-heart">
+    <svg viewBox="0 0 44 40"><path d="M22 36C22 36 4 24 4 13a9 9 0 0 1 18-4 9 9 0 0 1 18 4c0 11-18 23-18 23z" stroke="var(--red)" stroke-width="1.5"/></svg>
+  </div>
+  <div class="fobj f-play">
+    <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" stroke-width="1.5"/><polygon points="26,20 48,32 26,44" fill="rgba(242,242,240,0.5)"/></svg>
+  </div>
+  <div class="fobj f-chart">
+    <svg viewBox="0 0 72 56">
+      <polyline points="4,48 18,34 32,38 48,16 68,6" stroke="var(--red)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M4,48 18,34 32,38 48,16 68,6 68,48 Z" fill="rgba(232,0,28,.08)"/>
+      <circle cx="68" cy="6" r="4" fill="var(--red)"/>
+    </svg>
+  </div>
+  <div class="fobj f-bolt">
+    <svg viewBox="0 0 36 56"><polygon points="20,2 4,32 18,32 16,54 32,24 18,24"/></svg>
+  </div>
+  <div class="fobj f-eye">
+    <svg viewBox="0 0 52 36">
+      <path d="M1 18S10 2 26 2s25 16 25 16-9 16-25 16S1 18 1 18z" stroke-width="1.5" fill="none"/>
+      <circle cx="26" cy="18" r="7" stroke-width="1.5" fill="none"/>
       <circle cx="26" cy="18" r="3" fill="rgba(232,0,28,0.7)"/>
     </svg>
   </div>
-  <div class="fobj fb-cursor">
-    <svg viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 2l36 20-16 4-6 16z" fill="rgba(242,242,240,0.8)"/>
-    </svg>
-  </div>
-  <div class="fobj fb-chart">
-    <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
-      <polyline points="4,52 20,36 36,40 52,18 76,8" stroke="var(--red)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M4,52 20,36 36,40 52,18 76,8 76,52 Z" fill="rgba(232,0,28,0.1)"/>
-      <circle cx="76" cy="8" r="4" fill="var(--red)"/>
-    </svg>
-  </div>
-  <div class="fobj fb-trend">
-    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 36 28 16 36 24 44 8" stroke="var(--red)" stroke-width="2" stroke-linecap="round" fill="none"/>
-      <polyline points="36,8 44,8 44,16" stroke="var(--red)" stroke-width="2" stroke-linecap="round" fill="none"/>
-    </svg>
-  </div>
-  <div class="fobj fb-heart">
-    <svg viewBox="0 0 44 40" xmlns="http://www.w3.org/2000/svg">
-      <path d="M22 36 C22 36 4 24 4 13a9 9 0 0 1 18-4 9 9 0 0 1 18 4c0 11-18 23-18 23z" stroke="var(--red)" stroke-width="1.5"/>
-    </svg>
-  </div>
-  <div class="fobj fb-bolt">
-    <svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="22,2 4,34 20,34 18,58 36,26 20,26" fill="var(--red)"/>
-    </svg>
-  </div>
-  <div class="fobj fb-share">
-    <svg viewBox="0 0 36 40" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="30" cy="6" r="4" stroke="rgba(242,242,240,0.4)" stroke-width="1.5" fill="none"/>
-      <circle cx="30" cy="34" r="4" stroke="rgba(242,242,240,0.4)" stroke-width="1.5" fill="none"/>
-      <circle cx="6" cy="20" r="4" stroke="rgba(242,242,240,0.4)" stroke-width="1.5" fill="none"/>
-      <line x1="10" y1="18" x2="26" y2="8" stroke="rgba(242,242,240,0.4)" stroke-width="1.5"/>
-      <line x1="10" y1="22" x2="26" y2="32" stroke="rgba(242,242,240,0.4)" stroke-width="1.5"/>
-    </svg>
-  </div>
-  <div class="fobj fb-react">
-    <div class="fb-react-inner">
-      <div class="fr-item" data-c="12k">❤️</div>
-      <div class="fr-item" data-c="8k">🔥</div>
-      <div class="fr-item" data-c="5k">👏</div>
-      <div class="fr-item" data-c="3k">⚡</div>
+  <div class="fobj f-react">
+    <div class="f-react-i">
+      <div class="fri" data-c="12k">❤️</div>
+      <div class="fri" data-c="8k">🔥</div>
+      <div class="fri" data-c="5k">👏</div>
+      <div class="fri" data-c="3k">⚡</div>
     </div>
   </div>
-  <div class="fobj fb-cam">
-    <svg viewBox="0 0 56 44" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="10" width="52" height="32" rx="4" stroke="rgba(242,242,240,0.25)" stroke-width="1.5" fill="none"/>
-      <path d="M18 10V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4" stroke="rgba(242,242,240,0.25)" stroke-width="1.5" fill="none"/>
-      <circle cx="28" cy="26" r="9" stroke="rgba(242,242,240,0.25)" stroke-width="1.5" fill="none"/>
-      <circle cx="28" cy="26" r="5" stroke="rgba(232,0,28,0.5)" stroke-width="1.5" fill="none"/>
-    </svg>
-  </div>
-  <div class="fobj fb-tiktok"><span>TK</span></div>
-  <div class="fobj fb-wifi">
-    <svg viewBox="0 0 48 40" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 14 C12 4 36 4 46 14" stroke="rgba(242,242,240,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <path d="M8 22 C14 16 34 16 40 22" stroke="rgba(242,242,240,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <path d="M15 30 C18 27 30 27 33 30" stroke="rgba(242,242,240,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <div class="fobj f-wifi">
+    <svg viewBox="0 0 48 40">
+      <path d="M2 14C12 4 36 4 46 14" stroke="rgba(242,242,240,0.15)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M8 22C14 16 34 16 40 22" stroke="rgba(242,242,240,0.15)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M15 30C18 27 30 27 33 30" stroke="rgba(242,242,240,0.15)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
       <circle cx="24" cy="37" r="2.5" fill="var(--red)"/>
     </svg>
   </div>
+  <div class="fobj f-share">
+    <svg viewBox="0 0 36 40">
+      <circle cx="30" cy="6" r="4" stroke-width="1.5" fill="none"/>
+      <circle cx="30" cy="34" r="4" stroke-width="1.5" fill="none"/>
+      <circle cx="6" cy="20" r="4" stroke-width="1.5" fill="none"/>
+      <line x1="10" y1="18" x2="26" y2="8" stroke-width="1.5"/>
+      <line x1="10" y1="22" x2="26" y2="32" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="fobj f-cursor">
+    <svg viewBox="0 0 40 52"><path d="M2 2l36 20-16 4-6 16z" fill="rgba(242,242,240,0.8)"/></svg>
+  </div>
 
-  <div class="hero-content">
+  <!-- LEFT CONTENT -->
+  <div class="hero-left">
     <div class="hero-eyebrow">Agence de communication digitale</div>
     <h1 class="hero-title">
-      <span class="line"><span class="word">VOTRE</span>&nbsp;<span class="word outline">PRÉSENCE</span></span>
-      <span class="line"><span class="word accent">DIGITALE,</span></span>
+      <span class="line"><span class="word">VOTRE</span>&nbsp;<span class="word out">PRÉSENCE</span></span>
+      <span class="line"><span class="word acc">DIGITALE,</span></span>
       <span class="line"><span class="word">RÉINVENTÉE</span></span>
     </h1>
     <p class="hero-sub">Nous transformons votre identité en force d'attraction. Contenu viral, personal branding stratégique, communauté engagée.</p>
-    <div class="hero-actions">
-      <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="btn-primary">
-        <span class="btn-text">Démarrer maintenant</span>
-        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="hero-acts">
+      <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="btn-p">
+        <span class="bt">Démarrer maintenant</span>
+        <svg class="bi" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="#process" class="btn-ghost">
-        Notre méthode
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <a href="#process" class="btn-g">Notre méthode <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="hero-scroll">
+      <div class="hs-l">Scroll</div>
+      <div class="hs-bar"></div>
     </div>
   </div>
-  <div class="hero-scroll">
-    <div class="hs-label">Scroll</div>
-    <div class="hs-line"></div>
+
+  <!-- RIGHT — ROBOT -->
+  <div class="hero-right">
+    <div class="robot-scene">
+      <div class="robot-glow"></div>
+      <div class="robot-scan"></div>
+      <div class="robot-wrap">
+        <!-- HEAD -->
+        <div class="r-head">
+          <div class="r-antenna"></div>
+          <div class="r-eye l"></div>
+          <div class="r-eye r"></div>
+          <div class="r-mouth"></div>
+        </div>
+        <!-- NECK -->
+        <div class="r-neck"></div>
+        <!-- TORSO -->
+        <div class="r-torso">
+          <div class="r-chest">
+            <div class="r-chest-light"></div>
+          </div>
+          <div class="r-vents">
+            <div class="r-vent"></div>
+            <div class="r-vent"></div>
+            <div class="r-vent"></div>
+          </div>
+        </div>
+        <!-- ARM LEFT -->
+        <div class="r-arm l"><div class="r-hand"></div></div>
+        <!-- ARM RIGHT -->
+        <div class="r-arm r"><div class="r-hand"></div></div>
+        <!-- WAIST -->
+        <div class="r-waist"></div>
+        <!-- LEGS -->
+        <div class="r-legs">
+          <div class="r-leg l">
+            <div class="r-thigh"></div>
+            <div class="r-knee"></div>
+            <div class="r-shin"></div>
+            <div class="r-foot"></div>
+          </div>
+          <div class="r-leg r">
+            <div class="r-thigh"></div>
+            <div class="r-knee"></div>
+            <div class="r-shin"></div>
+            <div class="r-foot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="robot-shadow"></div>
+      <div class="robot-label">IA — Netfluentia</div>
+    </div>
   </div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-section">
-  <div class="marquee-track">
-    <div class="marquee-item">Personal Branding <span class="dot"></span></div>
-    <div class="marquee-item hl">Contenu Viral <span class="dot"></span></div>
-    <div class="marquee-item">Instagram Growth <span class="dot"></span></div>
-    <div class="marquee-item hl">TikTok Strategy <span class="dot"></span></div>
-    <div class="marquee-item">LinkedIn Influence <span class="dot"></span></div>
-    <div class="marquee-item hl">Formation Intensive <span class="dot"></span></div>
-    <div class="marquee-item">Content Creation <span class="dot"></span></div>
-    <div class="marquee-item hl">Community Building <span class="dot"></span></div>
-    <div class="marquee-item">Personal Branding <span class="dot"></span></div>
-    <div class="marquee-item hl">Contenu Viral <span class="dot"></span></div>
-    <div class="marquee-item">Instagram Growth <span class="dot"></span></div>
-    <div class="marquee-item hl">TikTok Strategy <span class="dot"></span></div>
-    <div class="marquee-item">LinkedIn Influence <span class="dot"></span></div>
-    <div class="marquee-item hl">Formation Intensive <span class="dot"></span></div>
-    <div class="marquee-item">Content Creation <span class="dot"></span></div>
-    <div class="marquee-item hl">Community Building <span class="dot"></span></div>
+<div class="mq-wrap">
+  <div class="mq-track">
+    <div class="mq-item">Personal Branding <span class="d"></span></div><div class="mq-item h">Contenu Viral <span class="d"></span></div><div class="mq-item">Instagram Growth <span class="d"></span></div><div class="mq-item h">TikTok Strategy <span class="d"></span></div><div class="mq-item">LinkedIn Influence <span class="d"></span></div><div class="mq-item h">Formation Intensive <span class="d"></span></div><div class="mq-item">Content Creation <span class="d"></span></div><div class="mq-item h">Community Building <span class="d"></span></div>
+    <div class="mq-item">Personal Branding <span class="d"></span></div><div class="mq-item h">Contenu Viral <span class="d"></span></div><div class="mq-item">Instagram Growth <span class="d"></span></div><div class="mq-item h">TikTok Strategy <span class="d"></span></div><div class="mq-item">LinkedIn Influence <span class="d"></span></div><div class="mq-item h">Formation Intensive <span class="d"></span></div><div class="mq-item">Content Creation <span class="d"></span></div><div class="mq-item h">Community Building <span class="d"></span></div>
   </div>
-  <div class="marquee-track rev">
-    <div class="marquee-item">Réseaux Sociaux <span class="dot"></span></div>
-    <div class="marquee-item hl">Stratégie digitale <span class="dot"></span></div>
-    <div class="marquee-item">Croissance organique <span class="dot"></span></div>
-    <div class="marquee-item hl">Audience qualifiée <span class="dot"></span></div>
-    <div class="marquee-item">Conversion <span class="dot"></span></div>
-    <div class="marquee-item hl">ROI mesurable <span class="dot"></span></div>
-    <div class="marquee-item">Réseaux Sociaux <span class="dot"></span></div>
-    <div class="marquee-item hl">Stratégie digitale <span class="dot"></span></div>
-    <div class="marquee-item">Croissance organique <span class="dot"></span></div>
-    <div class="marquee-item hl">Audience qualifiée <span class="dot"></span></div>
-    <div class="marquee-item">Conversion <span class="dot"></span></div>
-    <div class="marquee-item hl">ROI mesurable <span class="dot"></span></div>
+  <div class="mq-track rev">
+    <div class="mq-item">Stratégie digitale <span class="d"></span></div><div class="mq-item h">Croissance organique <span class="d"></span></div><div class="mq-item">Audience qualifiée <span class="d"></span></div><div class="mq-item h">ROI mesurable <span class="d"></span></div><div class="mq-item">Conversion <span class="d"></span></div><div class="mq-item h">Notoriété <span class="d"></span></div><div class="mq-item">Réseaux sociaux <span class="d"></span></div><div class="mq-item h">Engagement <span class="d"></span></div>
+    <div class="mq-item">Stratégie digitale <span class="d"></span></div><div class="mq-item h">Croissance organique <span class="d"></span></div><div class="mq-item">Audience qualifiée <span class="d"></span></div><div class="mq-item h">ROI mesurable <span class="d"></span></div><div class="mq-item">Conversion <span class="d"></span></div><div class="mq-item h">Notoriété <span class="d"></span></div><div class="mq-item">Réseaux sociaux <span class="d"></span></div><div class="mq-item h">Engagement <span class="d"></span></div>
   </div>
 </div>
 
 <!-- TOGGLE -->
-<section id="toggle-section">
-  <div class="section-eyebrow">Nos solutions</div>
-  <div class="toggle-tabs">
-    <button class="toggle-tab active" onclick="switchTab('entrepreneur')">Entrepreneur</button>
-    <button class="toggle-tab" onclick="switchTab('formation')">Centre de formation</button>
+<section id="toggle">
+  <div class="s-tag">Nos solutions</div>
+  <div class="tt">
+    <button class="a" onclick="sw('e')">Entrepreneur</button>
+    <button onclick="sw('f')">Centre de formation</button>
   </div>
-  <div class="toggle-content active" id="tab-entrepreneur">
-    <div class="tc-headline">Devenez une <em>référence</em><br>dans votre secteur</div>
-    <p class="tc-body">Nous construisons votre marque personnelle de A à Z — positionnement, contenu stratégique, croissance organique. Votre audience vous attend.</p>
-    <div class="tc-services">
-      <div class="tc-service">
-        <div class="tc-service-num">01</div>
-        <div class="tc-service-name">Personal Branding</div>
-        <div class="tc-service-desc">Identité visuelle, positionnement, storytelling authentique qui convertit.</div>
-      </div>
-      <div class="tc-service">
-        <div class="tc-service-num">02</div>
-        <div class="tc-service-name">Création de contenu</div>
-        <div class="tc-service-desc">Reels, posts, carrousels — du contenu qui génère visibilité et leads.</div>
-      </div>
-      <div class="tc-service">
-        <div class="tc-service-num">03</div>
-        <div class="tc-service-name">Gestion des réseaux</div>
-        <div class="tc-service-desc">Pilotage complet de vos comptes Instagram, TikTok et LinkedIn.</div>
-      </div>
+  <div class="tc a" id="t-e">
+    <h2>Devenez une <em>référence</em><br>dans votre secteur</h2>
+    <p>Nous construisons votre marque personnelle de A à Z — positionnement, contenu stratégique, croissance organique. Votre audience vous attend.</p>
+    <div class="tc-grid">
+      <div class="tc-card"><div class="tc-n">01</div><div class="tc-t">Personal Branding</div><div class="tc-d">Identité visuelle, positionnement, storytelling authentique qui convertit.</div></div>
+      <div class="tc-card"><div class="tc-n">02</div><div class="tc-t">Création de contenu</div><div class="tc-d">Reels, posts, carrousels — du contenu qui génère visibilité et leads.</div></div>
+      <div class="tc-card"><div class="tc-n">03</div><div class="tc-t">Gestion des réseaux</div><div class="tc-d">Pilotage complet de vos comptes Instagram, TikTok et LinkedIn.</div></div>
     </div>
-    <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="tc-link">Réserver un appel stratégique <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="tc-lnk">Réserver un appel stratégique <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
-  <div class="toggle-content" id="tab-formation">
-    <div class="tc-headline">Remplissez vos <em>formations</em><br>en continu</div>
-    <p class="tc-body">Nous créons la visibilité qui attire les bons apprenants au bon moment. Funnel de contenu, autorité digitale, acquisition organique optimisée.</p>
-    <div class="tc-services">
-      <div class="tc-service">
-        <div class="tc-service-num">01</div>
-        <div class="tc-service-name">Autorité de marque</div>
-        <div class="tc-service-desc">Positionnez votre centre comme l'expert incontournable de votre domaine.</div>
-      </div>
-      <div class="tc-service">
-        <div class="tc-service-num">02</div>
-        <div class="tc-service-name">Funnel de contenu</div>
-        <div class="tc-service-desc">Stratégie éditoriale pour attirer et convertir des prospects qualifiés.</div>
-      </div>
-      <div class="tc-service">
-        <div class="tc-service-num">03</div>
-        <div class="tc-service-name">Publicité sociale</div>
-        <div class="tc-service-desc">Campagnes Meta & TikTok Ads pour maximiser vos inscriptions.</div>
-      </div>
+  <div class="tc" id="t-f">
+    <h2>Remplissez vos <em>formations</em><br>en continu</h2>
+    <p>Nous créons la visibilité qui attire les bons apprenants au bon moment. Funnel de contenu, autorité digitale, acquisition organique optimisée.</p>
+    <div class="tc-grid">
+      <div class="tc-card"><div class="tc-n">01</div><div class="tc-t">Autorité de marque</div><div class="tc-d">Positionnez votre centre comme l'expert incontournable de votre domaine.</div></div>
+      <div class="tc-card"><div class="tc-n">02</div><div class="tc-t">Funnel de contenu</div><div class="tc-d">Stratégie éditoriale pour attirer et convertir des prospects qualifiés.</div></div>
+      <div class="tc-card"><div class="tc-n">03</div><div class="tc-t">Publicité sociale</div><div class="tc-d">Campagnes Meta & TikTok Ads pour maximiser vos inscriptions.</div></div>
     </div>
-    <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="tc-link">Discuter de votre projet <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="tc-lnk">Discuter de votre projet <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
 </section>
 
 <!-- KINETIC -->
-<div class="kinetic-section">
-  <div class="kinetic-row">
-    <div class="kinetic-text" id="k1">
-      VIRAL <span class="kt-dot"></span> <span class="solid">IMPACT</span> <span class="kt-dot"></span> GROWTH <span class="kt-dot"></span> <span class="kr">INFLUENCE</span> <span class="kt-dot"></span> VIRAL <span class="kt-dot"></span> <span class="solid">IMPACT</span> <span class="kt-dot"></span> GROWTH <span class="kt-dot"></span> <span class="kr">INFLUENCE</span>
-    </div>
-  </div>
-  <div class="kinetic-row">
-    <div class="kinetic-text" id="k2">
-      CONTENU <span class="kt-dot"></span> <span class="solid">STRATÉGIE</span> <span class="kt-dot"></span> <span class="kr">RÉSULTATS</span> <span class="kt-dot"></span> AUDIENCE <span class="kt-dot"></span> CONTENU <span class="kt-dot"></span> <span class="solid">STRATÉGIE</span> <span class="kt-dot"></span> <span class="kr">RÉSULTATS</span> <span class="kt-dot"></span> AUDIENCE
-    </div>
-  </div>
+<div class="kin">
+  <div class="kin-row"><div class="kin-t" id="k1">VIRAL <span class="dot"></span> <span class="s">IMPACT</span> <span class="dot"></span> GROWTH <span class="dot"></span> <span class="r">INFLUENCE</span> <span class="dot"></span> VIRAL <span class="dot"></span> <span class="s">IMPACT</span> <span class="dot"></span> GROWTH <span class="dot"></span> <span class="r">INFLUENCE</span></div></div>
+  <div class="kin-row"><div class="kin-t" id="k2">CONTENU <span class="dot"></span> <span class="s">STRATÉGIE</span> <span class="dot"></span> <span class="r">RÉSULTATS</span> <span class="dot"></span> AUDIENCE <span class="dot"></span> CONTENU <span class="dot"></span> <span class="s">STRATÉGIE</span> <span class="dot"></span> <span class="r">RÉSULTATS</span> <span class="dot"></span> AUDIENCE</div></div>
 </div>
 
 <!-- PROCESS -->
 <section id="process">
-  <div class="section-tag">Notre méthode</div>
-  <h2 class="reveal" style="font-family:var(--ff-display);font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-.01em;margin-bottom:80px;max-width:600px">UNE APPROCHE<br><span style="color:var(--red)">CHIRURGICALE</span></h2>
-  <div class="process-grid">
-    <div class="process-step reveal">
-      <div class="ps-num">01</div>
-      <div class="ps-title">Audit & Stratégie</div>
-      <p class="ps-desc">Analyse complète de votre présence actuelle, de vos concurrents et de votre audience cible. On définit ensemble votre ADN digital.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="ps-num">02</div>
-      <div class="ps-title">Création de contenu</div>
-      <p class="ps-desc">Production de contenus haute valeur sur-mesure : visuels, vidéos, copywriting. Chaque pièce est optimisée pour l'algorithme et pour l'humain.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="ps-num">03</div>
-      <div class="ps-title">Distribution & Croissance</div>
-      <p class="ps-desc">Publication stratégique, engagement communautaire et optimisation continue basée sur la data. On fait croître votre audience organiquement.</p>
-    </div>
-    <div class="process-step reveal">
-      <div class="ps-num">04</div>
-      <div class="ps-title">Mesure & Optimisation</div>
-      <p class="ps-desc">Reporting mensuel détaillé, A/B testing permanent, pivot rapide si nécessaire. Vos résultats s'améliorent chaque semaine.</p>
-    </div>
+  <div class="s-tag">Notre méthode</div>
+  <h2 class="rv" style="font-family:var(--ff-d);font-size:clamp(38px,5vw,68px);line-height:1;letter-spacing:-.01em;max-width:560px">UNE APPROCHE<br><span style="color:var(--red)">CHIRURGICALE</span></h2>
+  <div class="pr-grid">
+    <div class="pr-step rv"><div class="pr-n">01</div><div class="pr-t">Audit & Stratégie</div><p class="pr-d">Analyse complète de votre présence actuelle, de vos concurrents et audience cible. On définit votre ADN digital.</p></div>
+    <div class="pr-step rv"><div class="pr-n">02</div><div class="pr-t">Création de contenu</div><p class="pr-d">Production haute valeur sur-mesure : visuels, vidéos, copywriting. Chaque pièce optimisée pour l'algorithme et l'humain.</p></div>
+    <div class="pr-step rv"><div class="pr-n">03</div><div class="pr-t">Distribution & Croissance</div><p class="pr-d">Publication stratégique, engagement communautaire et optimisation continue basée sur la data.</p></div>
+    <div class="pr-step rv"><div class="pr-n">04</div><div class="pr-t">Mesure & Optimisation</div><p class="pr-d">Reporting mensuel détaillé, A/B testing permanent, pivot rapide. Vos résultats s'améliorent chaque semaine.</p></div>
   </div>
 </section>
 
 <!-- STATS -->
 <section id="stats">
-  <div class="section-tag">Nos résultats</div>
-  <h2 class="stats-headline reveal">Les <span class="accent">chiffres</span><br>parlent d'eux-mêmes</h2>
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-number"><span class="counter" data-target="25">0</span>M<span class="red">+</span></div>
-      <div class="stat-label">Vues générées<br>pour nos clients</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number"><span class="counter" data-target="150">0</span><span class="red">+</span></div>
-      <div class="stat-label">Clients accompagnés<br>avec succès</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number"><span class="counter" data-target="340">0</span><span class="red">%</span></div>
-      <div class="stat-label">Croissance moyenne<br>en 90 jours</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number"><span class="counter" data-target="98">0</span><span class="red">%</span></div>
-      <div class="stat-label">Taux de satisfaction<br>client</div>
-    </div>
+  <div class="s-tag">Nos résultats</div>
+  <h2 class="st-h rv">Les <span class="a">chiffres</span><br>parlent d'eux-mêmes</h2>
+  <div class="st-grid">
+    <div class="st-card"><div class="st-num"><span class="cnt" data-t="25">0</span>M<span class="r">+</span></div><div class="st-lbl">Vues générées<br>pour nos clients</div></div>
+    <div class="st-card"><div class="st-num"><span class="cnt" data-t="150">0</span><span class="r">+</span></div><div class="st-lbl">Clients accompagnés<br>avec succès</div></div>
+    <div class="st-card"><div class="st-num"><span class="cnt" data-t="340">0</span><span class="r">%</span></div><div class="st-lbl">Croissance moyenne<br>en 90 jours</div></div>
+    <div class="st-card"><div class="st-num"><span class="cnt" data-t="98">0</span><span class="r">%</span></div><div class="st-lbl">Taux de satisfaction<br>client</div></div>
   </div>
 </section>
 
 <!-- OFFERS -->
-<section id="horiz">
-  <div class="horiz-head section-tag">Nos offres</div>
-  <div class="horiz-track" id="horizTrack">
-    <div class="horiz-card">
-      <div class="hc-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-      <div class="hc-tag">Accompagnement</div>
-      <h3 class="hc-title">Pack Personal Branding</h3>
-      <p class="hc-desc">Stratégie complète, création de contenu mensuelle, gestion des réseaux et suivi performance hebdomadaire.</p>
-      <div class="hc-price">Sur devis <small>/ mois</small></div>
-    </div>
-    <div class="horiz-card">
-      <div class="hc-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-      <div class="hc-tag">Formation</div>
-      <h3 class="hc-title">1 Mois Intensif</h3>
-      <p class="hc-desc">Formation complète pour maîtriser votre communication en autonomie. 4 semaines, résultats concrets garantis.</p>
-      <div class="hc-price">500€ <small>/ programme</small></div>
-    </div>
-    <div class="horiz-card">
-      <div class="hc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
-      <div class="hc-tag">Consulting</div>
-      <h3 class="hc-title">Audit Stratégique</h3>
-      <p class="hc-desc">Analyse de votre présence digitale avec plan d'action détaillé et recommandations prioritaires.</p>
-      <div class="hc-price">Offert <small>/ 30 min</small></div>
-    </div>
-    <div class="horiz-card">
-      <div class="hc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <div class="hc-tag">Centre de formation</div>
-      <h3 class="hc-title">Visibilité Formation</h3>
-      <p class="hc-desc">Stratégie dédiée pour attirer des apprenants qualifiés et remplir vos sessions en continu.</p>
-      <div class="hc-price">Sur devis <small>/ trimestre</small></div>
-    </div>
-    <div class="horiz-card">
-      <div class="hc-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <div class="hc-tag">Performance</div>
-      <h3 class="hc-title">Publicité Sociale</h3>
-      <p class="hc-desc">Campagnes Meta & TikTok Ads à ROI optimisé. Ciblage précis, créatifs percutants, scaling progressif.</p>
-      <div class="hc-price">Sur devis <small>/ mois</small></div>
-    </div>
+<section id="offers">
+  <div class="of-h s-tag">Nos offres</div>
+  <div class="of-track" id="ofTrack">
+    <div class="of-card"><div class="of-ico"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><div class="of-tag">Accompagnement</div><h3 class="of-t">Pack Personal Branding</h3><p class="of-d">Stratégie complète, création de contenu mensuelle, gestion des réseaux et suivi performance.</p><div class="of-p">Sur devis <small>/ mois</small></div></div>
+    <div class="of-card"><div class="of-ico"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="of-tag">Formation</div><h3 class="of-t">1 Mois Intensif</h3><p class="of-d">Formation complète pour maîtriser votre communication en autonomie. 4 semaines, résultats garantis.</p><div class="of-p">500€ <small>/ programme</small></div></div>
+    <div class="of-card"><div class="of-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><div class="of-tag">Consulting</div><h3 class="of-t">Audit Stratégique</h3><p class="of-d">Analyse de votre présence digitale avec plan d'action détaillé et recommandations prioritaires.</p><div class="of-p">Offert <small>/ 30 min</small></div></div>
+    <div class="of-card"><div class="of-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="of-tag">Formation</div><h3 class="of-t">Visibilité Formation</h3><p class="of-d">Stratégie pour attirer apprenants qualifiés et remplir vos sessions en continu.</p><div class="of-p">Sur devis <small>/ trimestre</small></div></div>
+    <div class="of-card"><div class="of-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="of-tag">Performance</div><h3 class="of-t">Publicité Sociale</h3><p class="of-d">Campagnes Meta & TikTok Ads à ROI optimisé. Ciblage précis, créatifs percutants.</p><div class="of-p">Sur devis <small>/ mois</small></div></div>
   </div>
 </section>
 
 <!-- BEFORE/AFTER -->
 <section id="ba">
-  <div class="section-tag">Transformation</div>
-  <h2 class="reveal" style="font-family:var(--ff-display);font-size:clamp(40px,6vw,88px);line-height:.95;max-width:700px;letter-spacing:-.01em">AVANT vs <span style="color:var(--red)">APRÈS</span><br>NETFLUENTIA</h2>
+  <div class="s-tag">Transformation</div>
+  <h2 class="rv" style="font-family:var(--ff-d);font-size:clamp(38px,5.5vw,82px);line-height:.93;max-width:660px;letter-spacing:-.01em">AVANT vs <span style="color:var(--red)">APRÈS</span><br>NETFLUENTIA</h2>
   <div class="ba-grid">
     <div class="ba-col">
-      <div class="ba-col-head"><span class="ba-pill before">AVANT</span></div>
-      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Présence en ligne invisible et sans cohérence</p></div>
-      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Publications irrégulières sans stratégie claire</p></div>
+      <div class="ba-pill b">AVANT</div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Présence invisible, sans cohérence ni stratégie</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Publications irrégulières sans direction claire</p></div>
       <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Engagement faible, audience qui ne convertit pas</p></div>
-      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Du temps perdu à créer sans résultat mesurable</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Temps perdu à créer sans résultat mesurable</p></div>
       <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Clients qui vont chez vos concurrents plus visibles</p></div>
     </div>
-    <div class="ba-col after-col">
-      <div class="ba-col-head"><span class="ba-pill after">APRÈS</span></div>
-      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Identité forte, reconnaissable, qui attire naturellement</p></div>
+    <div class="ba-col a">
+      <div class="ba-pill af">APRÈS</div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Identité forte et reconnaissable qui attire naturellement</p></div>
       <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Calendrier éditorial sur-mesure, contenu viral régulier</p></div>
       <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Communauté engagée qui achète et recommande</p></div>
       <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>ROI mesurable, croissance visible chaque mois</p></div>
@@ -669,101 +624,78 @@ footer{padding:60px 48px 40px;border-top:1px solid var(--gray2);display:grid;gri
 </section>
 
 <!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="section-tag">Témoignages</div>
-  <h2 class="testi-headline">Ce que disent<br>nos clients</h2>
+<section id="testi">
+  <div class="s-tag">Témoignages</div>
+  <h2 class="testi-h">Ce que disent<br>nos clients</h2>
   <div class="testi-grid">
-    <div class="testi-card">
-      <p class="testi-quote">"Netfluentia a transformé ma présence LinkedIn. En 3 mois, j'ai multiplié mon audience par 8 et closé mes premiers clients grâce au contenu."</p>
-      <div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Sarah M.</div><div class="testi-role">Coach Business</div></div></div>
-    </div>
-    <div class="testi-card">
-      <p class="testi-quote">"La formation intensive d'un mois vaut largement le prix. J'ai tout compris sur la stratégie de contenu et mes formations se remplissent maintenant seules."</p>
-      <div class="testi-author"><div class="testi-avatar">K</div><div><div class="testi-name">Karim B.</div><div class="testi-role">Formateur Certifié</div></div></div>
-    </div>
-    <div class="testi-card">
-      <p class="testi-quote">"Des professionnels qui comprennent les enjeux business. Mon centre a augmenté ses inscriptions de 200% en 6 mois. Résultats exceptionnels."</p>
-      <div class="testi-author"><div class="testi-avatar">L</div><div><div class="testi-name">Leila D.</div><div class="testi-role">Directrice CFA</div></div></div>
-    </div>
+    <div class="t-card"><p class="t-quote">"Netfluentia a transformé ma présence LinkedIn. En 3 mois, j'ai multiplié mon audience par 8 et closé mes premiers clients grâce au contenu."</p><div class="t-auth"><div class="t-av">S</div><div><div class="t-nm">Sarah M.</div><div class="t-rl">Coach Business</div></div></div></div>
+    <div class="t-card"><p class="t-quote">"La formation intensive d'un mois vaut largement le prix. J'ai tout compris sur la stratégie de contenu et mes formations se remplissent maintenant seules."</p><div class="t-auth"><div class="t-av">K</div><div><div class="t-nm">Karim B.</div><div class="t-rl">Formateur Certifié</div></div></div></div>
+    <div class="t-card"><p class="t-quote">"Des pros qui comprennent les enjeux business. Mon centre a augmenté ses inscriptions de 200% en 6 mois. Résultats absolument exceptionnels."</p><div class="t-auth"><div class="t-av">L</div><div><div class="t-nm">Leila D.</div><div class="t-rl">Directrice CFA</div></div></div></div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
-<section id="cta-final">
-  <div class="cta-bg-text">NET</div>
-  <h2 class="cta-headline">
-    PRÊT À<br>
-    <span class="outline">PASSER</span><br>
-    <em>AU NIVEAU</em><br>
-    SUPÉRIEUR&nbsp;?
-  </h2>
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-bg">NET</div>
+  <h2 class="cta-h">PRÊT À<br><span class="out">PASSER</span><br><em>AU NIVEAU</em><br>SUPÉRIEUR&nbsp;?</h2>
   <p class="cta-sub">30 minutes de consultation offerte. Sans engagement. On analyse votre situation et on vous dit exactement quoi faire.</p>
-  <div class="cta-btn-wrap">
+  <div style="position:relative;z-index:1;display:inline-block">
     <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="btn-mag" id="magBtn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Réserver ma consultation gratuite
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
   </div>
-  <p class="cta-meta">⚡ Réponse garantie sous 24h · Aucun engagement · 100% offert</p>
+  <p class="cta-m">⚡ Réponse garantie sous 24h · Aucun engagement · 100% offert</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">netfluentia<span>⚡</span></div>
-  <ul class="footer-links">
-    <li><a href="#toggle-section">Services</a></li>
+  <div class="fl">netfluentia<span>⚡</span></div>
+  <ul class="fm">
+    <li><a href="#toggle">Services</a></li>
     <li><a href="#process">Méthode</a></li>
     <li><a href="#stats">Résultats</a></li>
     <li><a href="https://calendly.com/chahbani-fahed/30min" target="_blank">Contact</a></li>
   </ul>
-  <div class="footer-right">
-    <div style="font-size:13px;color:var(--white);margin-bottom:4px">chahbani-fahed@gmail.com</div>
+  <div class="fr">
+    <div style="font-size:12px;color:var(--white);margin-bottom:3px">chahbani-fahed@gmail.com</div>
     <div>Paris, France</div>
   </div>
-  <div class="footer-copy">© 2025 Netfluentia — Tous droits réservés</div>
+  <div class="fc">© 2025 Netfluentia — Tous droits réservés</div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
-// ─── CURSOR ───
-const dot=document.getElementById('cur-dot');
-const ring=document.getElementById('cur-ring');
+// CURSOR
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
-window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
-(function ac(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ac)})();
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px'});
+(function ac(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(ac)})();
 document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('hover-active'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('hover-active'));
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ha'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ha'));
 });
 
-// ─── LOADER ───
-const bar=document.getElementById('lbar');
-const pct=document.getElementById('lpct');
-const letters=[...document.querySelectorAll('.loader-logo span')];
+// LOADER
+const lb=document.getElementById('lb'),lp=document.getElementById('lp');
+const ls=[...document.querySelectorAll('.ll span')];
 let p=0;
-letters.forEach((l,i)=>{
-  setTimeout(()=>{l.style.transition='transform .6s cubic-bezier(.34,1.56,.64,1),opacity .4s';l.style.transform='translateY(0)';l.style.opacity='1'},i*60+200);
-});
+ls.forEach((l,i)=>setTimeout(()=>{l.style.transition='transform .55s cubic-bezier(.34,1.56,.64,1),opacity .4s';l.style.transform='translateY(0)';l.style.opacity='1'},i*55+150));
 const iv=setInterval(()=>{
   p=Math.min(p+(Math.random()*3+1),100);
-  bar.style.width=p+'%';
-  pct.textContent=Math.floor(p)+'%';
-  if(p>=100){clearInterval(iv);setTimeout(startSite,400)}
-},40);
-function startSite(){
-  gsap.to('#loader',{opacity:0,duration:.8,ease:'power2.in',onComplete:()=>{
-    document.getElementById('loader').style.display='none';
-    initSite();
-  }});
+  lb.style.width=p+'%';lp.textContent=Math.floor(p)+'%';
+  if(p>=100){clearInterval(iv);setTimeout(go,350)}
+},38);
+function go(){
+  gsap.to('#loader',{opacity:0,duration:.75,ease:'power2.in',onComplete:()=>{document.getElementById('loader').style.display='none';init()}});
 }
 
-// ─── INIT ───
-function initSite(){
-  // Lenis smooth scroll
-  const lenis=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
+function init(){
+  // Lenis
+  const lenis=new Lenis({duration:1.15,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
   function rf(t){lenis.raf(t);requestAnimationFrame(rf)}
   requestAnimationFrame(rf);
   lenis.on('scroll',ScrollTrigger.update);
@@ -771,19 +703,20 @@ function initSite(){
   gsap.ticker.lagSmoothing(0);
   gsap.registerPlugin(ScrollTrigger);
 
-  // Nav
-  gsap.from('#main-nav',{y:-60,opacity:0,duration:1,ease:'power3.out',delay:.1});
+  // NAV
+  gsap.from('#main-nav',{y:-50,opacity:0,duration:.9,ease:'power3.out',delay:.1});
 
-  // Floating objects reveal
+  // Floating objects
   document.querySelectorAll('.fobj').forEach((el,i)=>{
-    gsap.to(el,{opacity:1,duration:1.4,delay:1+i*.07,ease:'power2.out'});
+    gsap.to(el,{opacity:1,duration:1.2,delay:.9+i*.06,ease:'power2.out'});
   });
 
-  // Hero headline words
-  gsap.to('.hero-title .word',{y:'0%',duration:1.1,stagger:.08,ease:'power4.out',delay:.5});
-  gsap.to('.hero-sub',{opacity:1,y:0,duration:.8,delay:1.3,ease:'power3.out'});
-  gsap.to('.hero-actions',{opacity:1,y:0,duration:.8,delay:1.6,ease:'power3.out'});
-  gsap.to('.hero-scroll',{opacity:1,duration:1,delay:2,ease:'power2.out'});
+  // Hero text
+  gsap.to('.hero-title .word',{y:'0%',duration:1.05,stagger:.07,ease:'power4.out',delay:.45});
+  gsap.to('.hero-sub',{opacity:1,y:0,duration:.75,delay:1.2,ease:'power3.out'});
+  gsap.to('.hero-acts',{opacity:1,y:0,duration:.75,delay:1.5,ease:'power3.out'});
+  gsap.to('.hero-scroll',{opacity:1,duration:.9,delay:1.9,ease:'power2.out'});
+  gsap.to('.hero-right',{opacity:1,duration:1.2,delay:1,ease:'power2.out'});
 
   // Mouse parallax
   const fobjs=document.querySelectorAll('.fobj');
@@ -791,79 +724,71 @@ function initSite(){
     const cx=window.innerWidth/2,cy=window.innerHeight/2;
     const dx=(e.clientX-cx)/cx,dy=(e.clientY-cy)/cy;
     fobjs.forEach((el,i)=>{
-      const d=(i%4+1)*14;
-      gsap.to(el,{x:dx*d,y:dy*d,duration:1.6,ease:'power2.out',overwrite:'auto'});
+      const d=(i%4+1)*13;
+      gsap.to(el,{x:dx*d,y:dy*d,duration:1.5,ease:'power2.out',overwrite:'auto'});
     });
   });
 
-  // Kinetic scroll text
-  gsap.to('#k1',{x:'-20%',ease:'none',scrollTrigger:{trigger:'.kinetic-section',scrub:1.5}});
-  gsap.fromTo('#k2',{x:'-20%'},{x:'0%',ease:'none',scrollTrigger:{trigger:'.kinetic-section',scrub:1.5}});
+  // Kinetic
+  gsap.to('#k1',{x:'-22%',ease:'none',scrollTrigger:{trigger:'.kin',scrub:1.5}});
+  gsap.fromTo('#k2',{x:'-22%'},{x:'0%',ease:'none',scrollTrigger:{trigger:'.kin',scrub:1.5}});
 
   // Reveals
-  gsap.utils.toArray('.reveal').forEach(el=>{
-    gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',
-      scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none none'}});
+  gsap.utils.toArray('.rv').forEach(el=>{
+    gsap.to(el,{opacity:1,y:0,duration:.85,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%',toggleActions:'play none none none'}});
   });
 
   // Counters
-  document.querySelectorAll('.counter').forEach(el=>{
-    const t=+el.dataset.target;
+  document.querySelectorAll('.cnt').forEach(el=>{
+    const t=+el.dataset.t;
     ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{
-      gsap.to({v:0},{v:t,duration:2,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(this.targets()[0].v)}});
+      gsap.to({v:0},{v:t,duration:1.8,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(this.targets()[0].v)}});
     }});
   });
 
-  // Cards stagger
-  gsap.from('.stat-card',{opacity:0,y:40,duration:.8,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'#stats',start:'top 75%'}});
-  gsap.from('.horiz-card',{opacity:0,y:40,duration:.8,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'#horiz',start:'top 80%'}});
-  gsap.from('.testi-card',{opacity:0,y:40,duration:.8,stagger:.15,ease:'power3.out',scrollTrigger:{trigger:'#testimonials',start:'top 75%'}});
-  gsap.from('.process-step',{opacity:0,y:40,duration:.9,stagger:.2,ease:'power3.out',scrollTrigger:{trigger:'#process',start:'top 75%'}});
-  gsap.from('.ba-col:first-child',{opacity:0,x:-60,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'#ba',start:'top 75%'}});
-  gsap.from('.ba-col.after-col',{opacity:0,x:60,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'#ba',start:'top 75%'}});
-  gsap.from('.cta-headline',{opacity:0,y:80,duration:1.2,ease:'power4.out',scrollTrigger:{trigger:'#cta-final',start:'top 70%'}});
+  // Stagger cards
+  gsap.from('.st-card',{opacity:0,y:36,duration:.75,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'#stats',start:'top 76%'}});
+  gsap.from('.of-card',{opacity:0,y:36,duration:.75,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'#offers',start:'top 80%'}});
+  gsap.from('.t-card',{opacity:0,y:36,duration:.75,stagger:.13,ease:'power3.out',scrollTrigger:{trigger:'#testi',start:'top 76%'}});
+  gsap.from('.pr-step',{opacity:0,y:36,duration:.85,stagger:.18,ease:'power3.out',scrollTrigger:{trigger:'#process',start:'top 76%'}});
+  gsap.from('.ba-col:first-child',{opacity:0,x:-50,duration:.85,ease:'power3.out',scrollTrigger:{trigger:'#ba',start:'top 76%'}});
+  gsap.from('.ba-col.a',{opacity:0,x:50,duration:.85,ease:'power3.out',scrollTrigger:{trigger:'#ba',start:'top 76%'}});
+  gsap.from('.cta-h',{opacity:0,y:70,duration:1.1,ease:'power4.out',scrollTrigger:{trigger:'#cta',start:'top 72%'}});
 
-  // Magnetic CTA
-  const magBtn=document.getElementById('magBtn');
-  magBtn.addEventListener('mousemove',e=>{
-    const r=magBtn.getBoundingClientRect();
-    gsap.to(magBtn,{x:(e.clientX-(r.left+r.width/2))*.25,y:(e.clientY-(r.top+r.height/2))*.25,duration:.4,ease:'power2.out'});
+  // Magnetic button
+  const mag=document.getElementById('magBtn');
+  mag.addEventListener('mousemove',e=>{
+    const r=mag.getBoundingClientRect();
+    gsap.to(mag,{x:(e.clientX-(r.left+r.width/2))*.22,y:(e.clientY-(r.top+r.height/2))*.22,duration:.35,ease:'power2.out'});
   });
-  magBtn.addEventListener('mouseleave',()=>gsap.to(magBtn,{x:0,y:0,duration:.6,ease:'elastic.out(1,.5)'}));
+  mag.addEventListener('mouseleave',()=>gsap.to(mag,{x:0,y:0,duration:.55,ease:'elastic.out(1,.5)'}));
 
-  // Notification rotation
-  const msgs=[
-    ['Nouveau follower','+2,847 cette semaine'],
-    ['Vidéo virale','1.2M vues en 48h'],
-    ['Lead entrant','Via Instagram Stories'],
-    ['Nouveau client','Signé ce matin'],
-  ];
+  // Notification rotate
+  const msgs=[['Nouveau follower','+2,847 cette semaine'],['Vidéo virale','1.2M vues en 48h'],['Lead entrant','Via Instagram Stories'],['Nouveau client','Signé ce matin']];
   let ni=0;
   setInterval(()=>{
     ni=(ni+1)%msgs.length;
-    const el=document.getElementById('fnText');
-    if(!el)return;
-    gsap.to(el,{opacity:0,y:-8,duration:.25,onComplete:()=>{
+    const el=document.getElementById('fnt');if(!el)return;
+    gsap.to(el,{opacity:0,y:-7,duration:.22,onComplete:()=>{
       el.innerHTML=`<strong>${msgs[ni][0]}</strong><span>${msgs[ni][1]}</span>`;
-      gsap.to(el,{opacity:1,y:0,duration:.3});
+      gsap.to(el,{opacity:1,y:0,duration:.28});
     }});
   },3000);
 
-  // Horizontal drag
-  const track=document.getElementById('horizTrack');
+  // Drag scroll
+  const tr=document.getElementById('ofTrack');
   let drag=false,sx=0,sl=0;
-  track.addEventListener('mousedown',e=>{drag=true;sx=e.pageX-track.offsetLeft;sl=track.scrollLeft});
+  tr.addEventListener('mousedown',e=>{drag=true;sx=e.pageX-tr.offsetLeft;sl=tr.scrollLeft});
   window.addEventListener('mouseup',()=>{drag=false});
-  track.addEventListener('mousemove',e=>{if(!drag)return;e.preventDefault();track.scrollLeft=sl-(e.pageX-track.offsetLeft-sx)*1.5});
+  tr.addEventListener('mousemove',e=>{if(!drag)return;e.preventDefault();tr.scrollLeft=sl-(e.pageX-tr.offsetLeft-sx)*1.5});
 }
 
-// ─── TOGGLE ───
-function switchTab(id){
-  document.querySelectorAll('.toggle-tab').forEach((t,i)=>t.classList.toggle('active',['entrepreneur','formation'][i]===id));
-  document.querySelectorAll('.toggle-content').forEach(c=>c.classList.remove('active'));
-  const el=document.getElementById('tab-'+id);
-  el.classList.add('active');
-  gsap.from(el,{opacity:0,y:20,duration:.45,ease:'power3.out'});
+// TOGGLE
+function sw(id){
+  document.querySelectorAll('.tt button').forEach((b,i)=>b.classList.toggle('a',['e','f'][i]===id));
+  document.querySelectorAll('.tc').forEach(c=>c.classList.remove('a'));
+  const el=document.getElementById('t-'+id);el.classList.add('a');
+  gsap.from(el,{opacity:0,y:16,duration:.4,ease:'power3.out'});
 }
 </script>
 </body>
