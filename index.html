@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netfluentia — L'attention devient des clients</title>
+  <meta name="description" content="Agence de communication. Plus de 25 millions de vues générées, +50 entrepreneurs accompagnés, +5 centres de formation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;
+  --surface:#111;
+  --border:#1c1c1c;
+  --white:#f5f5f0;
+  --grey:#666;
+  --grey2:#333;
+  --accent:#d4ff47;
+  --accent2:#47ffd4;
+  --r:14px;
+  --rl:24px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;cursor:none}
+
+/* ─── CURSOR ─── */
+.cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,255,71,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;transition-timing-function:cubic-bezier(.25,.46,.45,.94)}
+body:hover .cursor{opacity:1}
+
+/* ─── NOISE TEXTURE ─── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.5
+}
+
+/* ─── GRID BG ─── */
+.grid-bg{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 0%,black 40%,transparent 100%);
+}
+
+/* ─── UTILS ─── */
+.container{max-width:1120px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+h1,h2,h3,h4{font-family:'Archivo Black',sans-serif;line-height:1.05}
+a{color:inherit;text-decoration:none}
+
+.tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:var(--accent);padding:6px 14px;border-radius:999px;
+  border:1px solid rgba(212,255,71,.2);background:rgba(212,255,71,.04);
+}
+
+/* ─── BUTTONS ─── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 28px;border-radius:999px;font-family:'Inter',sans-serif;
+  font-size:14px;font-weight:600;cursor:pointer;border:none;
+  transition:all .25s cubic-bezier(.25,.46,.45,.94);white-space:nowrap;
+  position:relative;overflow:hidden;
+}
+.btn::after{
+  content:'';position:absolute;inset:0;background:white;opacity:0;
+  transition:opacity .2s;
+}
+.btn:hover::after{opacity:.08}
+.btn-primary{background:var(--accent);color:#080808}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(212,255,71,.25)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--grey);transform:translateY(-1px)}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:22px 0;transition:all .4s;
+}
+nav.scrolled{
+  background:rgba(8,8,8,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:14px 0;
+}
+nav .container{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{font-family:'Archivo Black',sans-serif;font-size:20px;letter-spacing:-.5px;display:flex;align-items:center;gap:3px}
+.nav-logo .bolt{color:var(--accent);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--grey);transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+
+/* ─── TOGGLE ─── */
+.toggle-wrap{display:flex;justify-content:center;margin-bottom:72px}
+.toggle{display:flex;background:#111;border:1px solid var(--border);border-radius:999px;padding:4px;gap:4px}
+.toggle-btn{
+  padding:10px 24px;border-radius:999px;font-size:13px;font-weight:600;
+  cursor:pointer;border:none;background:transparent;color:var(--grey);
+  transition:all .25s;font-family:'Inter',sans-serif;
+}
+.toggle-btn.active{background:var(--white);color:#080808}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  padding:140px 0 80px;overflow:hidden;
+}
+
+/* Floating objects */
+.float-objects{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.obj{position:absolute;will-change:transform}
+
+/* Phone object */
+.obj-phone{
+  width:180px;height:320px;border-radius:28px;
+  border:2px solid var(--border);background:var(--surface);
+  display:flex;flex-direction:column;align-items:center;
+  padding:16px 12px;gap:10px;
+  box-shadow:0 0 60px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.phone-notch{width:60px;height:6px;border-radius:999px;background:var(--border)}
+.phone-screen{flex:1;width:100%;border-radius:16px;background:#0d0d0d;overflow:hidden;display:flex;flex-direction:column;gap:6px;padding:10px}
+.phone-stat{height:8px;border-radius:4px;background:var(--grey2);width:70%}
+.phone-stat.accent{background:rgba(212,255,71,.3);width:90%}
+.phone-stat.sm{width:50%;height:6px}
+.phone-chart{flex:1;display:flex;align-items:flex-end;gap:4px;padding-top:8px}
+.phone-bar{flex:1;border-radius:3px 3px 0 0;background:var(--grey2);transition:height .3s}
+.phone-bar.a{height:40%;background:rgba(212,255,71,.4)}
+.phone-bar.b{height:65%;background:rgba(212,255,71,.6)}
+.phone-bar.c{height:45%;background:rgba(212,255,71,.3)}
+.phone-bar.d{height:80%;background:rgba(212,255,71,.8)}
+.phone-bar.e{height:55%;background:rgba(212,255,71,.5)}
+.phone-home{width:32px;height:4px;border-radius:2px;background:var(--grey2);margin:4px auto 0}
+
+/* Network node */
+.obj-network{width:220px;height:200px}
+.obj-network svg{width:100%;height:100%}
+
+/* Bolt big */
+.obj-bolt{
+  font-size:80px;line-height:1;
+  filter:drop-shadow(0 0 30px rgba(212,255,71,.6));
+  color:var(--accent);
+}
+
+/* Bubble */
+.obj-bubble{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px 20px 20px 4px;padding:14px 18px;
+  font-size:13px;font-weight:500;white-space:nowrap;
+  box-shadow:0 8px 40px rgba(0,0,0,.6);
+}
+.obj-bubble.right{border-radius:20px 20px 4px 20px}
+.obj-bubble .num{font-family:'Archivo Black',sans-serif;font-size:22px;color:var(--accent);display:block;line-height:1}
+
+/* Eye */
+.obj-eye{
+  width:100px;height:60px;border:2px solid rgba(212,255,71,.3);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  box-shadow:0 0 40px rgba(212,255,71,.1);
+}
+.obj-eye::before{
+  content:'';width:28px;height:28px;border-radius:50%;
+  background:var(--accent);opacity:.8;
+}
+
+/* Cursor obj */
+.obj-cursor{
+  width:24px;height:28px;
+  border:2px solid var(--white);
+  clip-path:polygon(0 0,0 100%,30% 70%,50% 100%,65% 93%,45% 65%,100% 65%);
+  background:var(--white);
+  opacity:.6;
+}
+
+/* At sign */
+.obj-at{
+  font-family:'Archivo Black',sans-serif;font-size:56px;
+  color:transparent;-webkit-text-stroke:2px rgba(212,255,71,.3);
+  line-height:1;
+}
+
+/* Placement */
+.obj-phone{top:12%;right:5%;animation:float1 6s ease-in-out infinite}
+.obj-network{top:8%;left:2%;animation:float2 8s ease-in-out infinite}
+.obj-bolt{top:60%;right:8%;animation:float3 5s ease-in-out infinite}
+.obj-bubble-1{top:20%;left:22%;animation:float4 7s ease-in-out infinite}
+.obj-bubble-2{bottom:25%;right:18%;animation:float1 9s ease-in-out infinite reverse}
+.obj-eye{bottom:20%;left:5%;animation:float2 6s ease-in-out infinite reverse}
+.obj-at{top:38%;left:3%;animation:float3 7s ease-in-out infinite}
+
+@keyframes float1{0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-20px) rotate(2deg)}}
+@keyframes float2{0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-14px) rotate(-1deg)}}
+@keyframes float3{0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-18px) scale(1.04)}}
+@keyframes float4{0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-12px) rotate(1deg)}}
+
+/* Hero content */
+.hero-content{position:relative;z-index:2;text-align:center;max-width:900px;margin:0 auto}
+.hero-eyebrow{margin-bottom:24px}
+.hero-title{
+  font-size:clamp(60px,9vw,110px);letter-spacing:-3px;line-height:.95;
+  margin-bottom:28px;
+}
+.hero-title .word{display:inline-block}
+.hero-title .accent-word{color:var(--accent)}
+.hero-sub{font-size:18px;color:var(--grey);max-width:520px;margin:0 auto 40px;line-height:1.75}
+.hero-ctas{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+/* Glow */
+.glow-orb{
+  position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;
+}
+.glow-1{width:600px;height:600px;background:rgba(212,255,71,.06);top:-200px;left:50%;transform:translateX(-50%)}
+.glow-2{width:400px;height:400px;background:rgba(71,255,212,.04);bottom:0;right:0}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap{padding:1px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:rgba(255,255,255,.01)}
+.marquee-track{display:flex;animation:scroll 20s linear infinite;width:max-content}
+.m-item{display:flex;align-items:center;gap:40px;padding:18px 40px 18px 0;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--grey);white-space:nowrap}
+.m-dot{width:4px;height:4px;border-radius:50%;background:var(--accent);flex-shrink:0}
+@keyframes scroll{0%{transform:translateX(0)} 100%{transform:translateX(-50%)}}
+
+/* ─── SECTION BASE ─── */
+section{padding:120px 0;position:relative}
+.s-eyebrow{margin-bottom:20px}
+.s-title{font-size:clamp(36px,5vw,64px);letter-spacing:-2px;margin-bottom:20px}
+.s-sub{font-size:17px;color:var(--grey);max-width:520px;line-height:1.75}
+
+/* ─── STATS ─── */
+.stats-section{border-top:1px solid var(--border)}
+.stats-header{margin-bottom:64px}
+.stats-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;
+  background:var(--border);gap:1px;
+}
+.stat-card{
+  background:var(--bg);padding:44px 36px;
+  display:flex;flex-direction:column;gap:10px;
+  position:relative;overflow:hidden;
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.stat-card:hover::before{opacity:1}
+.s-tag{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent)}
+.s-num{font-family:'Archivo Black',sans-serif;font-size:52px;line-height:1;letter-spacing:-2px}
+.s-lbl{font-size:14px;color:var(--grey);line-height:1.5;max-width:180px}
+
+/* ─── WORLD ─── */
+.world-section{border-top:1px solid var(--border)}
+
+/* Before / After */
+.ba-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;
+  background:var(--border);margin:64px 0;
+}
+.ba-col{background:var(--bg);padding:44px}
+.ba-label{
+  font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:28px;display:flex;align-items:center;gap:8px;color:var(--grey);
+}
+.ba-label.after{color:var(--accent)}
+.ba-label::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor}
+.ba-list{list-style:none;display:flex;flex-direction:column;gap:18px}
+.ba-list li{font-size:15px;line-height:1.65;padding-left:24px;position:relative;color:var(--grey)}
+.ba-col.before-col .ba-list li::before{content:'×';position:absolute;left:0;color:#444;font-weight:700;font-size:16px}
+.ba-col.after-col .ba-list li{color:var(--white)}
+.ba-col.after-col .ba-list li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:700}
+
+/* Offer cards */
+.offer-head{margin-bottom:48px}
+.offer-head h3{font-size:clamp(28px,3vw,40px);letter-spacing:-1px;margin-bottom:12px}
+.offer-head p{color:var(--grey);max-width:480px;font-size:15px}
+.offers{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px}
+.offers.solo{grid-template-columns:1fr;max-width:580px}
+
+.card{
+  border:1px solid var(--border);border-radius:var(--rl);padding:40px;
+  display:flex;flex-direction:column;gap:22px;position:relative;overflow:hidden;
+  background:var(--surface);
+  transition:border-color .3s,transform .3s;
+}
+.card:hover{border-color:rgba(255,255,255,.1);transform:translateY(-3px)}
+.card.featured{border-color:rgba(212,255,71,.25);background:#0c0c09}
+.card.featured:hover{border-color:rgba(212,255,71,.5)}
+
+.card-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--grey)}
+.card.featured .card-label{color:var(--accent)}
+.card-title{font-size:28px;letter-spacing:-.5px}
+.card-desc{font-size:14px;color:var(--grey);line-height:1.7}
+.card-tag{
+  display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;
+  padding:5px 12px;border-radius:999px;border:1px solid var(--border);color:var(--grey);width:fit-content;
+}
+.card.featured .card-tag{border-color:rgba(212,255,71,.25);color:var(--accent)}
+.price-row{display:flex;align-items:baseline;gap:10px}
+.price{font-family:'Archivo Black',sans-serif;font-size:42px;letter-spacing:-1px}
+.price-detail{font-size:13px;color:var(--grey)}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--accent);color:#080808;letter-spacing:.5px}
+.divider{height:1px;background:var(--border)}
+.list-lbl{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-bottom:16px}
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:13px}
+.feat-list li{font-size:14px;line-height:1.6;color:var(--white);padding-left:20px;position:relative}
+.feat-list li::before{content:'⚡';position:absolute;left:0;font-size:11px;top:2px}
+
+/* CTA block */
+.cta-band{
+  border:1px solid var(--border);border-radius:var(--rl);padding:56px;
+  text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(212,255,71,.04) 0%,transparent 70%);
+}
+.cta-band::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(212,255,71,.3),transparent);
+}
+.cta-band h3{font-size:clamp(28px,3vw,42px);letter-spacing:-1px}
+.cta-band p{color:var(--grey);font-size:16px;max-width:420px}
+
+/* ─── TRANSPARENCY ─── */
+.transparency-section{border-top:1px solid var(--border)}
+.trans-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.trans-left .s-title{margin-bottom:32px}
+.trans-left p{font-size:16px;color:var(--grey);line-height:1.85;margin-bottom:20px}
+.signature{margin-top:28px;font-size:14px;font-weight:600;padding-top:24px;border-top:1px solid var(--border);color:var(--white)}
+
+.principles{
+  display:flex;flex-direction:column;gap:1px;
+  border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;
+  background:var(--border);
+}
+.principle{
+  background:var(--bg);padding:28px 32px;
+  display:flex;gap:20px;align-items:start;
+  transition:background .2s;
+}
+.principle:hover{background:var(--surface)}
+.p-num{font-family:'Archivo Black',sans-serif;font-size:12px;color:var(--accent);min-width:22px;padding-top:2px}
+.p-content h4{font-size:15px;font-family:'Inter',sans-serif;font-weight:600;margin-bottom:5px}
+.p-content p{font-size:14px;color:var(--grey);line-height:1.6}
+
+/* ─── FAQ ─── */
+.faq-section{border-top:1px solid var(--border)}
+.faq-grid{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start}
+.faq-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden}
+.faq-item{background:var(--bg)}
+.faq-q{
+  width:100%;background:none;border:none;color:var(--white);
+  font-family:'Inter',sans-serif;font-size:15px;font-weight:600;
+  text-align:left;padding:24px 28px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  transition:background .2s;
+}
+.faq-q:hover{background:var(--surface)}
+.faq-icon{
+  min-width:22px;height:22px;border-radius:50%;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--grey);
+  transition:transform .3s,border-color .2s,color .2s;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);border-color:var(--accent);color:var(--accent)}
+.faq-ans{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-ans-inner{padding:0 28px 24px;font-size:15px;color:var(--grey);line-height:1.8}
+
+/* ─── FINAL CTA ─── */
+.final-section{border-top:1px solid var(--border);text-align:center}
+.final-inner{max-width:760px;margin:0 auto;position:relative}
+.final-glow{
+  position:absolute;width:600px;height:300px;
+  background:radial-gradient(ellipse,rgba(212,255,71,.07) 0%,transparent 70%);
+  left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.final-inner h2{font-size:clamp(48px,7vw,88px);letter-spacing:-3px;line-height:.95;margin-bottom:24px}
+.final-inner p{font-size:17px;color:var(--grey);margin-bottom:40px;line-height:1.7;max-width:520px;margin-left:auto;margin-right:auto}
+.final-note{margin-top:20px;font-size:13px;color:#444}
+
+/* ─── FOOTER ─── */
+footer{border-top:1px solid var(--border);padding:52px 0}
+footer .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:28px}
+.foot-logo{font-family:'Archivo Black',sans-serif;font-size:20px;letter-spacing:-.5px}
+.foot-tagline{font-size:13px;color:var(--grey);margin-top:5px}
+.foot-links{display:flex;flex-wrap:wrap;gap:24px;list-style:none}
+.foot-links a{font-size:13px;color:var(--grey);transition:color .2s}
+.foot-links a:hover{color:var(--white)}
+.foot-copy{font-size:12px;color:#333}
+
+/* ─── WORLD TOGGLE ─── */
+.world-ent{display:block}
+.world-ctr{display:none}
+body.ctr .world-ent{display:none}
+body.ctr .world-ctr{display:block}
+body.ctr .hero-ent{display:none}
+body.ctr .hero-ctr{display:block}
+.hero-ctr{display:none}
+
+/* ─── ANIMATED LINES ─── */
+.line-anim{
+  position:absolute;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(212,255,71,.15),transparent);
+  height:1px;width:100%;animation:lineSweep 4s ease-in-out infinite;
+}
+@keyframes lineSweep{0%{transform:translateX(-100%);opacity:0}50%{opacity:1}100%{transform:translateX(100%);opacity:0}}
+
+/* ─── SCROLL REVEALS ─── */
+.reveal{opacity:0;transform:translateY(32px);transition:none}
+.reveal.done{opacity:1;transform:translateY(0);transition:opacity .7s ease,transform .7s ease}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .ba-wrap{grid-template-columns:1fr}
+  .offers{grid-template-columns:1fr}
+  .trans-grid{grid-template-columns:1fr;gap:56px}
+  .faq-grid{grid-template-columns:1fr;gap:48px}
+  .nav-links{display:none}
+  .obj-network,.obj-at,.obj-eye{display:none}
+  .obj-phone{right:-20px;top:18%}
+}
+@media(max-width:600px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .s-num{font-size:40px}
+  .hero-title{font-size:52px;letter-spacing:-2px}
+  .cta-band{padding:36px 24px}
+  .obj-phone,.obj-bubble-1,.obj-bubble-2{display:none}
+  .obj-bolt{font-size:56px}
+  footer .container{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="grid-bg"></div>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <div class="container">
+    <a href="#" class="nav-logo">netfluentia<em class="bolt">⚡</em></a>
+    <ul class="nav-links">
+      <li><a href="#resultats">Résultats</a></li>
+      <li><a href="#entrepreneurs">Entrepreneurs</a></li>
+      <li><a href="#centres">Centres</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:13px;padding:11px 22px">Réserver un appel</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+
+  <!-- Floating objects -->
+  <div class="float-objects">
+
+    <!-- Phone -->
+    <div class="obj obj-phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="phone-stat accent"></div>
+        <div class="phone-stat"></div>
+        <div class="phone-stat sm"></div>
+        <div class="phone-chart">
+          <div class="phone-bar a"></div>
+          <div class="phone-bar b"></div>
+          <div class="phone-bar c"></div>
+          <div class="phone-bar d"></div>
+          <div class="phone-bar e"></div>
+        </div>
+      </div>
+      <div class="phone-home"></div>
+    </div>
+
+    <!-- Network -->
+    <div class="obj obj-network">
+      <svg viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="110" cy="100" r="10" fill="rgba(212,255,71,0.6)"/>
+        <circle cx="40" cy="40" r="6" fill="rgba(212,255,71,0.3)"/>
+        <circle cx="180" cy="50" r="8" fill="rgba(212,255,71,0.4)"/>
+        <circle cx="60" cy="160" r="6" fill="rgba(212,255,71,0.2)"/>
+        <circle cx="190" cy="160" r="7" fill="rgba(212,255,71,0.3)"/>
+        <circle cx="20" cy="120" r="5" fill="rgba(212,255,71,0.2)"/>
+        <line x1="110" y1="100" x2="40" y2="40" stroke="rgba(212,255,71,0.15)" stroke-width="1"/>
+        <line x1="110" y1="100" x2="180" y2="50" stroke="rgba(212,255,71,0.15)" stroke-width="1"/>
+        <line x1="110" y1="100" x2="60" y2="160" stroke="rgba(212,255,71,0.15)" stroke-width="1"/>
+        <line x1="110" y1="100" x2="190" y2="160" stroke="rgba(212,255,71,0.15)" stroke-width="1"/>
+        <line x1="110" y1="100" x2="20" y2="120" stroke="rgba(212,255,71,0.1)" stroke-width="1"/>
+        <line x1="40" y1="40" x2="180" y2="50" stroke="rgba(212,255,71,0.07)" stroke-width="1"/>
+        <line x1="60" y1="160" x2="190" y2="160" stroke="rgba(212,255,71,0.07)" stroke-width="1"/>
+        <circle cx="110" cy="100" r="24" stroke="rgba(212,255,71,0.08)" stroke-width="1" fill="none"/>
+        <circle cx="110" cy="100" r="44" stroke="rgba(212,255,71,0.04)" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- Bolt -->
+    <div class="obj obj-bolt">⚡</div>
+
+    <!-- Bubble 1 -->
+    <div class="obj obj-bubble-1">
+      <div class="obj-bubble">
+        <span class="num">25M+</span>
+        vues générées
+      </div>
+    </div>
+
+    <!-- Bubble 2 -->
+    <div class="obj obj-bubble-2">
+      <div class="obj-bubble right">
+        <span class="num">+50</span>
+        entrepreneurs
+      </div>
+    </div>
+
+    <!-- Eye -->
+    <div class="obj obj-eye"></div>
+
+    <!-- At -->
+    <div class="obj obj-at">@</div>
+
+  </div>
+
+  <div class="container">
+    <!-- Toggle -->
+    <div class="toggle-wrap">
+      <div class="toggle">
+        <button class="toggle-btn active" data-mode="ent">Je suis entrepreneur</button>
+        <button class="toggle-btn" data-mode="ctr">Je suis un centre de formation</button>
+      </div>
+    </div>
+
+    <!-- Hero Entrepreneur -->
+    <div class="hero-ent hero-content reveal">
+      <div class="hero-eyebrow"><span class="tag">Agence de communication</span></div>
+      <h1 class="hero-title">
+        On crée<br>
+        <span class="accent-word">l'attention</span><br>
+        Vous signez.
+      </h1>
+      <p class="hero-sub">On construit votre marque personnelle sur LinkedIn, TikTok & Instagram. Une présence qui attire les bons clients — sans courir après eux.</p>
+      <div class="hero-ctas">
+        <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-primary">Réserver un appel</a>
+        <a href="#entrepreneurs" class="btn btn-ghost">Voir comment →</a>
+      </div>
+    </div>
+
+    <!-- Hero Centre -->
+    <div class="hero-ctr hero-content reveal">
+      <div class="hero-eyebrow"><span class="tag">Agence de communication</span></div>
+      <h1 class="hero-title">
+        On remplit<br>
+        <span class="accent-word">vos classes</span><br>
+        Vous formez.
+      </h1>
+      <p class="hero-sub">On rend votre centre visible et désirable. Plus d'étudiants inscrits, plus d'entreprises partenaires — grâce à une vraie machine de contenu.</p>
+      <div class="hero-ctas">
+        <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-primary">Réserver un appel</a>
+        <a href="#centres" class="btn btn-ghost">Voir comment →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="m-item">Personal branding<span class="m-dot"></span></div>
+    <div class="m-item">Acquisition par le contenu<span class="m-dot"></span></div>
+    <div class="m-item">Classes remplies<span class="m-dot"></span></div>
+    <div class="m-item">Partenariats signés<span class="m-dot"></span></div>
+    <div class="m-item">Personal branding<span class="m-dot"></span></div>
+    <div class="m-item">Acquisition par le contenu<span class="m-dot"></span></div>
+    <div class="m-item">Classes remplies<span class="m-dot"></span></div>
+    <div class="m-item">Partenariats signés<span class="m-dot"></span></div>
+    <div class="m-item">Personal branding<span class="m-dot"></span></div>
+    <div class="m-item">Acquisition par le contenu<span class="m-dot"></span></div>
+    <div class="m-item">Classes remplies<span class="m-dot"></span></div>
+    <div class="m-item">Partenariats signés<span class="m-dot"></span></div>
+    <div class="m-item">Personal branding<span class="m-dot"></span></div>
+    <div class="m-item">Acquisition par le contenu<span class="m-dot"></span></div>
+    <div class="m-item">Classes remplies<span class="m-dot"></span></div>
+    <div class="m-item">Partenariats signés<span class="m-dot"></span></div>
+  </div>
+</div>
+
+<!-- ─── STATS ─── -->
+<section class="stats-section" id="resultats">
+  <div class="container">
+    <div class="stats-header reveal">
+      <h2 class="s-title">Des chiffres,<br>pas des promesses.</h2>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <span class="s-tag">Visibilité</span>
+        <div class="s-num" data-count="25" data-suffix="M+">0</div>
+        <p class="s-lbl">De vues générées pour nos clients et nos propres projets.</p>
+      </div>
+      <div class="stat-card">
+        <span class="s-tag">Entrepreneurs</span>
+        <div class="s-num" data-count="50" data-prefix="+">0</div>
+        <p class="s-lbl">Entrepreneurs conseillés ou accompagnés sur leur communication.</p>
+      </div>
+      <div class="stat-card">
+        <span class="s-tag">Centres</span>
+        <div class="s-num" data-count="5" data-prefix="+">0</div>
+        <p class="s-lbl">Classes remplies et partenariats entreprises signés.</p>
+      </div>
+      <div class="stat-card">
+        <span class="s-tag">Sélectif</span>
+        <div class="s-num">5<span style="font-size:28px;color:var(--grey)">/mois</span></div>
+        <p class="s-lbl">Places entrepreneur par mois. On sélectionne, on travaille en profondeur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MONDE ENTREPRENEURS ═══ -->
+<div class="world-ent" id="entrepreneurs">
+<section class="world-section">
+  <div class="container">
+
+    <div class="reveal" style="margin-bottom:72px">
+      <span class="tag s-eyebrow">Pour entrepreneurs</span>
+      <h2 class="s-title" style="margin-top:20px;max-width:700px">Votre marque vous ramène des clients.</h2>
+      <p class="s-sub">Vous avez l'expertise. Il vous manque la visibilité qui transforme votre audience en chiffre d'affaires.</p>
+    </div>
+
+    <div class="ba-wrap reveal">
+      <div class="ba-col before-col">
+        <div class="ba-label">Aujourd'hui</div>
+        <ul class="ba-list">
+          <li>Vous postez sans régularité, et sans savoir si ça sert à quelque chose.</li>
+          <li>Vous générez quelques likes, mais jamais de rendez-vous.</li>
+          <li>Vous voyez des concurrents moins bons que vous prendre toute la lumière.</li>
+          <li>Vous n'avez pas de message clair : on ne sait pas pourquoi vous choisir.</li>
+        </ul>
+      </div>
+      <div class="ba-col after-col">
+        <div class="ba-label after">Avec Netfluentia</div>
+        <ul class="ba-list">
+          <li>Une ligne éditoriale claire et un rythme tenable, pensés pour vous.</li>
+          <li>Du contenu qui convertit en rendez-vous, pas juste en vanité.</li>
+          <li>Un positionnement qui vous rend incontournable sur votre sujet.</li>
+          <li>Une marque que les bons clients reconnaissent et viennent chercher.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="offer-head reveal">
+      <h3>Deux façons de travailler ensemble.</h3>
+      <p>Selon votre moment : un accompagnement individuel sur-mesure, ou le programme collectif pour passer à l'action en étant encadré.</p>
+    </div>
+
+    <div class="offers reveal">
+      <div class="card">
+        <span class="card-label">Accompagnement individuel</span>
+        <h3 class="card-title">Personal branding</h3>
+        <p class="card-desc">On construit votre marque personnelle de A à Z sur les trois réseaux. Un suivi rapproché, taillé pour votre activité et vos objectifs.</p>
+        <span class="card-tag">⚡ 5 places par mois</span>
+        <div class="divider"></div>
+        <div>
+          <p class="list-lbl">Ce qu'on met en place</p>
+          <ul class="feat-list">
+            <li>Stratégie de contenu sur LinkedIn, TikTok & Instagram, adaptée à votre cible.</li>
+            <li>Positionnement et ligne éditoriale : un message clair que les gens retiennent.</li>
+            <li>Copywriting et formats pensés pour convertir, pas seulement pour générer des likes.</li>
+            <li>Méthodologie complète pour publier régulièrement sans y passer vos journées.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card featured">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <span class="card-label">Programme collectif</span>
+          <span class="badge">Places limitées</span>
+        </div>
+        <h3 class="card-title">Le mois intensif</h3>
+        <p class="card-desc">Un mois en groupe restreint pour structurer votre acquisition et passer à l'action, avec un accès direct à Fahed.</p>
+        <div class="price-row">
+          <span class="price">500€</span>
+          <span class="price-detail">/ personne — 1 mois · 10 places max</span>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <p class="list-lbl">Ce que comprend le programme</p>
+          <ul class="feat-list">
+            <li>10 places maximum pour un suivi réel, jamais dilué.</li>
+            <li>3 visios collectives d'1h par semaine : stratégie, contenu, acquisition.</li>
+            <li>1h en solo chaque semaine, rien que pour votre situation.</li>
+            <li>Accès au groupe WhatsApp pour avancer ensemble entre les sessions.</li>
+            <li>Accès aux méthodes et ressources utilisées au quotidien.</li>
+            <li>Échange direct avec Fahed par message, du lundi au vendredi.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-band reveal">
+      <h3>Prêt à construire votre marque ?</h3>
+      <p>5 places entrepreneur par mois — on regarde votre situation ensemble.</p>
+      <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-primary">Réserver mon appel</a>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══ MONDE CENTRES ═══ -->
+<div class="world-ctr" id="centres">
+<section class="world-section">
+  <div class="container">
+
+    <div class="reveal" style="margin-bottom:72px">
+      <span class="tag s-eyebrow">Pour centres de formation</span>
+      <h2 class="s-title" style="margin-top:20px;max-width:700px">Des classes pleines. Des partenaires qui signent.</h2>
+      <p class="s-sub">Notre expertise : remplir vos sessions grâce au contenu. +5 centres accompagnés. On vient, on bosse avec vous, et vous explosez.</p>
+    </div>
+
+    <div class="ba-wrap reveal">
+      <div class="ba-col before-col">
+        <div class="ba-label">Aujourd'hui</div>
+        <ul class="ba-list">
+          <li>Des sessions qui peinent à se remplir, des places vides à la rentrée.</li>
+          <li>Une présence en ligne fade, qui ne donne pas envie de s'inscrire.</li>
+          <li>Du mal à attirer des entreprises partenaires pour l'alternance.</li>
+          <li>Aucune machine de contenu : tout repose sur le bouche-à-oreille.</li>
+        </ul>
+      </div>
+      <div class="ba-col after-col">
+        <div class="ba-label after">Avec Netfluentia</div>
+        <ul class="ba-list">
+          <li>Du contenu vidéo qui rend votre centre visible et désirable.</li>
+          <li>Une acquisition double cible : étudiants ET entreprises partenaires.</li>
+          <li>Des classes remplies grâce à un flux de contenu qui tourne en continu.</li>
+          <li>Des partenariats signés : la visibilité devient des accords concrets.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="offer-head reveal">
+      <h3>L'acquisition par le contenu, clé en main.</h3>
+      <p>On s'installe avec vos équipes, on construit votre machine de contenu, et on remplit vos sessions.</p>
+    </div>
+
+    <div class="offers solo reveal">
+      <div class="card featured">
+        <span class="card-label">Accompagnement complet</span>
+        <h3 class="card-title">Acquisition par le contenu</h3>
+        <p class="card-desc">On prend en charge votre visibilité et votre recrutement. Étudiants et entreprises : on attire les deux, en continu, avec un système qui ne dépend plus du hasard.</p>
+        <span class="card-tag">⚡ Pour organismes de formation</span>
+        <div class="divider"></div>
+        <div>
+          <p class="list-lbl">Ce qu'on met en place</p>
+          <ul class="feat-list">
+            <li>Production de contenu vidéo : on rend votre centre visible et crédible.</li>
+            <li>Acquisition double cible : campagnes pensées pour les étudiants ET les entreprises.</li>
+            <li>Recrutement étudiants : on transforme l'audience en candidatures d'inscription.</li>
+            <li>Recrutement entreprises : on génère des partenariats pour l'alternance.</li>
+            <li>Machine de contenu installée : un flux régulier qui tourne sur la durée.</li>
+            <li>On bosse avec vos équipes : on s'installe, on exécute, vous montez en compétence.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-band reveal">
+      <h3>Prêt à remplir vos sessions ?</h3>
+      <p>On regarde votre centre et on construit un plan d'acquisition concret.</p>
+      <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-primary">Réserver mon appel</a>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ─── TRANSPARENCE ─── -->
+<section class="transparency-section">
+  <div class="container">
+    <div class="trans-grid">
+      <div class="trans-left reveal">
+        <span class="tag s-eyebrow">En transparence</span>
+        <h2 class="s-title" style="margin-top:20px">Voici comment je travaille.</h2>
+        <p>Je ne vends pas du rêve, je construis des systèmes. Mon job : transformer votre visibilité en rendez-vous, en clients, en classes remplies, pas en likes qui ne paient pas les factures.</p>
+        <p>Tout est clair dès le départ : ce qu'on fait, pourquoi on le fait, et ce que ça doit produire. Vous savez toujours où on en est.</p>
+        <p>Et je ne prends pas tout le monde. Je sélectionne 5 entrepreneurs par mois pour pouvoir m'investir réellement dans chaque accompagnement.</p>
+        <div class="signature">Fahed Chahbani — Fondateur, Netfluentia</div>
+      </div>
+      <div class="principles reveal">
+        <div class="principle">
+          <span class="p-num">01</span>
+          <div class="p-content">
+            <h4>Transparence totale</h4>
+            <p>Objectifs, méthode, résultats attendus : tout est posé dès le premier appel. Aucune zone d'ombre, aucune promesse en l'air.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <span class="p-num">02</span>
+          <div class="p-content">
+            <h4>Le résultat avant la vanité</h4>
+            <p>On ne court pas après les vues pour les vues. Chaque contenu a un rôle : attirer, prouver, convertir.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <span class="p-num">03</span>
+          <div class="p-content">
+            <h4>On bosse ensemble, pas à votre place</h4>
+            <p>Je m'installe avec vous, on exécute côte à côte. Vous repartez avec une vraie compétence, pas une dépendance.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <span class="p-num">04</span>
+          <div class="p-content">
+            <h4>Sélection assumée</h4>
+            <p>5 places entrepreneur par mois. Je choisis les profils avec qui je peux vraiment faire la différence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="reveal">
+        <span class="tag s-eyebrow">Questions fréquentes</span>
+        <h2 class="s-title" style="margin-top:20px">Ce que vous voulez savoir.</h2>
+      </div>
+      <div class="faq-list reveal">
+
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Je suis entrepreneur : par où je commence ?<span class="faq-icon">+</span></button>
+          <div class="faq-ans"><div class="faq-ans-inner">Par un appel de 30 minutes. On regarde votre activité, votre cible et vos objectifs, puis on décide ensemble du bon format : accompagnement individuel (5 places/mois) ou programme collectif à 500€. Aucun engagement à réserver l'appel.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Je dirige un centre de formation : comment ça se passe ?<span class="faq-icon">+</span></button>
+          <div class="faq-ans"><div class="faq-ans-inner">On part de votre situation : taux de remplissage, présence en ligne, besoins en partenariats. On construit ensuite une machine de contenu qui attire étudiants et entreprises, et on l'installe avec vos équipes. L'objectif est simple : des classes remplies et des partenariats signés.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Pourquoi seulement 5 places entrepreneur par mois ?<span class="faq-icon">+</span></button>
+          <div class="faq-ans"><div class="faq-ans-inner">Parce qu'un vrai accompagnement demande du temps. En limitant à 5 entrepreneurs par mois, je m'implique réellement dans chaque projet au lieu de diluer mon attention. C'est la différence entre un suivi sérieux et un service de masse.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Le programme de groupe, ça comprend quoi exactement ?<span class="faq-icon">+</span></button>
+          <div class="faq-ans"><div class="faq-ans-inner">500€ par personne, 10 places maximum, sur 1 mois. Vous avez 3 visios collectives d'1h par semaine, 1h en solo chaque semaine, l'accès au groupe WhatsApp, aux méthodes, et un échange direct avec moi par message du lundi au vendredi.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Combien coûtent les accompagnements sur-mesure ?<span class="faq-icon">+</span></button>
+          <div class="faq-ans"><div class="faq-ans-inner">Ça dépend de votre situation — un entrepreneur solo et un centre de formation n'ont pas les mêmes besoins. On en parle pendant l'appel, en toute transparence, et vous repartez avec une proposition claire. Aucun engagement.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">En combien de temps voit-on des résultats ?<span class="faq-icon">+</span></button>
+          <div class="faq-ans"><div class="faq-ans-inner">La visibilité peut bouger vite, mais la transformation en clients ou en inscriptions est un travail de fond. On vise des résultats concrets et durables, et on fixe dès le départ des objectifs clairs et mesurables pour que vous sachiez exactement où on va.</div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ─── -->
+<section class="final-section">
+  <div class="container">
+    <div class="final-inner reveal">
+      <div class="final-glow"></div>
+      <h2>Prêt à créer<br><span style="color:var(--accent)">vos opportunités ?</span></h2>
+      <p>Un appel de 30 minutes pour voir votre situation et si on peut travailler ensemble. Sans engagement, et je vous dis franchement ce que j'en pense.</p>
+      <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:16px;padding:18px 40px">Réserver mon appel</a>
+      <p class="final-note">Entrepreneurs : 5 places par mois. Centres : on étudie chaque projet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <div>
+      <div class="foot-logo">netfluentia<span style="color:var(--accent)">⚡</span></div>
+      <div class="foot-tagline">L'agence qui transforme l'attention en clients.</div>
+    </div>
+    <ul class="foot-links">
+      <li><a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener">Réserver un appel</a></li>
+      <li><a href="#entrepreneurs">Entrepreneurs</a></li>
+      <li><a href="#centres">Centres de formation</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="foot-copy">© 2026 Netfluentia</div>
+  </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ─── Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.toggle-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.width='18px'; cursor.style.height='18px';
+    ring.style.width='52px'; ring.style.height='52px';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.width='10px'; cursor.style.height='10px';
+    ring.style.width='36px'; ring.style.height='36px';
+  });
+});
+
+// ─── Navbar scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50),{passive:true});
+
+// ─── Toggle mode
+document.querySelectorAll('.toggle-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    if(btn.dataset.mode==='ctr') document.body.classList.add('ctr');
+    else document.body.classList.remove('ctr');
+    // re-animate hero
+    gsap.fromTo('.hero-ent,.hero-ctr',{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:'power2.out'});
+  });
+});
+
+// ─── Hero GSAP intro
+gsap.timeline({delay:.2})
+  .fromTo('.hero-content',{opacity:0,y:40},{opacity:1,y:0,duration:.9,ease:'power3.out'})
+  .fromTo('.obj-phone',{opacity:0,x:60},{opacity:1,x:0,duration:.8,ease:'power2.out'},'<.3')
+  .fromTo('.obj-network',{opacity:0,x:-40},{opacity:1,x:0,duration:.8,ease:'power2.out'},'<.1')
+  .fromTo('.obj-bolt',{opacity:0,scale:.5},{opacity:1,scale:1,duration:.6,ease:'back.out(2)'},'<.2')
+  .fromTo('.obj-bubble-1',{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:'power2.out'},'<.1')
+  .fromTo('.obj-bubble-2',{opacity:0,y:-20},{opacity:1,y:0,duration:.6,ease:'power2.out'},'<.2')
+  .fromTo('.obj-eye',{opacity:0},{opacity:1,duration:.5},'<.1')
+  .fromTo('.obj-at',{opacity:0},{opacity:1,duration:.5},'<.1');
+
+// ─── Scroll reveals
+const reveals=document.querySelectorAll('.reveal');
+reveals.forEach((el,i)=>{
+  gsap.fromTo(el,
+    {opacity:0,y:40},
+    {
+      opacity:1,y:0,duration:.8,ease:'power2.out',
+      scrollTrigger:{
+        trigger:el,start:'top 88%',once:true,
+        onEnter:()=>el.classList.add('done')
+      },
+      delay: (i % 3)*0.08
+    }
+  );
+});
+
+// ─── Animated counters
+function animCount(el){
+  const target=+el.dataset.count;
+  const suffix=el.dataset.suffix||'';
+  const prefix=el.dataset.prefix||'';
+  gsap.fromTo({v:0},{v:target},{
+    duration:1.8,ease:'power2.out',
+    onUpdate:function(){
+      el.textContent=prefix+Math.round(this.targets()[0].v)+suffix;
+    }
+  });
+}
+document.querySelectorAll('[data-count]').forEach(el=>{
+  ScrollTrigger.create({
+    trigger:el,start:'top 85%',once:true,
+    onEnter:()=>animCount(el)
+  });
+});
+
+// ─── FAQ
+document.querySelectorAll('.faq-q').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement;
+    const ans=item.querySelector('.faq-ans');
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>{
+      i.classList.remove('open');
+      i.querySelector('.faq-ans').style.maxHeight=null;
+      i.querySelector('.faq-q').setAttribute('aria-expanded','false');
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      ans.style.maxHeight=ans.scrollHeight+'px';
+      btn.setAttribute('aria-expanded','true');
+    }
+  });
+});
+
+// ─── Parallax on floating objects
+document.addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-.5)*20;
+  const y=(e.clientY/window.innerHeight-.5)*20;
+  gsap.to('.obj-phone',{x:x*.8,y:y*.6,duration:1.2,ease:'power1.out'});
+  gsap.to('.obj-network',{x:-x*.5,y:-y*.4,duration:1.4,ease:'power1.out'});
+  gsap.to('.obj-bolt',{x:x*.4,y:y*.3,duration:1,ease:'power1.out'});
+  gsap.to('.obj-bubble-1',{x:-x*.3,y:y*.5,duration:1.1,ease:'power1.out'});
+  gsap.to('.obj-bubble-2',{x:x*.6,y:-y*.4,duration:1.3,ease:'power1.out'});
+  gsap.to('.obj-at',{x:-x*.2,y:y*.3,duration:1.5,ease:'power1.out'});
+});
+</script>
+</body>
+</html>
