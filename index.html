@@ -1,302 +1,357 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Netfluentia — L'attention devient des clients</title>
-  <meta name="description" content="Agence de communication. Plus de 25 millions de vues générées, +50 entrepreneurs accompagnés, +5 centres de formation."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Netfluentia — L'attention devient des clients</title>
+<meta name="description" content="Agence de communication. 25M+ vues générées. On transforme l'attention en clients."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#070707;--s:#0f0f0f;--b:#1a1a1a;--b2:#222;
-  --w:#f2f2ed;--g:#5a5a5a;--g2:#2e2e2e;
-  --a:#c8ff3e;--a2:#3effc8;
-  --r:12px;--rl:22px;
-}
+:root{--bg:#060606;--s:#0d0d0d;--b:#181818;--b2:#242424;--w:#f0f0eb;--g:#585858;--g2:#2c2c2c;--a:#c8ff3e;--a2:#3effc8;--r:12px;--rl:20px}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;cursor:none}
-
-/* ─── CANVAS PARTICLES ─── */
-#canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45}
-
-/* ─── CURSOR ─── */
-.cur{position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
-.cur-dot{width:8px;height:8px;background:var(--a);border-radius:50%;transform:translate(-50%,-50%)}
-.cur-ring{width:40px;height:40px;border:1.5px solid rgba(200,255,62,.35);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s,height .3s}
-.cur-dot,.cur-ring{position:absolute;top:0;left:0}
-body.hov .cur-ring{width:64px;height:64px;border-color:rgba(200,255,62,.6)}
-body.hov .cur-dot{width:5px;height:5px}
-
-/* ─── NOISE ─── */
-body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
-
-/* ─── GRID ─── */
-.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
-  background-size:64px 64px;
-  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,black 30%,transparent 100%)}
-
-.wrap{position:relative;z-index:2}
-.container{max-width:1140px;margin:0 auto;padding:0 28px}
+body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none}
 h1,h2,h3,h4{font-family:'Archivo Black',sans-serif;line-height:1.02}
 a{color:inherit;text-decoration:none}
-.tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--a);padding:7px 16px;border-radius:999px;border:1px solid rgba(200,255,62,.18);background:rgba(200,255,62,.04)}
 
-/* ─── BUTTONS ─── */
+/* ═══ LOADER ═══ */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px}
+.loader-logo{font-family:'Archivo Black',sans-serif;font-size:32px;letter-spacing:-.5px;overflow:hidden}
+.loader-logo span{display:inline-block;transform:translateY(100%)}
+.loader-bolt{color:var(--a);display:inline-block;transform:translateY(100%)}
+.loader-bar{width:200px;height:1px;background:var(--b2);overflow:hidden;border-radius:1px}
+.loader-fill{height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--a2));border-radius:1px}
+.loader-pct{font-size:11px;letter-spacing:3px;color:var(--g)}
+
+/* ═══ CURSOR ═══ */
+.cur{position:fixed;pointer-events:none;z-index:9999}
+#cd{width:7px;height:7px;background:var(--a);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+#cr{width:38px;height:38px;border:1px solid rgba(200,255,62,.3);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.23,1,.32,1),height .35s cubic-bezier(.23,1,.32,1),border-color .3s}
+body.hov #cr{width:56px;height:56px;border-color:rgba(200,255,62,.6)}
+body.hov #cd{width:4px;height:4px}
+body.click #cd{width:14px;height:14px;background:white}
+
+/* ═══ CANVAS BG ═══ */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 100% 60% at 50% 0%,black,transparent)}
+body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
+
+/* ═══ LAYOUT ═══ */
+.wrap{position:relative;z-index:2}
+.container{max-width:1160px;margin:0 auto;padding:0 32px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--a);padding:7px 16px;border-radius:999px;border:1px solid rgba(200,255,62,.16);background:rgba(200,255,62,.03)}
+
+/* ═══ BTN ═══ */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 32px;border-radius:999px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .3s cubic-bezier(.23,1,.32,1);white-space:nowrap;position:relative;overflow:hidden}
-.btn::after{content:'';position:absolute;top:-50%;left:-75%;width:50%;height:200%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-20deg);transition:left .6s}
-.btn:hover::after{left:125%}
-.btn-p{background:var(--a);color:#070707}
-.btn-p:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(200,255,62,.3)}
-.btn-g{background:transparent;color:var(--w);border:1px solid var(--b2)}
-.btn-g:hover{border-color:var(--g);transform:translateY(-2px)}
+.btn::after{content:'';position:absolute;top:-50%;left:-80%;width:50%;height:200%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.15),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn:hover::after{left:130%}
+.btn-p{background:var(--a);color:#060606}.btn-p:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(200,255,62,.28)}
+.btn-g{background:transparent;color:var(--w);border:1px solid var(--b2)}.btn-g:hover{border-color:var(--g);transform:translateY(-2px)}
 
-/* ─── NAV ─── */
+/* ═══ NAV ═══ */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 0;transition:all .4s}
-nav.s{background:rgba(7,7,7,.9);backdrop-filter:blur(24px);border-bottom:1px solid var(--b);padding:15px 0}
-nav .container{display:flex;align-items:center;justify-content:space-between}
-.n-logo{font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:-.5px;display:flex;align-items:center;gap:2px}
-.n-bolt{color:var(--a);font-style:normal}
+nav.s{background:rgba(6,6,6,.88);backdrop-filter:blur(28px);border-bottom:1px solid var(--b);padding:14px 0}
+nav .c2{display:flex;align-items:center;justify-content:space-between}
+.n-logo{font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:-.5px;display:flex;align-items:center}
+.n-bolt{color:var(--a)}
 .n-links{display:flex;gap:36px;list-style:none}
-.n-links a{font-size:13px;font-weight:500;color:var(--g);transition:color .2s}
-.n-links a:hover{color:var(--w)}
+.n-links a{font-size:13px;font-weight:500;color:var(--g);transition:color .2s}.n-links a:hover{color:var(--w)}
 
-/* ─── TOGGLE ─── */
-.tog-w{display:flex;justify-content:center;margin-bottom:80px}
-.tog{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--b);border-radius:999px;padding:4px;gap:4px}
+/* ═══ TOGGLE ═══ */
+.tog-w{display:flex;justify-content:center;margin-bottom:72px}
+.tog{display:flex;background:rgba(255,255,255,.03);border:1px solid var(--b);border-radius:999px;padding:4px;gap:4px}
 .tog-b{padding:11px 26px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--g);transition:all .25s;font-family:'Inter',sans-serif}
-.tog-b.on{background:var(--w);color:#070707}
+.tog-b.on{background:var(--w);color:#060606}
 
-/* ─── HERO ─── */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:150px 0 80px;overflow:hidden}
+/* ═══ HERO ═══ */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:160px 0 80px;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
+.o1{width:900px;height:900px;background:radial-gradient(circle,rgba(200,255,62,.065) 0%,transparent 65%);top:-300px;left:50%;transform:translateX(-50%)}
+.o2{width:600px;height:600px;background:radial-gradient(circle,rgba(62,255,200,.045) 0%,transparent 65%);bottom:-200px;right:-150px}
+.o3{width:400px;height:400px;background:radial-gradient(circle,rgba(255,62,200,.03) 0%,transparent 65%);top:20%;left:-100px}
 
-.orb{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none}
-.orb1{width:800px;height:800px;background:radial-gradient(circle,rgba(200,255,62,.07) 0%,transparent 70%);top:-250px;left:50%;transform:translateX(-50%)}
-.orb2{width:500px;height:500px;background:radial-gradient(circle,rgba(62,255,200,.05) 0%,transparent 70%);bottom:-100px;right:-80px}
-.orb3{width:350px;height:350px;background:radial-gradient(circle,rgba(255,62,200,.04) 0%,transparent 70%);top:30%;left:-80px}
+/* ─── FLOATING WORLD ─── */
+.fworld{position:absolute;inset:0;pointer-events:none}
+.fo{position:absolute;will-change:transform}
 
-/* Floating objects */
-.floats{position:absolute;inset:0;pointer-events:none}
-.fl{position:absolute;will-change:transform}
+/* Phone mockup */
+.fo-phone{top:8%;right:3%}
+.ph-wrap{width:170px;background:#0a0a0a;border:1.5px solid var(--b2);border-radius:28px;padding:14px 10px;box-shadow:0 0 100px rgba(0,0,0,.95),0 0 40px rgba(200,255,62,.04),inset 0 1px 0 rgba(255,255,255,.05)}
+.ph-notch{width:54px;height:6px;background:var(--b2);border-radius:99px;margin:0 auto 12px}
+.ph-screen{background:#080808;border-radius:16px;overflow:hidden;padding:10px}
+.ph-stories{display:flex;gap:6px;margin-bottom:10px}
+.ph-story{width:32px;height:32px;border-radius:50%;border:2px solid var(--a);background:var(--b2);flex-shrink:0}
+.ph-story.you{background:linear-gradient(135deg,var(--a),var(--a2));border-color:transparent}
+.ph-post{background:var(--b);border-radius:8px;overflow:hidden;margin-bottom:8px}
+.ph-post-img{height:80px;background:linear-gradient(135deg,rgba(200,255,62,.15),rgba(62,255,200,.1));display:flex;align-items:center;justify-content:center;font-size:24px}
+.ph-post-acts{padding:8px;display:flex;gap:10px;align-items:center}
+.ph-act{font-size:16px}
+.ph-likes{font-size:10px;color:var(--a);font-weight:700;margin-bottom:4px;padding:0 8px}
+.ph-caption{font-size:9px;color:var(--g);padding:0 8px 8px;line-height:1.4}
+.ph-row{height:6px;border-radius:3px;background:var(--b2);margin-bottom:5px}
+.ph-row.a{background:rgba(200,255,62,.2);width:85%}.ph-row.sm{width:60%}
+.ph-home{width:28px;height:3px;background:var(--b2);border-radius:2px;margin:10px auto 0}
 
-.fl-phone{top:10%;right:4%;animation:fl1 6s ease-in-out infinite}
-.phone-shell{background:var(--s);border:1.5px solid var(--b2);border-radius:26px;padding:14px 10px;width:155px;box-shadow:0 0 80px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.04)}
-.ph-notch{width:50px;height:5px;border-radius:99px;background:var(--b2);margin:0 auto 10px}
-.ph-screen{background:#0a0a0a;border-radius:14px;padding:10px}
-.ph-row{height:7px;border-radius:4px;background:var(--b2);margin-bottom:6px}
-.ph-row.hi{background:rgba(200,255,62,.25);width:80%}
-.ph-row.sm{width:55%}
-.ph-chart{display:flex;align-items:flex-end;gap:3px;height:52px;margin-top:8px}
-.ph-bar{flex:1;border-radius:3px 3px 0 0;background:var(--b2)}
-.v1{height:35%;background:rgba(200,255,62,.3)}.v2{height:62%;background:rgba(200,255,62,.55)}.v3{height:42%;background:rgba(200,255,62,.35)}.v4{height:88%;background:rgba(200,255,62,.85)}.v5{height:56%;background:rgba(200,255,62,.45)}
-.ph-home{width:28px;height:3px;border-radius:2px;background:var(--b2);margin:8px auto 0}
+/* TikTok card */
+.fo-tiktok{top:12%;left:2%}
+.tk-card{width:130px;background:#0a0a0a;border:1px solid var(--b2);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.tk-video{height:200px;background:linear-gradient(180deg,#1a1a2e,#16213e);position:relative;display:flex;align-items:center;justify-content:center}
+.tk-play{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:14px}
+.tk-badge{position:absolute;top:8px;left:8px;background:rgba(200,255,62,.9);color:#060606;font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:1px}
+.tk-views{position:absolute;bottom:8px;left:8px;font-size:9px;color:rgba(255,255,255,.7);font-weight:600}
+.tk-side{position:absolute;right:8px;bottom:20px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.tk-ico{font-size:18px;display:flex;flex-direction:column;align-items:center;gap:1px}
+.tk-ico span{font-size:8px;color:rgba(255,255,255,.6)}
 
-.fl-net{top:6%;left:1%;opacity:.85;animation:fl2 8s ease-in-out infinite}
-.fl-net svg{width:200px;height:180px}
+/* Instagram card */
+.fo-insta{bottom:22%;right:2%}
+.ig-card{width:200px;background:#0a0a0a;border:1px solid var(--b2);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.ig-header{padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--b)}
+.ig-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);display:flex;align-items:center;justify-content:center;font-size:14px}
+.ig-name{font-size:11px;font-weight:700}
+.ig-time{font-size:9px;color:var(--g)}
+.ig-img{height:140px;background:linear-gradient(135deg,rgba(200,255,62,.12),rgba(62,255,200,.08));display:flex;align-items:center;justify-content:center;font-size:36px}
+.ig-footer{padding:10px 12px}
+.ig-acts{display:flex;gap:10px;margin-bottom:6px;font-size:16px}
+.ig-likes{font-size:10px;font-weight:700;margin-bottom:3px}
+.ig-caption{font-size:9px;color:var(--g);line-height:1.4}
 
-.fl-bolt{bottom:28%;right:6%;font-size:72px;filter:drop-shadow(0 0 30px rgba(200,255,62,.75));color:var(--a);animation:fl3 5s ease-in-out infinite}
+/* LinkedIn card */
+.fo-linkedin{bottom:8%;left:18%}
+.li-card{width:220px;background:#0a0a0a;border:1px solid var(--b2);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.li-header{padding:12px;border-bottom:1px solid var(--b);display:flex;gap:10px;align-items:start}
+.li-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--a2));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.li-meta{font-size:9px}
+.li-meta strong{font-size:11px;font-weight:700;display:block;margin-bottom:2px}
+.li-meta span{color:var(--g)}
+.li-body{padding:10px 12px;font-size:10px;line-height:1.6;color:var(--g)}
+.li-body strong{color:var(--w)}
+.li-footer{padding:8px 12px;border-top:1px solid var(--b);display:flex;gap:12px}
+.li-react{font-size:9px;color:var(--g);display:flex;align-items:center;gap:4px}
+.li-react span{font-size:14px}
 
-.fl-b1{top:22%;left:20%;animation:fl4 7s ease-in-out infinite}
-.fl-b2{bottom:20%;right:16%;animation:fl1 9s ease-in-out infinite reverse}
-.bubble{background:rgba(14,14,14,.95);border:1px solid var(--b2);backdrop-filter:blur(10px);border-radius:18px 18px 18px 4px;padding:13px 17px;font-size:13px;font-weight:500;box-shadow:0 12px 48px rgba(0,0,0,.7)}
-.bubble.r{border-radius:18px 18px 4px 18px}
-.bn{font-family:'Archivo Black',sans-serif;font-size:24px;color:var(--a);display:block;line-height:1.1}
-.bs{font-size:11px;color:var(--g);margin-top:2px;display:block}
+/* Stats bubble */
+.fo-stat1{top:30%;left:16%;animation:f4 7s ease-in-out infinite}
+.fo-stat2{top:58%;right:12%;animation:f1 9s ease-in-out infinite reverse}
+.stat-bub{background:rgba(10,10,10,.95);border:1px solid var(--b2);backdrop-filter:blur(16px);border-radius:16px 16px 16px 4px;padding:12px 16px;box-shadow:0 12px 48px rgba(0,0,0,.8)}
+.stat-bub.r{border-radius:16px 16px 4px 16px}
+.sb-n{font-family:'Archivo Black',sans-serif;font-size:24px;color:var(--a);display:block;line-height:1}
+.sb-l{font-size:10px;color:var(--g);display:block;margin-top:2px}
 
-.fl-at{top:42%;left:2%;font-family:'Archivo Black',sans-serif;font-size:64px;color:transparent;-webkit-text-stroke:2px rgba(200,255,62,.18);animation:fl2 9s ease-in-out infinite;line-height:1}
-.fl-eye{bottom:15%;left:6%;width:90px;height:52px;border:1.5px solid rgba(200,255,62,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:fl1 6s ease-in-out infinite reverse}
-.fl-eye::before{content:'';width:22px;height:22px;border-radius:50%;background:var(--a);opacity:.7}
-.fl-cur{top:55%;right:22%;animation:fl4 4s ease-in-out infinite}
-.fl-cur svg{opacity:.28}
+/* Hashtags */
+.fo-tags{top:45%;left:1%;animation:f2 8s ease-in-out infinite}
+.hashtags{display:flex;flex-direction:column;gap:6px}
+.ht{font-size:11px;font-weight:600;color:rgba(200,255,62,.4);letter-spacing:.5px}
 
-@keyframes fl1{0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-18px) rotate(2deg)}}
-@keyframes fl2{0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)}}
-@keyframes fl3{0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-22px) scale(1.06)}}
-@keyframes fl4{0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-10px) rotate(1deg)}}
+/* Camera */
+.fo-cam{top:35%;right:20%;animation:f3 6s ease-in-out infinite}
+.cam-ico{width:56px;height:44px;border:2px solid rgba(200,255,62,.25);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(200,255,62,.04);box-shadow:0 0 20px rgba(200,255,62,.1)}
 
-.hero-inner{position:relative;z-index:2;text-align:center;max-width:960px;margin:0 auto}
-.hero-title{font-size:clamp(58px,9.5vw,118px);letter-spacing:-4px;line-height:.92;margin-bottom:30px}
+/* Bolt */
+.fo-bolt1{bottom:35%;right:5%;font-size:64px;color:var(--a);filter:drop-shadow(0 0 30px rgba(200,255,62,.7));animation:f3 5s ease-in-out infinite}
+.fo-bolt2{top:22%;right:28%;font-size:28px;color:var(--a);opacity:.4;animation:f1 7s ease-in-out infinite reverse;filter:drop-shadow(0 0 12px rgba(200,255,62,.5))}
+
+/* At */
+.fo-at{top:55%;left:28%;font-family:'Archivo Black',sans-serif;font-size:52px;color:transparent;-webkit-text-stroke:2px rgba(200,255,62,.15);animation:f2 10s ease-in-out infinite;line-height:1}
+
+/* Eye */
+.fo-eye{bottom:18%;left:5%;width:80px;height:46px;border:1.5px solid rgba(200,255,62,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:f1 6s ease-in-out infinite reverse}
+.fo-eye::before{content:'';width:18px;height:18px;border-radius:50%;background:var(--a);opacity:.6}
+
+/* Cursor */
+.fo-cur{top:68%;right:30%;animation:f4 4s ease-in-out infinite}
+.fo-cur svg{opacity:.25}
+
+/* Play button */
+.fo-play{bottom:30%;left:10%;animation:f3 8s ease-in-out infinite}
+.play-ico{width:52px;height:52px;border-radius:50%;border:2px solid rgba(200,255,62,.2);display:flex;align-items:center;justify-content:center;background:rgba(200,255,62,.04);font-size:20px;box-shadow:0 0 24px rgba(200,255,62,.08)}
+
+/* Reaction cluster */
+.fo-reacts{bottom:42%;right:18%;animation:f2 6s ease-in-out infinite}
+.reacts{display:flex;gap:4px;background:rgba(10,10,10,.9);border:1px solid var(--b2);border-radius:999px;padding:6px 10px;backdrop-filter:blur(8px)}
+.react{font-size:16px;animation:rPop .5s ease-out both}
+.react:nth-child(1){animation-delay:0s}
+.react:nth-child(2){animation-delay:.1s}
+.react:nth-child(3){animation-delay:.2s}
+@keyframes rPop{from{transform:scale(0) translateY(10px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+
+/* Chart line */
+.fo-chart{top:15%;right:20%;animation:f1 8s ease-in-out infinite}
+.chart-mini{width:120px;height:60px;background:rgba(10,10,10,.9);border:1px solid var(--b2);border-radius:10px;padding:8px;backdrop-filter:blur(8px);overflow:hidden}
+.chart-svg{width:100%;height:100%}
+
+/* Notification */
+.fo-notif{top:52%;right:1%;animation:f4 11s ease-in-out infinite}
+.notif{background:rgba(10,10,10,.95);border:1px solid var(--b2);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.7);max-width:180px}
+.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--a);flex-shrink:0;box-shadow:0 0 8px rgba(200,255,62,.6);animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.8)}}
+.notif-txt{font-size:10px;line-height:1.4;color:var(--w)}
+.notif-txt strong{color:var(--a)}
+
+@keyframes f1{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
+@keyframes f2{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes f3{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.04)}}
+@keyframes f4{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+
+/* Hero text */
+.hero-inner{position:relative;z-index:2;text-align:center;max-width:1000px;margin:0 auto}
+.hero-title{font-size:clamp(56px,9vw,120px);letter-spacing:-4px;line-height:.9;margin-bottom:28px}
 .h-ac{color:var(--a)}
-.hero-sub{font-size:18px;color:var(--g);max-width:500px;margin:0 auto 44px;line-height:1.8;font-weight:300}
+.hero-sub{font-size:17px;color:var(--g);max-width:480px;margin:0 auto 44px;line-height:1.85;font-weight:300}
 .hero-ctas{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
 
-.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2}
-.scroll-hint span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--g)}
-.s-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--a),transparent);animation:sl 1.8s ease-in-out infinite}
-@keyframes sl{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+/* Scroll hint */
+.sc-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2}
+.sc-hint em{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--g);font-style:normal}
+.sc-l{width:1px;height:44px;background:linear-gradient(to bottom,var(--a),transparent);animation:scl 1.8s ease-in-out infinite}
+@keyframes scl{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* ─── MARQUEE ─── */
-.mq{border-top:1px solid var(--b);border-bottom:1px solid var(--b);overflow:hidden;background:rgba(255,255,255,.01)}
-.mq-t{display:flex;animation:mq 22s linear infinite;width:max-content}
-.mq-i{display:flex;align-items:center;gap:40px;padding:18px 40px 18px 0;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--g);white-space:nowrap}
+/* ═══ MARQUEE ═══ */
+.mq{border-top:1px solid var(--b);border-bottom:1px solid var(--b);overflow:hidden;background:rgba(255,255,255,.008)}
+.mq-t{display:flex;animation:mqa 20s linear infinite;width:max-content}
+.mq-i{display:flex;align-items:center;gap:36px;padding:16px 36px 16px 0;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--g);white-space:nowrap}
 .mq-d{width:3px;height:3px;border-radius:50%;background:var(--a);flex-shrink:0}
-@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes mqa{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* ─── SECTIONS ─── */
+/* ═══ SECTIONS BASE ═══ */
 section{padding:130px 0;position:relative;z-index:2}
 .s-b{border-top:1px solid var(--b)}
 .s-ey{margin-bottom:20px}
-.s-t{font-size:clamp(38px,5.5vw,68px);letter-spacing:-2.5px;margin-bottom:20px}
+.s-t{font-size:clamp(36px,5vw,66px);letter-spacing:-2.5px;margin-bottom:20px}
 .s-sub{font-size:17px;color:var(--g);max-width:500px;line-height:1.8;font-weight:300}
 
-/* ─── STATS ─── */
+/* ═══ SOCIAL PROOF STRIP ═══ */
+.proof-strip{border-top:1px solid var(--b);background:var(--s)}
+.proof-inner{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
+.proof-item{padding:32px 48px;text-align:center;border-right:1px solid var(--b);flex:1;min-width:180px}
+.proof-item:last-child{border-right:none}
+.proof-n{font-family:'Archivo Black',sans-serif;font-size:42px;letter-spacing:-2px;line-height:1;color:var(--w)}
+.proof-l{font-size:12px;color:var(--g);margin-top:4px;letter-spacing:.5px}
+
+/* ═══ KINETIC TEXT ═══ */
+.kinetic-section{border-top:1px solid var(--b);overflow:hidden;padding:80px 0}
+.kinetic-row{display:flex;align-items:center;white-space:nowrap;overflow:hidden;border-bottom:1px solid var(--b);padding:20px 0}
+.kinetic-row:last-child{border-bottom:none}
+.kinetic-text{font-family:'Archivo Black',sans-serif;font-size:clamp(40px,6vw,80px);letter-spacing:-2px;padding:0 40px;flex-shrink:0;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.12);transition:color .3s,-webkit-text-stroke .3s}
+.kinetic-text.filled{color:var(--w);-webkit-text-stroke:0}
+.kinetic-text .ac{color:var(--a)}
+.kt-track{display:flex;animation:ktA 12s linear infinite;width:max-content}
+.kt-track.rev{animation:ktB 14s linear infinite}
+.kt-sep{font-size:24px;color:var(--a);margin:0 20px;flex-shrink:0}
+@keyframes ktA{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes ktB{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+
+/* ═══ STATS ═══ */
 .st-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;background:var(--b);gap:1px;margin-top:64px}
-.st-c{background:var(--bg);padding:48px 36px;position:relative;overflow:hidden;cursor:default;transition:background .3s}
+.st-c{background:var(--bg);padding:48px 36px;position:relative;overflow:hidden;transition:background .3s;cursor:default}
 .st-c:hover{background:var(--s)}
-.st-top{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--a),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.23,1,.32,1)}
+.st-top{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--a),transparent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.23,1,.32,1)}
 .st-c:hover .st-top{transform:scaleX(1)}
-.st-tag{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--a);margin-bottom:12px;display:block}
+.st-tag{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--a);margin-bottom:12px;display:block}
 .st-n{font-family:'Archivo Black',sans-serif;font-size:56px;line-height:1;letter-spacing:-2px;margin-bottom:10px}
 .st-l{font-size:14px;color:var(--g);line-height:1.55;max-width:170px}
 
-/* ─── FAHED 3D ─── */
-.fahed-s{border-top:1px solid var(--b)}
-.fahed-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-
-.photo-wrap{position:relative;perspective:1000px}
-.photo-tilt{
-  border-radius:24px;overflow:hidden;position:relative;
-  background:var(--s);border:1px solid var(--b2);
-  box-shadow:0 40px 120px rgba(0,0,0,.85),0 0 0 1px rgba(200,255,62,.05);
-  transform-style:preserve-3d;
-  min-height:480px;
-}
-.photo-tilt img{width:100%;display:block;filter:contrast(1.06) brightness(.96) saturate(.9)}
-.photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,7,.92) 0%,rgba(7,7,7,.15) 45%,transparent 70%);pointer-events:none}
-
-/* Scan line effect */
-.photo-tilt::before{
-  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
-}
-/* Glare overlay */
-.photo-glare{
-  position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-  background:linear-gradient(135deg,rgba(200,255,62,.08) 0%,transparent 50%);
-  pointer-events:none;z-index:3;transition:opacity .3s;
-}
-
-.photo-name{position:absolute;bottom:0;left:0;right:0;padding:28px;z-index:4}
-.photo-name h3{font-size:28px;letter-spacing:-1px;margin-bottom:4px}
-.photo-name span{font-size:13px;color:var(--g);font-weight:400}
-
-.ph-badge{
-  position:absolute;background:rgba(8,8,8,.92);border:1px solid var(--b2);
-  backdrop-filter:blur(16px);border-radius:14px;padding:10px 16px;z-index:5;
-  box-shadow:0 8px 32px rgba(0,0,0,.7);
-}
-.ph-badge.t{top:20px;right:-18px}
-.ph-badge.m{top:46%;left:-22px}
-.ph-badge .pn{font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--a);display:block;line-height:1.1}
-.ph-badge .pl{font-size:11px;color:var(--g);white-space:nowrap}
-
-.photo-glow-ring{
-  position:absolute;inset:-2px;border-radius:26px;z-index:-1;
-  background:linear-gradient(135deg,rgba(200,255,62,.2),transparent 40%,rgba(62,255,200,.1));
-  animation:gp 4s ease-in-out infinite;
-}
-@keyframes gp{0%,100%{opacity:.4}50%{opacity:1}}
-
-/* corner accent */
-.photo-corner{
-  position:absolute;width:40px;height:40px;z-index:6;pointer-events:none;
-}
-.photo-corner.tl{top:12px;left:12px;border-top:2px solid var(--a);border-left:2px solid var(--a)}
-.photo-corner.br{bottom:12px;right:12px;border-bottom:2px solid var(--a);border-right:2px solid var(--a)}
-
-/* Text side */
-.fahed-text .s-t{margin-top:20px;margin-bottom:32px}
-.fahed-text p{font-size:16px;color:var(--g);line-height:1.9;margin-bottom:18px;font-weight:300}
-.fahed-sig{margin-top:32px;padding-top:24px;border-top:1px solid var(--b);font-size:14px;font-weight:600}
-
-.prs{display:flex;flex-direction:column;gap:1px;border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;background:var(--b);margin-top:32px}
-.pr{background:var(--bg);padding:26px 30px;display:flex;gap:18px;transition:background .2s}
-.pr:hover{background:var(--s)}
-.pr-n{font-family:'Archivo Black',sans-serif;font-size:11px;color:var(--a);min-width:20px;padding-top:2px;flex-shrink:0}
-.pr-c h4{font-size:14px;font-weight:600;margin-bottom:4px;font-family:'Inter',sans-serif}
-.pr-c p{font-size:13px;color:var(--g);line-height:1.6}
-
-/* ─── BEFORE/AFTER ─── */
+/* ═══ BEFORE / AFTER ═══ */
 .ba{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;background:var(--b);margin:64px 0}
-.ba-col{background:var(--bg);padding:44px}
-.ba-lbl{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:8px;color:var(--g)}
+.ba-col{background:var(--bg);padding:48px}
+.ba-lbl{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:8px;color:var(--g)}
 .ba-lbl.ac{color:var(--a)}
 .ba-lbl::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
 .ba-list{list-style:none;display:flex;flex-direction:column;gap:18px}
-.ba-list li{font-size:15px;line-height:1.7;padding-left:22px;position:relative;color:var(--g)}
+.ba-list li{font-size:15px;line-height:1.7;padding-left:24px;position:relative;color:var(--g)}
 .bc .ba-list li::before{content:'×';position:absolute;left:0;color:var(--b2);font-weight:700;font-size:18px;line-height:1.2}
 .ac-col .ba-list li{color:var(--w)}
 .ac-col .ba-list li::before{content:'→';position:absolute;left:0;color:var(--a);font-weight:700}
 
-/* ─── CARDS ─── */
+/* ═══ CARDS ═══ */
 .offer-h{margin-bottom:44px}
-.offer-h h3{font-size:clamp(26px,3vw,38px);letter-spacing:-1px;margin-bottom:12px}
+.offer-h h3{font-size:clamp(26px,3vw,40px);letter-spacing:-1px;margin-bottom:12px}
 .offer-h p{color:var(--g);font-size:15px;max-width:460px;font-weight:300}
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px}
 .cards.one{grid-template-columns:1fr;max-width:580px}
-
 .card{border:1px solid var(--b);border-radius:var(--rl);padding:40px;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden;background:var(--s);transition:all .4s cubic-bezier(.23,1,.32,1)}
-.card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.08)}
-.card.ft{border-color:rgba(200,255,62,.2);background:#0a0a08}
-.card.ft:hover{border-color:rgba(200,255,62,.45)}
-
-.c-lbl{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--g)}
-.card.ft .c-lbl{color:var(--a)}
+.card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(200,255,62,.035) 0%,transparent 55%);opacity:0;transition:opacity .3s}
+.card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.07)}.card:hover::before{opacity:1}
+.card.ft{border-color:rgba(200,255,62,.18);background:#09090a}.card.ft::before{opacity:1}
+.card.ft:hover{border-color:rgba(200,255,62,.4)}
+.c-lbl{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--g)}.card.ft .c-lbl{color:var(--a)}
 .c-title{font-size:26px;letter-spacing:-.5px}
 .c-desc{font-size:14px;color:var(--g);line-height:1.75;font-weight:300}
-.c-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid var(--b);color:var(--g);width:fit-content}
-.card.ft .c-tag{border-color:rgba(200,255,62,.2);color:var(--a)}
+.c-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;padding:5px 12px;border-radius:999px;border:1px solid var(--b);color:var(--g);width:fit-content}.card.ft .c-tag{border-color:rgba(200,255,62,.2);color:var(--a)}
 .price-r{display:flex;align-items:baseline;gap:10px}
 .price{font-family:'Archivo Black',sans-serif;font-size:44px;letter-spacing:-2px}
 .price-d{font-size:13px;color:var(--g)}
-.badge{font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--a);color:#070707;letter-spacing:.5px}
-.div{height:1px;background:var(--b)}
-.ll{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.bdg{font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--a);color:#060606;letter-spacing:.5px}
+.dv{height:1px;background:var(--b)}
+.ll{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g);margin-bottom:14px}
 .fl-list{list-style:none;display:flex;flex-direction:column;gap:12px}
 .fl-list li{font-size:14px;line-height:1.6;color:var(--w);padding-left:18px;position:relative}
 .fl-list li::before{content:'⚡';position:absolute;left:0;font-size:11px;top:2px}
-
-.cta-b{border:1px solid var(--b);border-radius:var(--rl);padding:60px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;position:relative;overflow:hidden;background:radial-gradient(ellipse 70% 90% at 50% -10%,rgba(200,255,62,.06) 0%,transparent 70%)}
-.cta-b::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,255,62,.4),transparent)}
+.cta-b{border:1px solid var(--b);border-radius:var(--rl);padding:60px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;position:relative;overflow:hidden;background:radial-gradient(ellipse 70% 90% at 50% -10%,rgba(200,255,62,.055) 0%,transparent 70%)}
+.cta-b::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,255,62,.35),transparent)}
 .cta-b h3{font-size:clamp(26px,3.5vw,44px);letter-spacing:-1px}
 .cta-b p{color:var(--g);font-size:16px;max-width:400px;font-weight:300}
 
-/* ─── FAQ ─── */
+/* ═══ FAHED 3D ═══ */
+.fahed-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.photo-wrap{position:relative}
+.photo-tilt{border-radius:24px;overflow:hidden;position:relative;background:var(--s);border:1px solid var(--b2);box-shadow:0 40px 120px rgba(0,0,0,.9),0 0 0 1px rgba(200,255,62,.04);min-height:480px}
+.photo-tilt img{width:100%;display:block;filter:contrast(1.05) brightness(.95) saturate(.88)}
+.photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.92) 0%,rgba(6,6,6,.1) 50%,transparent 75%);pointer-events:none}
+.photo-tilt::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.025) 3px,rgba(0,0,0,.025) 4px)}
+.photo-name{position:absolute;bottom:0;left:0;right:0;padding:28px;z-index:4}
+.photo-name h3{font-size:26px;letter-spacing:-1px;margin-bottom:3px}
+.photo-name span{font-size:12px;color:var(--g)}
+.ph-badge{position:absolute;background:rgba(8,8,8,.93);border:1px solid var(--b2);backdrop-filter:blur(16px);border-radius:14px;padding:10px 14px;z-index:5;box-shadow:0 8px 32px rgba(0,0,0,.8)}
+.ph-badge.t{top:18px;right:-16px}.ph-badge.m{top:44%;left:-20px}
+.pn{font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--a);display:block;line-height:1.1}
+.pl{font-size:10px;color:var(--g);white-space:nowrap}
+.ph-cr1{position:absolute;top:14px;left:14px;width:36px;height:36px;border-top:2px solid var(--a);border-left:2px solid var(--a);z-index:5}
+.ph-cr2{position:absolute;bottom:14px;right:14px;width:36px;height:36px;border-bottom:2px solid var(--a);border-right:2px solid var(--a);z-index:5}
+.photo-glow{position:absolute;inset:-2px;border-radius:26px;z-index:-1;background:linear-gradient(135deg,rgba(200,255,62,.18),transparent 40%,rgba(62,255,200,.1));animation:gp 4s ease-in-out infinite}
+@keyframes gp{0%,100%{opacity:.4}50%{opacity:1}}
+.fahed-text .s-t{margin-top:20px;margin-bottom:28px}
+.fahed-text p{font-size:15px;color:var(--g);line-height:1.9;margin-bottom:16px;font-weight:300}
+.f-sig{margin-top:28px;padding-top:22px;border-top:1px solid var(--b);font-size:13px;font-weight:600}
+.prs{display:flex;flex-direction:column;gap:1px;border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;background:var(--b);margin-top:28px}
+.pr{background:var(--bg);padding:22px 28px;display:flex;gap:16px;transition:background .2s}.pr:hover{background:var(--s)}
+.pr-n{font-family:'Archivo Black',sans-serif;font-size:11px;color:var(--a);min-width:20px;padding-top:1px;flex-shrink:0}
+.pr-c h4{font-size:13px;font-weight:600;margin-bottom:3px;font-family:'Inter',sans-serif}
+.pr-c p{font-size:12px;color:var(--g);line-height:1.6}
+
+/* ═══ FAQ ═══ */
 .faq-grid{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start}
 .faq-list{border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;background:var(--b);display:flex;flex-direction:column;gap:1px}
 .faq-it{background:var(--bg)}
-.faq-q{width:100%;background:none;border:none;color:var(--w);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;text-align:left;padding:24px 28px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .2s}
+.faq-q{width:100%;background:none;border:none;color:var(--w);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;text-align:left;padding:22px 26px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .2s;line-height:1.5}
 .faq-q:hover{background:var(--s)}
-.faq-ic{min-width:22px;height:22px;border-radius:50%;border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--g);transition:transform .3s,border-color .2s,color .2s;flex-shrink:0}
+.faq-ic{min-width:20px;height:20px;border-radius:50%;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--g);transition:transform .3s,border-color .2s,color .2s;flex-shrink:0}
 .faq-it.op .faq-ic{transform:rotate(45deg);border-color:var(--a);color:var(--a)}
 .faq-ans{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.23,1,.32,1)}
-.faq-ai{padding:0 28px 24px;font-size:15px;color:var(--g);line-height:1.85;font-weight:300}
+.faq-ai{padding:0 26px 22px;font-size:14px;color:var(--g);line-height:1.85;font-weight:300}
 
-/* ─── FINAL CTA ─── */
+/* ═══ FINAL CTA ═══ */
 .fin{text-align:center}
 .fin-inner{max-width:800px;margin:0 auto;position:relative}
-.fin-glow{position:absolute;width:800px;height:400px;background:radial-gradient(ellipse,rgba(200,255,62,.08) 0%,transparent 70%);left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
-.fin-inner h2{font-size:clamp(52px,8vw,100px);letter-spacing:-4px;line-height:.9;margin-bottom:28px}
-.fin-inner p{font-size:17px;color:var(--g);margin-bottom:44px;line-height:1.8;max-width:500px;margin-left:auto;margin-right:auto;font-weight:300}
-.fin-note{margin-top:20px;font-size:12px;color:#333;letter-spacing:.5px}
+.fin-glow{position:absolute;width:800px;height:400px;background:radial-gradient(ellipse,rgba(200,255,62,.07) 0%,transparent 70%);left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.fin-inner h2{font-size:clamp(52px,8vw,100px);letter-spacing:-4px;line-height:.9;margin-bottom:24px}
+.fin-inner p{font-size:17px;color:var(--g);margin-bottom:40px;line-height:1.8;max-width:480px;margin-left:auto;margin-right:auto;font-weight:300}
+.fin-note{margin-top:18px;font-size:12px;color:#2e2e2e;letter-spacing:.5px}
 
-/* ─── FOOTER ─── */
+/* ═══ FOOTER ═══ */
 footer{border-top:1px solid var(--b);padding:52px 0;position:relative;z-index:2}
-footer .container{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:28px}
+.ft-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
 .ft-logo{font-family:'Archivo Black',sans-serif;font-size:20px;letter-spacing:-.5px}
-.ft-tag-line{font-size:12px;color:var(--g);margin-top:5px;font-weight:300}
+.ft-sub{font-size:12px;color:var(--g);margin-top:4px;font-weight:300}
 .ft-links{display:flex;flex-wrap:wrap;gap:24px;list-style:none}
-.ft-links a{font-size:13px;color:var(--g);transition:color .2s}
-.ft-links a:hover{color:var(--w)}
-.ft-copy{font-size:12px;color:var(--b2)}
+.ft-links a{font-size:13px;color:var(--g);transition:color .2s}.ft-links a:hover{color:var(--w)}
+.ft-copy{font-size:11px;color:var(--b2)}
 
-/* ─── WORLD TOGGLE ─── */
+/* ═══ MODE ═══ */
 .w-ent{display:block}.w-ctr{display:none}
 body.ctr .w-ent{display:none}
 body.ctr .w-ctr{display:block}
@@ -304,39 +359,37 @@ body.ctr .h-ent{display:none}
 body.ctr .h-ctr{display:block}
 .h-ctr{display:none}
 
-/* ─── RESPONSIVE ─── */
-@media(max-width:980px){
-  .st-grid{grid-template-columns:1fr 1fr}
-  .ba{grid-template-columns:1fr}
-  .cards{grid-template-columns:1fr}
-  .fahed-grid{grid-template-columns:1fr;gap:56px}
-  .faq-grid{grid-template-columns:1fr;gap:48px}
-  .n-links{display:none}
-  .fl-net,.fl-at,.fl-eye,.fl-cur{display:none}
-  .ph-badge{display:none}
-}
-@media(max-width:640px){
-  .st-grid{grid-template-columns:1fr 1fr}
-  .st-n{font-size:40px}
-  .hero-title{font-size:52px;letter-spacing:-2px}
-  .cta-b{padding:36px 20px}
-  .fl-phone,.fl-b1,.fl-b2{display:none}
-  .fl-bolt{font-size:52px}
-  footer .container{flex-direction:column;align-items:flex-start}
-}
+/* REVEAL */
+.gr{opacity:0;transform:translateY(36px)}
+.gr.done{opacity:1;transform:translateY(0);transition:opacity .75s ease,transform .75s ease}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){.fo-linkedin,.fo-tiktok{display:none}}
+@media(max-width:900px){.st-grid{grid-template-columns:1fr 1fr}.ba{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.fahed-grid{grid-template-columns:1fr;gap:52px}.faq-grid{grid-template-columns:1fr;gap:44px}.n-links{display:none}.fo-insta,.fo-tags,.fo-cam,.fo-reacts,.fo-chart,.fo-notif{display:none}.ph-badge{display:none}}
+@media(max-width:600px){.st-grid{grid-template-columns:1fr 1fr}.st-n{font-size:38px}.hero-title{font-size:52px;letter-spacing:-2px}.fo-phone,.fo-stat1,.fo-stat2{display:none}.fo-bolt1{font-size:52px}.cta-b{padding:36px 20px}.proof-item{padding:24px 28px}.kinetic-section{padding:48px 0}.footer .ft-row{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
-<canvas id="canvas"></canvas>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">
+    <span id="ll1">netfluentia</span><span class="loader-bolt" id="ll2">⚡</span>
+  </div>
+  <div class="loader-bar"><div class="loader-fill" id="lf"></div></div>
+  <div class="loader-pct" id="lp">0%</div>
+</div>
+
+<canvas id="bg-canvas"></canvas>
 <div class="grid-bg"></div>
-<div class="cur" id="cur"><div class="cur-ring" id="cr"></div><div class="cur-dot" id="cd"></div></div>
+<div class="cur" id="cur"><div id="cr"></div><div id="cd"></div></div>
 
 <div class="wrap">
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="container">
-    <a href="#" class="n-logo">netfluentia<em class="n-bolt">⚡</em></a>
+  <div class="container c2">
+    <a href="#" class="n-logo">netfluentia<em class="n-bolt" style="font-style:normal">⚡</em></a>
     <ul class="n-links">
       <li><a href="#resultats">Résultats</a></li>
       <li><a href="#entrepreneurs">Entrepreneurs</a></li>
@@ -350,44 +403,161 @@ body.ctr .h-ctr{display:block}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
-  <div class="floats">
-    <div class="fl fl-phone">
-      <div class="phone-shell">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+
+  <div class="fworld">
+
+    <!-- Phone -->
+    <div class="fo fo-phone" style="animation:f1 7s ease-in-out infinite">
+      <div class="ph-wrap">
         <div class="ph-notch"></div>
         <div class="ph-screen">
-          <div class="ph-row hi"></div><div class="ph-row"></div><div class="ph-row sm"></div>
-          <div class="ph-chart"><div class="ph-bar v1"></div><div class="ph-bar v2"></div><div class="ph-bar v3"></div><div class="ph-bar v4"></div><div class="ph-bar v5"></div></div>
+          <div class="ph-stories">
+            <div class="ph-story you"></div>
+            <div class="ph-story"></div>
+            <div class="ph-story"></div>
+            <div class="ph-story"></div>
+          </div>
+          <div class="ph-post">
+            <div class="ph-post-img">⚡</div>
+            <div class="ph-post-acts"><span class="ph-act">❤️</span><span class="ph-act">💬</span><span class="ph-act">📤</span></div>
+            <div class="ph-likes">2 847 J'aime</div>
+            <div class="ph-caption"><strong>netfluentia</strong> L'attention devient des clients. 🚀</div>
+          </div>
+          <div class="ph-row a"></div>
+          <div class="ph-row"></div>
+          <div class="ph-row sm"></div>
         </div>
         <div class="ph-home"></div>
       </div>
     </div>
-    <div class="fl fl-net">
-      <svg viewBox="0 0 200 180" fill="none">
-        <circle cx="100" cy="90" r="9" fill="rgba(200,255,62,.7)"/>
-        <circle cx="30" cy="30" r="5" fill="rgba(200,255,62,.3)"/><circle cx="170" cy="40" r="7" fill="rgba(200,255,62,.4)"/>
-        <circle cx="45" cy="155" r="5" fill="rgba(200,255,62,.2)"/><circle cx="175" cy="150" r="6" fill="rgba(200,255,62,.3)"/>
-        <circle cx="10" cy="110" r="4" fill="rgba(200,255,62,.2)"/><circle cx="155" cy="95" r="4" fill="rgba(200,255,62,.25)"/>
-        <line x1="100" y1="90" x2="30" y2="30" stroke="rgba(200,255,62,.12)" stroke-width="1"/>
-        <line x1="100" y1="90" x2="170" y2="40" stroke="rgba(200,255,62,.12)" stroke-width="1"/>
-        <line x1="100" y1="90" x2="45" y2="155" stroke="rgba(200,255,62,.12)" stroke-width="1"/>
-        <line x1="100" y1="90" x2="175" y2="150" stroke="rgba(200,255,62,.12)" stroke-width="1"/>
-        <line x1="100" y1="90" x2="10" y2="110" stroke="rgba(200,255,62,.08)" stroke-width="1"/>
-        <line x1="100" y1="90" x2="155" y2="95" stroke="rgba(200,255,62,.1)" stroke-width="1"/>
-        <circle cx="100" cy="90" r="22" stroke="rgba(200,255,62,.07)" fill="none"/>
-        <circle cx="100" cy="90" r="42" stroke="rgba(200,255,62,.03)" fill="none"/>
+
+    <!-- TikTok -->
+    <div class="fo fo-tiktok" style="animation:f2 9s ease-in-out infinite">
+      <div class="tk-card">
+        <div class="tk-video">
+          <div class="tk-badge">LIVE</div>
+          <div class="tk-play">▶</div>
+          <div class="tk-views">👁 1.2M vues</div>
+          <div class="tk-side">
+            <div class="tk-ico">❤️<span>48K</span></div>
+            <div class="tk-ico">💬<span>2K</span></div>
+            <div class="tk-ico">↗<span>8K</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instagram -->
+    <div class="fo fo-insta" style="animation:f1 8s ease-in-out infinite reverse">
+      <div class="ig-card">
+        <div class="ig-header">
+          <div class="ig-av">⚡</div>
+          <div>
+            <div class="ig-name">netfluentia</div>
+            <div class="ig-time">il y a 2h</div>
+          </div>
+        </div>
+        <div class="ig-img">🚀</div>
+        <div class="ig-footer">
+          <div class="ig-acts"><span>❤️</span><span>💬</span><span>📤</span></div>
+          <div class="ig-likes">12 394 J'aime</div>
+          <div class="ig-caption"><strong>netfluentia</strong> Votre marque, votre croissance ⚡ #PersonalBranding</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LinkedIn -->
+    <div class="fo fo-linkedin" style="animation:f4 10s ease-in-out infinite">
+      <div class="li-card">
+        <div class="li-header">
+          <div class="li-av">⚡</div>
+          <div class="li-meta">
+            <strong>Fahed Chahbani</strong>
+            <span>Fondateur @Netfluentia · 1er</span>
+          </div>
+        </div>
+        <div class="li-body">
+          <strong>25 millions de vues</strong> générées en 12 mois.<br>
+          Voici comment on l'a fait →
+        </div>
+        <div class="li-footer">
+          <div class="li-react"><span>👍</span> 847</div>
+          <div class="li-react"><span>💬</span> 124</div>
+          <div class="li-react"><span>🔁</span> 89</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats bubbles -->
+    <div class="fo fo-stat1">
+      <div class="stat-bub"><span class="sb-n">25M+</span><span class="sb-l">vues générées</span></div>
+    </div>
+    <div class="fo fo-stat2">
+      <div class="stat-bub r"><span class="sb-n">+50</span><span class="sb-l">entrepreneurs</span></div>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="fo fo-tags">
+      <div class="hashtags">
+        <div class="ht">#PersonalBranding</div>
+        <div class="ht">#Contenu</div>
+        <div class="ht">#Acquisition</div>
+        <div class="ht">#LinkedIn</div>
+      </div>
+    </div>
+
+    <!-- Camera -->
+    <div class="fo fo-cam"><div class="cam-ico">📸</div></div>
+
+    <!-- Bolts -->
+    <div class="fo fo-bolt1">⚡</div>
+    <div class="fo fo-bolt2">⚡</div>
+
+    <!-- @ -->
+    <div class="fo fo-at">@</div>
+
+    <!-- Eye -->
+    <div class="fo fo-eye"></div>
+
+    <!-- Cursor -->
+    <div class="fo fo-cur">
+      <svg width="28" height="32" viewBox="0 0 28 32" fill="none">
+        <path d="M3 3L3 25L10 18L15 30L20 28L15 16L25 16L3 3Z" fill="rgba(200,255,62,.45)" stroke="rgba(200,255,62,.25)" stroke-width="1.5"/>
       </svg>
     </div>
-    <div class="fl fl-bolt">⚡</div>
-    <div class="fl fl-b1"><div class="bubble"><span class="bn">25M+</span><span class="bs">vues générées</span></div></div>
-    <div class="fl fl-b2"><div class="bubble r"><span class="bn">+50</span><span class="bs">entrepreneurs</span></div></div>
-    <div class="fl fl-eye"></div>
-    <div class="fl fl-at">@</div>
-    <div class="fl fl-cur">
-      <svg width="32" height="36" viewBox="0 0 32 36" fill="none">
-        <path d="M4 4L4 28L12 20L17 32L22 30L17 18L28 18L4 4Z" fill="rgba(200,255,62,.5)" stroke="rgba(200,255,62,.3)" stroke-width="1.5"/>
-      </svg>
+
+    <!-- Play -->
+    <div class="fo fo-play"><div class="play-ico">▶</div></div>
+
+    <!-- Reactions -->
+    <div class="fo fo-reacts">
+      <div class="reacts">
+        <div class="react">❤️</div>
+        <div class="react">🔥</div>
+        <div class="react">👏</div>
+        <div class="react">⚡</div>
+      </div>
     </div>
+
+    <!-- Chart -->
+    <div class="fo fo-chart">
+      <div class="chart-mini">
+        <svg class="chart-svg" viewBox="0 0 104 44" fill="none" preserveAspectRatio="none">
+          <polyline points="0,40 16,32 28,34 40,20 52,22 64,12 76,14 88,4 104,6" stroke="rgba(200,255,62,0.7)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="0,40 16,32 28,34 40,20 52,22 64,12 76,14 88,4 104,6 104,44 0,44" fill="rgba(200,255,62,0.06)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="fo fo-notif">
+      <div class="notif">
+        <div class="notif-dot"></div>
+        <div class="notif-txt"><strong>+847 vues</strong> sur votre dernier post</div>
+      </div>
+    </div>
+
   </div>
 
   <div class="container">
@@ -416,14 +586,54 @@ body.ctr .h-ctr{display:block}
       </div>
     </div>
   </div>
-  <div class="scroll-hint"><span>Scroll</span><div class="s-line"></div></div>
+  <div class="sc-hint"><em>scroll</em><div class="sc-l"></div></div>
 </section>
 
 <!-- MARQUEE -->
 <div class="mq">
   <div class="mq-t">
-    <div class="mq-i">Personal branding<span class="mq-d"></span></div><div class="mq-i">Acquisition par le contenu<span class="mq-d"></span></div><div class="mq-i">Classes remplies<span class="mq-d"></span></div><div class="mq-i">Partenariats signés<span class="mq-d"></span></div><div class="mq-i">25M+ de vues<span class="mq-d"></span></div><div class="mq-i">LinkedIn · TikTok · Instagram<span class="mq-d"></span></div>
-    <div class="mq-i">Personal branding<span class="mq-d"></span></div><div class="mq-i">Acquisition par le contenu<span class="mq-d"></span></div><div class="mq-i">Classes remplies<span class="mq-d"></span></div><div class="mq-i">Partenariats signés<span class="mq-d"></span></div><div class="mq-i">25M+ de vues<span class="mq-d"></span></div><div class="mq-i">LinkedIn · TikTok · Instagram<span class="mq-d"></span></div>
+    <div class="mq-i">Personal branding<span class="mq-d"></span></div><div class="mq-i">Acquisition par le contenu<span class="mq-d"></span></div><div class="mq-i">Classes remplies<span class="mq-d"></span></div><div class="mq-i">Partenariats signés<span class="mq-d"></span></div><div class="mq-i">25M+ vues<span class="mq-d"></span></div><div class="mq-i">LinkedIn · TikTok · Instagram<span class="mq-d"></span></div><div class="mq-i">5 places / mois<span class="mq-d"></span></div>
+    <div class="mq-i">Personal branding<span class="mq-d"></span></div><div class="mq-i">Acquisition par le contenu<span class="mq-d"></span></div><div class="mq-i">Classes remplies<span class="mq-d"></span></div><div class="mq-i">Partenariats signés<span class="mq-d"></span></div><div class="mq-i">25M+ vues<span class="mq-d"></span></div><div class="mq-i">LinkedIn · TikTok · Instagram<span class="mq-d"></span></div><div class="mq-i">5 places / mois<span class="mq-d"></span></div>
+  </div>
+</div>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <div class="container">
+    <div class="proof-inner">
+      <div class="proof-item"><div class="proof-n" data-c="25" data-s="M+">0</div><div class="proof-l">Vues générées</div></div>
+      <div class="proof-item"><div class="proof-n" data-c="50" data-p="+">0</div><div class="proof-l">Entrepreneurs accompagnés</div></div>
+      <div class="proof-item"><div class="proof-n" data-c="5" data-p="+">0</div><div class="proof-l">Centres de formation</div></div>
+      <div class="proof-item"><div class="proof-n">5<span style="font-size:22px;color:var(--g)">/mois</span></div><div class="proof-l">Places sélectives</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- KINETIC TEXT -->
+<div class="kinetic-section">
+  <div class="kinetic-row">
+    <div class="kt-track">
+      <span class="kinetic-text filled">VISIBILITÉ<span class="kt-sep">⚡</span></span>
+      <span class="kinetic-text">CONTENU<span class="kt-sep">⚡</span></span>
+      <span class="kinetic-text filled">CONVERSION<span class="kt-sep">⚡</span></span>
+      <span class="kinetic-text">CLIENTS<span class="kt-sep">⚡</span></span>
+      <span class="kinetic-text filled">VISIBILITÉ<span class="kt-sep">⚡</span></span>
+      <span class="kinetic-text">CONTENU<span class="kt-sep">⚡</span></span>
+      <span class="kinetic-text filled">CONVERSION<span class="kt-sep">⚡</span></span>
+      <span class="kinetic-text">CLIENTS<span class="kt-sep">⚡</span></span>
+    </div>
+  </div>
+  <div class="kinetic-row">
+    <div class="kt-track rev">
+      <span class="kinetic-text">LINKEDIN<span class="kt-sep">·</span></span>
+      <span class="kinetic-text filled">TIKTOK<span class="kt-sep">·</span></span>
+      <span class="kinetic-text">INSTAGRAM<span class="kt-sep">·</span></span>
+      <span class="kinetic-text filled">PERSONAL BRANDING<span class="kt-sep">·</span></span>
+      <span class="kinetic-text">LINKEDIN<span class="kt-sep">·</span></span>
+      <span class="kinetic-text filled">TIKTOK<span class="kt-sep">·</span></span>
+      <span class="kinetic-text">INSTAGRAM<span class="kt-sep">·</span></span>
+      <span class="kinetic-text filled">PERSONAL BRANDING<span class="kt-sep">·</span></span>
+    </div>
   </div>
 </div>
 
@@ -435,12 +645,12 @@ body.ctr .h-ctr{display:block}
       <div class="st-c"><div class="st-top"></div><span class="st-tag">Visibilité</span><div class="st-n" data-c="25" data-s="M+">0</div><p class="st-l">De vues générées pour nos clients et nos propres projets.</p></div>
       <div class="st-c"><div class="st-top"></div><span class="st-tag">Entrepreneurs</span><div class="st-n" data-c="50" data-p="+">0</div><p class="st-l">Entrepreneurs conseillés ou accompagnés.</p></div>
       <div class="st-c"><div class="st-top"></div><span class="st-tag">Centres</span><div class="st-n" data-c="5" data-p="+">0</div><p class="st-l">Classes remplies et partenariats entreprises signés.</p></div>
-      <div class="st-c"><div class="st-top"></div><span class="st-tag">Sélectif</span><div class="st-n">5<span style="font-size:26px;color:var(--g)">/mois</span></div><p class="st-l">Places entrepreneur par mois. On sélectionne, on s'investit.</p></div>
+      <div class="st-c"><div class="st-top"></div><span class="st-tag">Sélectif</span><div class="st-n">5<span style="font-size:24px;color:var(--g)">/mois</span></div><p class="st-l">Places entrepreneur par mois. On sélectionne, on s'investit.</p></div>
     </div>
   </div>
 </section>
 
-<!-- MONDE ENTREPRENEURS -->
+<!-- MONDE ENT -->
 <div class="w-ent" id="entrepreneurs">
 <section class="s-b">
   <div class="container">
@@ -449,17 +659,17 @@ body.ctr .h-ctr{display:block}
       <div class="ba-col bc"><div class="ba-lbl">Aujourd'hui</div><ul class="ba-list"><li>Vous postez sans régularité, et sans savoir si ça sert à quelque chose.</li><li>Vous générez quelques likes, mais jamais de rendez-vous.</li><li>Vous voyez des concurrents moins bons que vous prendre toute la lumière.</li><li>Vous n'avez pas de message clair : on ne sait pas pourquoi vous choisir.</li></ul></div>
       <div class="ba-col ac-col"><div class="ba-lbl ac">Avec Netfluentia</div><ul class="ba-list"><li>Une ligne éditoriale claire et un rythme tenable, pensés pour vous.</li><li>Du contenu qui convertit en rendez-vous, pas juste en vanité.</li><li>Un positionnement qui vous rend incontournable sur votre sujet.</li><li>Une marque que les bons clients reconnaissent et viennent chercher.</li></ul></div>
     </div>
-    <div class="offer-h gr"><h3>Deux façons de travailler ensemble.</h3><p>Selon votre moment : accompagnement individuel sur-mesure, ou programme collectif pour passer à l'action.</p></div>
+    <div class="offer-h gr"><h3>Deux façons de travailler ensemble.</h3><p>Selon votre moment : accompagnement individuel sur-mesure, ou programme collectif.</p></div>
     <div class="cards gr">
-      <div class="card"><span class="c-lbl">Accompagnement individuel</span><h3 class="c-title">Personal branding</h3><p class="c-desc">On construit votre marque personnelle de A à Z sur les trois réseaux. Un suivi rapproché, taillé pour votre activité et vos objectifs.</p><span class="c-tag">⚡ 5 places par mois</span><div class="div"></div><div><p class="ll">Ce qu'on met en place</p><ul class="fl-list"><li>Stratégie de contenu sur LinkedIn, TikTok & Instagram, adaptée à votre cible.</li><li>Positionnement et ligne éditoriale : un message clair que les gens retiennent.</li><li>Copywriting et formats pensés pour convertir, pas seulement pour générer des likes.</li><li>Méthodologie complète pour publier régulièrement sans y passer vos journées.</li></ul></div></div>
-      <div class="card ft"><div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><span class="c-lbl">Programme collectif</span><span class="badge">Places limitées</span></div><h3 class="c-title">Le mois intensif</h3><p class="c-desc">Un mois en groupe restreint pour structurer votre acquisition et passer à l'action, avec un accès direct à Fahed.</p><div class="price-r"><span class="price">500€</span><span class="price-d">/ personne — 1 mois · 10 places max</span></div><div class="div"></div><div><p class="ll">Ce que comprend le programme</p><ul class="fl-list"><li>10 places maximum pour un suivi réel, jamais dilué.</li><li>3 visios collectives d'1h par semaine : stratégie, contenu, acquisition.</li><li>1h en solo chaque semaine, rien que pour votre situation.</li><li>Accès au groupe WhatsApp pour avancer ensemble entre les sessions.</li><li>Accès aux méthodes et ressources utilisées au quotidien.</li><li>Échange direct avec Fahed par message, du lundi au vendredi.</li></ul></div></div>
+      <div class="card"><span class="c-lbl">Accompagnement individuel</span><h3 class="c-title">Personal branding</h3><p class="c-desc">On construit votre marque personnelle de A à Z sur les trois réseaux. Un suivi rapproché, taillé pour votre activité et vos objectifs.</p><span class="c-tag">⚡ 5 places par mois</span><div class="dv"></div><div><p class="ll">Ce qu'on met en place</p><ul class="fl-list"><li>Stratégie de contenu sur LinkedIn, TikTok & Instagram, adaptée à votre cible.</li><li>Positionnement et ligne éditoriale : un message clair que les gens retiennent.</li><li>Copywriting et formats pensés pour convertir, pas seulement pour générer des likes.</li><li>Méthodologie complète pour publier régulièrement sans y passer vos journées.</li></ul></div></div>
+      <div class="card ft"><div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><span class="c-lbl">Programme collectif</span><span class="bdg">Places limitées</span></div><h3 class="c-title">Le mois intensif</h3><p class="c-desc">Un mois en groupe restreint pour structurer votre acquisition et passer à l'action, avec un accès direct à Fahed.</p><div class="price-r"><span class="price">500€</span><span class="price-d">/ personne — 1 mois · 10 places max</span></div><div class="dv"></div><div><p class="ll">Ce que comprend le programme</p><ul class="fl-list"><li>10 places maximum pour un suivi réel, jamais dilué.</li><li>3 visios collectives d'1h par semaine : stratégie, contenu, acquisition.</li><li>1h en solo chaque semaine, rien que pour votre situation.</li><li>Accès au groupe WhatsApp pour avancer ensemble entre les sessions.</li><li>Accès aux méthodes et ressources utilisées au quotidien.</li><li>Échange direct avec Fahed par message, du lundi au vendredi.</li></ul></div></div>
     </div>
     <div class="cta-b gr"><h3>Prêt à construire votre marque ?</h3><p>5 places entrepreneur par mois — on regarde votre situation ensemble.</p><a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-p">Réserver mon appel</a></div>
   </div>
 </section>
 </div>
 
-<!-- MONDE CENTRES -->
+<!-- MONDE CTR -->
 <div class="w-ctr" id="centres">
 <section class="s-b">
   <div class="container">
@@ -470,7 +680,7 @@ body.ctr .h-ctr{display:block}
     </div>
     <div class="offer-h gr"><h3>L'acquisition par le contenu, clé en main.</h3><p>On s'installe avec vos équipes, on construit votre machine de contenu, et on remplit vos sessions.</p></div>
     <div class="cards one gr">
-      <div class="card ft"><span class="c-lbl">Accompagnement complet</span><h3 class="c-title">Acquisition par le contenu</h3><p class="c-desc">On prend en charge votre visibilité et votre recrutement. Étudiants et entreprises : on attire les deux, en continu.</p><span class="c-tag">⚡ Pour organismes de formation</span><div class="div"></div><div><p class="ll">Ce qu'on met en place</p><ul class="fl-list"><li>Production de contenu vidéo : on rend votre centre visible et crédible.</li><li>Acquisition double cible : campagnes pour les étudiants ET les entreprises.</li><li>Recrutement étudiants : on transforme l'audience en candidatures.</li><li>Recrutement entreprises : on génère des partenariats pour l'alternance.</li><li>Machine de contenu installée : un flux régulier qui tourne sur la durée.</li><li>On bosse avec vos équipes : on s'installe, on exécute, vous montez en compétence.</li></ul></div></div>
+      <div class="card ft"><span class="c-lbl">Accompagnement complet</span><h3 class="c-title">Acquisition par le contenu</h3><p class="c-desc">On prend en charge votre visibilité et votre recrutement. Étudiants et entreprises : on attire les deux, en continu.</p><span class="c-tag">⚡ Pour organismes de formation</span><div class="dv"></div><div><p class="ll">Ce qu'on met en place</p><ul class="fl-list"><li>Production de contenu vidéo : on rend votre centre visible et crédible.</li><li>Acquisition double cible : campagnes pour les étudiants ET les entreprises.</li><li>Recrutement étudiants : on transforme l'audience en candidatures.</li><li>Recrutement entreprises : on génère des partenariats pour l'alternance.</li><li>Machine de contenu installée : un flux régulier qui tourne sur la durée.</li><li>On bosse avec vos équipes : on s'installe, on exécute, vous montez en compétence.</li></ul></div></div>
     </div>
     <div class="cta-b gr"><h3>Prêt à remplir vos sessions ?</h3><p>On regarde votre centre et on construit un plan d'acquisition concret.</p><a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-p">Réserver mon appel</a></div>
   </div>
@@ -478,21 +688,19 @@ body.ctr .h-ctr{display:block}
 </div>
 
 <!-- FAHED 3D -->
-<section class="fahed-s" id="fahed">
+<section class="s-b" id="fahed">
   <div class="container">
     <div class="fahed-grid">
       <div class="photo-wrap gr">
-        <div class="photo-tilt" id="photoTilt" data-tilt data-tilt-max="14" data-tilt-speed="600" data-tilt-glare="true" data-tilt-max-glare="0.1" data-tilt-perspective="900">
+        <div class="photo-tilt" id="pTilt" data-tilt data-tilt-max="13" data-tilt-speed="500" data-tilt-glare="true" data-tilt-max-glare="0.08" data-tilt-perspective="900">
           <img src="assets/fahed.jpg" alt="Fahed Chahbani — Fondateur Netfluentia"/>
           <div class="photo-overlay"></div>
-          <div class="photo-glare"></div>
           <div class="photo-name"><h3>Fahed Chahbani</h3><span>Fondateur, Netfluentia</span></div>
           <div class="ph-badge t"><span class="pn">25M+</span><span class="pl">vues générées</span></div>
           <div class="ph-badge m"><span class="pn">5 ⚡</span><span class="pl">places / mois</span></div>
-          <div class="photo-corner tl"></div>
-          <div class="photo-corner br"></div>
+          <div class="ph-cr1"></div><div class="ph-cr2"></div>
         </div>
-        <div class="photo-glow-ring"></div>
+        <div class="photo-glow"></div>
       </div>
       <div class="fahed-text gr">
         <span class="tag s-ey">En transparence</span>
@@ -500,11 +708,11 @@ body.ctr .h-ctr{display:block}
         <p>Je ne vends pas du rêve, je construis des systèmes. Mon job : transformer votre visibilité en rendez-vous, en clients, en classes remplies — pas en likes qui ne paient pas les factures.</p>
         <p>Tout est clair dès le départ : ce qu'on fait, pourquoi on le fait, et ce que ça doit produire. Vous savez toujours où on en est.</p>
         <p>Et je ne prends pas tout le monde. Je sélectionne 5 entrepreneurs par mois pour pouvoir m'investir réellement dans chaque accompagnement.</p>
-        <div class="fahed-sig">Fahed Chahbani — Fondateur, Netfluentia</div>
+        <div class="f-sig">Fahed Chahbani — Fondateur, Netfluentia</div>
         <div class="prs">
-          <div class="pr"><span class="pr-n">01</span><div class="pr-c"><h4>Transparence totale</h4><p>Objectifs, méthode, résultats attendus : tout est posé dès le premier appel. Aucune zone d'ombre.</p></div></div>
-          <div class="pr"><span class="pr-n">02</span><div class="pr-c"><h4>Le résultat avant la vanité</h4><p>On ne court pas après les vues pour les vues. Chaque contenu a un rôle : attirer, prouver, convertir.</p></div></div>
-          <div class="pr"><span class="pr-n">03</span><div class="pr-c"><h4>On bosse ensemble, pas à votre place</h4><p>Je m'installe avec vous, on exécute côte à côte. Vous repartez avec une vraie compétence.</p></div></div>
+          <div class="pr"><span class="pr-n">01</span><div class="pr-c"><h4>Transparence totale</h4><p>Objectifs, méthode, résultats attendus : tout est posé dès le premier appel.</p></div></div>
+          <div class="pr"><span class="pr-n">02</span><div class="pr-c"><h4>Le résultat avant la vanité</h4><p>Chaque contenu a un rôle : attirer, prouver, convertir.</p></div></div>
+          <div class="pr"><span class="pr-n">03</span><div class="pr-c"><h4>On bosse ensemble, pas à votre place</h4><p>Je m'installe avec vous. Vous repartez avec une vraie compétence.</p></div></div>
           <div class="pr"><span class="pr-n">04</span><div class="pr-c"><h4>Sélection assumée</h4><p>5 places entrepreneur par mois. Je choisis les profils avec qui je peux vraiment faire la différence.</p></div></div>
         </div>
       </div>
@@ -518,12 +726,12 @@ body.ctr .h-ctr{display:block}
     <div class="faq-grid">
       <div class="gr"><span class="tag s-ey">Questions fréquentes</span><h2 class="s-t" style="margin-top:20px">Ce que vous voulez savoir.</h2></div>
       <div class="faq-list gr">
-        <div class="faq-it"><button class="faq-q" aria-expanded="false">Je suis entrepreneur : par où je commence ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">Par un appel de 30 minutes. On regarde votre activité, votre cible et vos objectifs, puis on décide ensemble du bon format : accompagnement individuel (5 places/mois) ou programme collectif à 500€. Aucun engagement à réserver l'appel.</div></div></div>
-        <div class="faq-it"><button class="faq-q" aria-expanded="false">Je dirige un centre de formation : comment ça se passe ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">On part de votre situation : taux de remplissage, présence en ligne, besoins en partenariats. On construit ensuite une machine de contenu qui attire étudiants et entreprises, et on l'installe avec vos équipes.</div></div></div>
-        <div class="faq-it"><button class="faq-q" aria-expanded="false">Pourquoi seulement 5 places entrepreneur par mois ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">Parce qu'un vrai accompagnement demande du temps. En limitant à 5 entrepreneurs par mois, je m'implique réellement dans chaque projet au lieu de diluer mon attention. C'est la différence entre un suivi sérieux et un service de masse.</div></div></div>
-        <div class="faq-it"><button class="faq-q" aria-expanded="false">Le programme de groupe, ça comprend quoi exactement ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">500€ par personne, 10 places maximum, sur 1 mois. 3 visios collectives d'1h par semaine, 1h en solo chaque semaine, accès au groupe WhatsApp, aux méthodes, et échange direct avec moi du lundi au vendredi.</div></div></div>
-        <div class="faq-it"><button class="faq-q" aria-expanded="false">Combien coûtent les accompagnements sur-mesure ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">Ça dépend de votre situation. On en parle pendant l'appel, en toute transparence, et vous repartez avec une proposition claire. Aucun engagement.</div></div></div>
-        <div class="faq-it"><button class="faq-q" aria-expanded="false">En combien de temps voit-on des résultats ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">La visibilité peut bouger vite, mais la transformation en clients ou en inscriptions est un travail de fond. On fixe dès le départ des objectifs clairs et mesurables pour que vous sachiez exactement où on va.</div></div></div>
+        <div class="faq-it"><button class="faq-q">Je suis entrepreneur : par où je commence ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">Par un appel de 30 minutes. On regarde votre activité, votre cible et vos objectifs, puis on décide ensemble du bon format. Aucun engagement à réserver l'appel.</div></div></div>
+        <div class="faq-it"><button class="faq-q">Je dirige un centre de formation : comment ça se passe ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">On part de votre situation : taux de remplissage, présence en ligne, besoins en partenariats. On construit ensuite une machine de contenu qui attire étudiants et entreprises, et on l'installe avec vos équipes.</div></div></div>
+        <div class="faq-it"><button class="faq-q">Pourquoi seulement 5 places entrepreneur par mois ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">Parce qu'un vrai accompagnement demande du temps. En limitant à 5 entrepreneurs par mois, je m'implique réellement dans chaque projet. C'est la différence entre un suivi sérieux et un service de masse.</div></div></div>
+        <div class="faq-it"><button class="faq-q">Le programme de groupe, ça comprend quoi exactement ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">500€ par personne, 10 places maximum, sur 1 mois. 3 visios collectives d'1h par semaine, 1h en solo chaque semaine, accès au groupe WhatsApp, aux méthodes, et échange direct avec moi du lundi au vendredi.</div></div></div>
+        <div class="faq-it"><button class="faq-q">Combien coûtent les accompagnements sur-mesure ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">Ça dépend de votre situation. On en parle pendant l'appel, en toute transparence, et vous repartez avec une proposition claire. Aucun engagement.</div></div></div>
+        <div class="faq-it"><button class="faq-q">En combien de temps voit-on des résultats ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">La visibilité peut bouger vite, mais la transformation en clients est un travail de fond. On fixe dès le départ des objectifs clairs et mesurables pour que vous sachiez exactement où on va.</div></div></div>
       </div>
     </div>
   </div>
@@ -545,9 +753,11 @@ body.ctr .h-ctr{display:block}
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <div><div class="ft-logo">netfluentia<span style="color:var(--a)">⚡</span></div><div class="ft-tag-line">L'agence qui transforme l'attention en clients.</div></div>
-    <ul class="ft-links"><li><a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener">Réserver un appel</a></li><li><a href="#entrepreneurs">Entrepreneurs</a></li><li><a href="#centres">Centres de formation</a></li><li><a href="#faq">FAQ</a></li></ul>
-    <div class="ft-copy">© 2026 Netfluentia</div>
+    <div class="ft-row">
+      <div><div class="ft-logo">netfluentia<span style="color:var(--a)">⚡</span></div><div class="ft-sub">L'agence qui transforme l'attention en clients.</div></div>
+      <ul class="ft-links"><li><a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener">Réserver un appel</a></li><li><a href="#entrepreneurs">Entrepreneurs</a></li><li><a href="#centres">Centres</a></li><li><a href="#faq">FAQ</a></li></ul>
+      <div class="ft-copy">© 2026 Netfluentia</div>
+    </div>
   </div>
 </footer>
 </div>
@@ -555,32 +765,52 @@ body.ctr .h-ctr{display:block}
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-/* PARTICLES */
-const cv=document.getElementById('canvas'),ctx=cv.getContext('2d');
+/* ═══ LOADER ═══ */
+const lf=document.getElementById('lf'),lp=document.getElementById('lp');
+const ll1=document.getElementById('ll1'),ll2=document.getElementById('ll2');
+let prog=0;
+gsap.to(ll1,{y:'0%',duration:.6,ease:'power3.out',delay:.2});
+gsap.to(ll2,{y:'0%',duration:.6,ease:'back.out(2)',delay:.4});
+const li=setInterval(()=>{prog+=Math.random()*12+4;if(prog>=100){prog=100;clearInterval(li);setTimeout(()=>{gsap.to('#loader',{opacity:0,duration:.5,ease:'power2.in',onComplete:()=>{document.getElementById('loader').style.display='none';startHero()}})},200)}lf.style.width=prog+'%';lp.textContent=Math.round(prog)+'%'},80);
+
+/* ═══ PARTICLES ═══ */
+const cv=document.getElementById('bg-canvas'),ctx=cv.getContext('2d');
 let W,H,pts=[];
-function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight}
-rsz();window.addEventListener('resize',rsz);
-class P{
-  constructor(){this.r()}
-  r(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.28;this.vy=(Math.random()-.5)*.28;this.s=Math.random()*1.4+.4;this.a=Math.random()*.35+.08;this.col=Math.random()>.72?'200,255,62':'200,200,200'}
-  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fillStyle=`rgba(${this.col},${this.a})`;ctx.fill()}
-  upd(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.r()}
-}
-for(let i=0;i<110;i++)pts.push(new P());
-function lines(){for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<110){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(200,255,62,${.035*(1-d/110)})`;ctx.lineWidth=.5;ctx.stroke()}}}
-(function loop(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.upd();p.draw()});lines();requestAnimationFrame(loop)})();
+function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight}rsz();window.addEventListener('resize',rsz);
+class P{constructor(){this.r()}r(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.25;this.vy=(Math.random()-.5)*.25;this.s=Math.random()*1.3+.3;this.a=Math.random()*.3+.06;this.col=Math.random()>.7?'200,255,62':'190,190,190'}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fillStyle=`rgba(${this.col},${this.a})`;ctx.fill()}upd(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.r()}}
+for(let i=0;i<130;i++)pts.push(new P());
+function dLines(){for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(200,255,62,${.032*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke()}}}
+(function loop(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.upd();p.draw()});dLines();requestAnimationFrame(loop)})();
 
-/* CURSOR */
-const cur=document.getElementById('cur'),cr=document.getElementById('cr'),cd=document.getElementById('cd');
+/* ═══ CURSOR ═══ */
+const curEl=document.getElementById('cur'),cr=document.getElementById('cr'),cd=document.getElementById('cd');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-(function lp(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(lp)})();
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;curEl.style.left=mx+'px';curEl.style.top=my+'px'});
+(function lp2(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(lp2)})();
 document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'))});
+document.addEventListener('mousedown',()=>document.body.classList.add('click'));
+document.addEventListener('mouseup',()=>document.body.classList.remove('click'));
 
-/* NAV */
+/* ═══ NAV ═══ */
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s',scrollY>50),{passive:true});
 
-/* TOGGLE */
+/* ═══ HERO INTRO ═══ */
+function startHero(){
+  gsap.timeline({delay:.1})
+    .fromTo('.hero-inner',{opacity:0,y:56},{opacity:1,y:0,duration:1,ease:'power3.out'})
+    .fromTo('.fo-phone',{opacity:0,x:70,rotate:8},{opacity:1,x:0,rotate:0,duration:1.1,ease:'power2.out'},'<.3')
+    .fromTo('.fo-tiktok',{opacity:0,x:-50},{opacity:1,x:0,duration:.9,ease:'power2.out'},'<.1')
+    .fromTo('.fo-bolt1',{opacity:0,scale:.2},{opacity:1,scale:1,duration:.8,ease:'back.out(3)'},'<.2')
+    .fromTo('.fo-bolt2',{opacity:0,scale:.2},{opacity:.4,scale:1,duration:.6,ease:'back.out(2)'},'<.1')
+    .fromTo('.fo-stat1',{opacity:0,y:24},{opacity:1,y:0,duration:.6,ease:'power2.out'},'<.1')
+    .fromTo('.fo-stat2',{opacity:0,y:-24},{opacity:1,y:0,duration:.6,ease:'power2.out'},'<.15')
+    .fromTo('.fo-insta',{opacity:0,x:40},{opacity:1,x:0,duration:.7,ease:'power2.out'},'<.1')
+    .fromTo('.fo-linkedin',{opacity:0,y:30},{opacity:1,y:0,duration:.7,ease:'power2.out'},'<.1')
+    .fromTo('.fo-tags,.fo-cam,.fo-at,.fo-eye,.fo-cur,.fo-play,.fo-reacts,.fo-chart,.fo-notif',{opacity:0},{opacity:1,duration:.5,stagger:.06},'<.2')
+    .fromTo('.sc-hint',{opacity:0},{opacity:1,duration:.5},'<.3');
+}
+
+/* ═══ TOGGLE ═══ */
 document.querySelectorAll('.tog-b').forEach(b=>{
   b.addEventListener('click',()=>{
     document.querySelectorAll('.tog-b').forEach(x=>x.classList.remove('on'));
@@ -590,37 +820,33 @@ document.querySelectorAll('.tog-b').forEach(b=>{
   });
 });
 
-/* HERO INTRO */
-gsap.timeline({delay:.15})
-  .fromTo('.hero-inner',{opacity:0,y:50},{opacity:1,y:0,duration:1,ease:'power3.out'})
-  .fromTo('.fl-phone',{opacity:0,x:60},{opacity:1,x:0,duration:1,ease:'power2.out'},'<.3')
-  .fromTo('.fl-net',{opacity:0,x:-40},{opacity:.85,x:0,duration:.9,ease:'power2.out'},'<.1')
-  .fromTo('.fl-bolt',{opacity:0,scale:.3},{opacity:1,scale:1,duration:.7,ease:'back.out(2.5)'},'<.2')
-  .fromTo('.fl-b1',{opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:'power2.out'},'<.1')
-  .fromTo('.fl-b2',{opacity:0,y:-20},{opacity:1,y:0,duration:.6,ease:'power2.out'},'<.15')
-  .fromTo('.fl-at,.fl-eye,.fl-cur',{opacity:0},{opacity:1,duration:.4,stagger:.08},'<.2')
-  .fromTo('.scroll-hint',{opacity:0},{opacity:1,duration:.5},'<.3');
-
-/* MOUSE PARALLAX */
+/* ═══ MOUSE PARALLAX ═══ */
 document.addEventListener('mousemove',e=>{
-  const x=(e.clientX/W-.5)*26,y=(e.clientY/H-.5)*18;
-  gsap.to('.fl-phone',{x:x*.9,y:y*.7,duration:1.4,ease:'power1.out'});
-  gsap.to('.fl-net',{x:-x*.6,y:-y*.5,duration:1.6,ease:'power1.out'});
-  gsap.to('.fl-bolt',{x:x*.5,y:y*.4,duration:1.2,ease:'power1.out'});
-  gsap.to('.fl-b1',{x:-x*.4,y:y*.6,duration:1.3,ease:'power1.out'});
-  gsap.to('.fl-b2',{x:x*.7,y:-y*.5,duration:1.5,ease:'power1.out'});
-  gsap.to('.fl-at',{x:-x*.25,y:y*.3,duration:1.8,ease:'power1.out'});
-  gsap.to('.fl-eye',{x:x*.3,y:-y*.25,duration:1.4,ease:'power1.out'});
-  gsap.to('.orb1',{x:x*.1,y:y*.08,duration:2,ease:'power1.out'});
-  gsap.to('.orb2',{x:-x*.15,y:-y*.1,duration:2.5,ease:'power1.out'});
+  const x=(e.clientX/W-.5)*28,y=(e.clientY/H-.5)*20;
+  gsap.to('.fo-phone',{x:x*.95,y:y*.75,duration:1.5,ease:'power1.out'});
+  gsap.to('.fo-tiktok',{x:-x*.7,y:-y*.55,duration:1.7,ease:'power1.out'});
+  gsap.to('.fo-insta',{x:x*.6,y:-y*.4,duration:1.4,ease:'power1.out'});
+  gsap.to('.fo-linkedin',{x:-x*.4,y:y*.5,duration:1.6,ease:'power1.out'});
+  gsap.to('.fo-bolt1',{x:x*.5,y:y*.4,duration:1.2,ease:'power1.out'});
+  gsap.to('.fo-bolt2',{x:-x*.3,y:-y*.3,duration:1,ease:'power1.out'});
+  gsap.to('.fo-stat1',{x:-x*.35,y:y*.6,duration:1.3,ease:'power1.out'});
+  gsap.to('.fo-stat2',{x:x*.65,y:-y*.45,duration:1.5,ease:'power1.out'});
+  gsap.to('.fo-at',{x:-x*.22,y:y*.28,duration:1.8,ease:'power1.out'});
+  gsap.to('.fo-eye',{x:x*.28,y:-y*.22,duration:1.4,ease:'power1.out'});
+  gsap.to('.fo-chart',{x:x*.4,y:y*.35,duration:1.1,ease:'power1.out'});
+  gsap.to('.fo-notif',{x:-x*.5,y:y*.38,duration:1.3,ease:'power1.out'});
+  gsap.to('.fo-reacts',{x:x*.45,y:-y*.35,duration:1.2,ease:'power1.out'});
+  gsap.to('.o1',{x:x*.08,y:y*.06,duration:2.5,ease:'power1.out'});
+  gsap.to('.o2',{x:-x*.12,y:-y*.09,duration:3,ease:'power1.out'});
 });
 
-/* SCROLL REVEALS */
+/* ═══ SCROLL REVEALS ═══ */
 document.querySelectorAll('.gr').forEach((el,i)=>{
-  gsap.fromTo(el,{opacity:0,y:44},{opacity:1,y:0,duration:.85,ease:'power2.out',delay:(i%3)*.05,scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+  gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:.8,ease:'power2.out',delay:(i%3)*.05,
+    scrollTrigger:{trigger:el,start:'top 88%',once:true,onEnter:()=>el.classList.add('done')}});
 });
 
-/* COUNTERS */
+/* ═══ COUNTERS ═══ */
 document.querySelectorAll('[data-c]').forEach(el=>{
   ScrollTrigger.create({trigger:el,start:'top 85%',once:true,onEnter:()=>{
     const t=+el.dataset.c,s=el.dataset.s||'',p=el.dataset.p||'';
@@ -628,24 +854,23 @@ document.querySelectorAll('[data-c]').forEach(el=>{
   }});
 });
 
-/* FAQ */
+/* ═══ FAQ ═══ */
 document.querySelectorAll('.faq-q').forEach(btn=>{
   btn.addEventListener('click',()=>{
     const it=btn.parentElement,ans=it.querySelector('.faq-ans'),op=it.classList.contains('op');
-    document.querySelectorAll('.faq-it').forEach(i=>{i.classList.remove('op');i.querySelector('.faq-ans').style.maxHeight=null;i.querySelector('.faq-q').setAttribute('aria-expanded','false')});
-    if(!op){it.classList.add('op');ans.style.maxHeight=ans.scrollHeight+'px';btn.setAttribute('aria-expanded','true')}
+    document.querySelectorAll('.faq-it').forEach(i=>{i.classList.remove('op');i.querySelector('.faq-ans').style.maxHeight=null});
+    if(!op){it.classList.add('op');ans.style.maxHeight=ans.scrollHeight+'px'}
   });
 });
 
-/* PHOTO TILT — eye tracking on mobile fallback */
-const pt=document.getElementById('photoTilt');
-if(pt&&window.DeviceOrientationEvent){
-  window.addEventListener('deviceorientation',e=>{
-    const rx=((e.beta||0)-45)/45*10;
-    const ry=(e.gamma||0)/90*10;
-    pt.style.transform=`perspective(900px) rotateX(${Math.max(-14,Math.min(14,rx))}deg) rotateY(${Math.max(-14,Math.min(14,ry))}deg)`;
-  });
-}
+/* ═══ PHONE BARS ANIMATION ═══ */
+function animBars(){document.querySelectorAll('.ph-bar,.ph-bar.v1,.ph-bar.v2,.ph-bar.v3,.ph-bar.v4,.ph-bar.v5').forEach(b=>{const h=['35%','60%','42%','88%','56%','30%','75%'][Math.floor(Math.random()*7)];b.style.transition='height .8s ease';b.style.height=h})}
+setInterval(animBars,2000);
+
+/* ═══ NOTIFICATION CYCLE ═══ */
+const msgs=['+847 vues sur votre dernier post','Nouveau message de votre client','📈 +2 341 impressions','🔥 Viral : +15K vues en 2h','✅ Rendez-vous confirmé'];
+let mi=0;
+setInterval(()=>{mi=(mi+1)%msgs.length;const txt=document.querySelector('.notif-txt');if(txt){gsap.to(txt,{opacity:0,y:-6,duration:.2,onComplete:()=>{txt.innerHTML=`<strong>${msgs[mi].split(' ')[0]}</strong> ${msgs[mi].slice(msgs[mi].indexOf(' ')+1)}`;gsap.to(txt,{opacity:1,y:0,duration:.3})}})}},3000);
 </script>
 </body>
 </html>
