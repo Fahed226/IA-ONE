@@ -1,876 +1,870 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Netfluentia — L'attention devient des clients</title>
-<meta name="description" content="Agence de communication. 25M+ vues générées. On transforme l'attention en clients."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netfluentia — Agence de Communication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#060606;--s:#0d0d0d;--b:#181818;--b2:#242424;--w:#f0f0eb;--g:#585858;--g2:#2c2c2c;--a:#c8ff3e;--a2:#3effc8;--r:12px;--rl:20px}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--w);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none}
-h1,h2,h3,h4{font-family:'Archivo Black',sans-serif;line-height:1.02}
-a{color:inherit;text-decoration:none}
+:root{
+  --black:#080808;
+  --white:#F2F2F0;
+  --red:#E8001C;
+  --red2:#FF2D44;
+  --gray:#1A1A1A;
+  --gray2:#2E2E2E;
+  --muted:#888;
+  --ff-display:'Bebas Neue',sans-serif;
+  --ff-mono:'Space Mono',monospace;
+  --ff-body:'Inter',sans-serif;
+}
+html{scroll-behavior:auto}
+body{background:var(--black);color:var(--white);font-family:var(--ff-body);overflow-x:hidden;cursor:none}
+::selection{background:var(--red);color:var(--white)}
 
-/* ═══ LOADER ═══ */
-#loader{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px}
-.loader-logo{font-family:'Archivo Black',sans-serif;font-size:32px;letter-spacing:-.5px;overflow:hidden}
-.loader-logo span{display:inline-block;transform:translateY(100%)}
-.loader-bolt{color:var(--a);display:inline-block;transform:translateY(100%)}
-.loader-bar{width:200px;height:1px;background:var(--b2);overflow:hidden;border-radius:1px}
-.loader-fill{height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--a2));border-radius:1px}
-.loader-pct{font-size:11px;letter-spacing:3px;color:var(--g)}
+/* ─── CURSOR ─── */
+#cur-dot{position:fixed;width:8px;height:8px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+#cur-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(242,242,240,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,opacity .3s}
+body.hover-active #cur-dot{width:0;height:0}
+body.hover-active #cur-ring{width:64px;height:64px;border-color:var(--red);opacity:.7}
 
-/* ═══ CURSOR ═══ */
-.cur{position:fixed;pointer-events:none;z-index:9999}
-#cd{width:7px;height:7px;background:var(--a);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .2s,height .2s}
-#cr{width:38px;height:38px;border:1px solid rgba(200,255,62,.3);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .35s cubic-bezier(.23,1,.32,1),height .35s cubic-bezier(.23,1,.32,1),border-color .3s}
-body.hov #cr{width:56px;height:56px;border-color:rgba(200,255,62,.6)}
-body.hov #cd{width:4px;height:4px}
-body.click #cd{width:14px;height:14px;background:white}
+/* ─── LOADER ─── */
+#loader{position:fixed;inset:0;background:var(--black);z-index:9000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:40px}
+.loader-logo{font-family:var(--ff-display);font-size:clamp(48px,8vw,120px);letter-spacing:.02em;overflow:hidden;display:flex}
+.loader-logo span{display:inline-block;transform:translateY(110%);opacity:0}
+.loader-bar-wrap{width:240px;height:1px;background:var(--gray2);overflow:hidden}
+.loader-bar{height:100%;width:0;background:var(--red)}
+.loader-pct{font-family:var(--ff-mono);font-size:11px;letter-spacing:.2em;color:var(--muted);text-align:center;margin-top:10px}
 
-/* ═══ CANVAS BG ═══ */
-#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
-.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 100% 60% at 50% 0%,black,transparent)}
-body::after{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:800;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
+.nav-logo{font-family:var(--ff-display);font-size:22px;letter-spacing:.04em;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{color:var(--white);text-decoration:none;font-size:12px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;opacity:.6;transition:opacity .3s}
+.nav-links a:hover{opacity:1}
+.nav-cta{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:10px 24px;border:1px solid rgba(242,242,240,.3);color:var(--white);text-decoration:none;border-radius:2px;transition:background .3s,border-color .3s,color .3s}
+.nav-cta:hover{background:var(--red);border-color:var(--red);color:var(--white)}
 
-/* ═══ LAYOUT ═══ */
-.wrap{position:relative;z-index:2}
-.container{max-width:1160px;margin:0 auto;padding:0 32px}
-.tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--a);padding:7px 16px;border-radius:999px;border:1px solid rgba(200,255,62,.16);background:rgba(200,255,62,.03)}
+/* ─── HERO ─── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:0 48px 80px;overflow:hidden}
+.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(242,242,240,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(242,242,240,.03) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
+.hero-noise{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
 
-/* ═══ BTN ═══ */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 32px;border-radius:999px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .3s cubic-bezier(.23,1,.32,1);white-space:nowrap;position:relative;overflow:hidden}
-.btn::after{content:'';position:absolute;top:-50%;left:-80%;width:50%;height:200%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.15),transparent);transform:skewX(-20deg);transition:left .6s}
-.btn:hover::after{left:130%}
-.btn-p{background:var(--a);color:#060606}.btn-p:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(200,255,62,.28)}
-.btn-g{background:transparent;color:var(--w);border:1px solid var(--b2)}.btn-g:hover{border-color:var(--g);transform:translateY(-2px)}
+/* floating objects */
+.fobj{position:absolute;pointer-events:none;will-change:transform}
+.fb-bubble{top:12%;left:8%;opacity:0}
+.fb-bubble svg{width:80px;fill:none;stroke:var(--white);stroke-width:1.5;animation:floatA 6s ease-in-out infinite}
+.fb-at{top:20%;right:12%;opacity:0}
+.fb-at span{font-family:var(--ff-display);font-size:120px;color:transparent;-webkit-text-stroke:1px var(--red);line-height:1;animation:floatB 7s ease-in-out infinite;display:block}
+.fb-play{top:55%;left:5%;opacity:0}
+.fb-play svg{width:64px;fill:none;stroke:var(--white);stroke-width:1.5;animation:floatC 5.5s ease-in-out infinite}
+.fb-hash{bottom:30%;right:8%;opacity:0}
+.fb-hash span{font-family:var(--ff-display);font-size:88px;color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.3);line-height:1;animation:floatA 8s ease-in-out infinite 1s;display:block}
+.fb-notif{top:30%;left:14%;opacity:0}
+.fb-notif-inner{background:var(--gray);border:1px solid var(--gray2);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;width:220px;animation:floatB 6.5s ease-in-out infinite .5s}
+.fn-icon{width:32px;height:32px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fn-text{font-size:11px;line-height:1.4}
+.fn-text strong{display:block;font-size:12px;font-weight:600;color:var(--white)}
+.fn-text span{color:var(--muted)}
+.fb-stat{bottom:40%;left:18%;opacity:0}
+.fb-stat-inner{border:1px solid var(--gray2);border-radius:8px;padding:16px 20px;background:rgba(26,26,26,.8);backdrop-filter:blur(12px);animation:floatC 7.5s ease-in-out infinite .8s}
+.fs-num{font-family:var(--ff-display);font-size:36px;line-height:1;color:var(--red)}
+.fs-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.fb-eye{top:68%;right:18%;opacity:0}
+.fb-eye svg{width:52px;fill:none;stroke:var(--muted);stroke-width:1.5;animation:floatA 9s ease-in-out infinite 2s}
+.fb-cursor{top:48%;right:28%;opacity:0}
+.fb-cursor svg{width:40px;fill:var(--white);filter:drop-shadow(0 0 12px rgba(232,0,28,.6));animation:floatB 5s ease-in-out infinite 1.5s}
+.fb-chart{bottom:22%;right:22%;opacity:0}
+.fb-chart svg{width:80px;fill:none;animation:floatC 6s ease-in-out infinite .3s}
+.fb-trend{top:80%;left:36%;opacity:0}
+.fb-trend svg{width:48px;fill:none;stroke:var(--red);stroke-width:2;animation:floatA 5.8s ease-in-out infinite 2.5s}
+.fb-heart{top:18%;left:48%;opacity:0}
+.fb-heart svg{width:44px;fill:transparent;stroke:var(--red);stroke-width:1.5;animation:heartbeat 2s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(232,0,28,.5))}
+.fb-bolt{bottom:50%;right:5%;opacity:0}
+.fb-bolt svg{width:40px;fill:var(--red);opacity:.8;animation:floatB 4.5s ease-in-out infinite 1s;filter:drop-shadow(0 0 16px rgba(232,0,28,.8))}
+.fb-share{top:42%;left:32%;opacity:0}
+.fb-share svg{width:36px;fill:none;stroke:rgba(242,242,240,.4);stroke-width:1.5;animation:floatC 7s ease-in-out infinite .6s}
+.fb-react{bottom:28%;left:42%;opacity:0}
+.fb-react-inner{display:flex;gap:6px;background:rgba(26,26,26,.9);border:1px solid var(--gray2);border-radius:32px;padding:8px 14px;animation:floatA 6.8s ease-in-out infinite 1.8s}
+.fr-item{font-size:18px;position:relative}
+.fr-item::after{content:attr(data-c);position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-family:var(--ff-mono);color:var(--red);white-space:nowrap}
+.fb-cam{top:35%;right:5%;opacity:0}
+.fb-cam svg{width:56px;fill:none;stroke:rgba(242,242,240,.25);stroke-width:1.5;animation:floatB 8s ease-in-out infinite .4s}
+.fb-tiktok{top:60%;left:26%;opacity:0}
+.fb-tiktok span{font-family:var(--ff-display);font-size:56px;color:transparent;-webkit-text-stroke:1px rgba(232,0,28,.5);animation:floatC 6.2s ease-in-out infinite 1.2s;display:block}
+.fb-wifi{top:25%;left:38%;opacity:0}
+.fb-wifi svg{width:48px;fill:none;stroke:rgba(242,242,240,.2);stroke-width:1.5;animation:floatA 7.8s ease-in-out infinite .9s}
 
-/* ═══ NAV ═══ */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 0;transition:all .4s}
-nav.s{background:rgba(6,6,6,.88);backdrop-filter:blur(28px);border-bottom:1px solid var(--b);padding:14px 0}
-nav .c2{display:flex;align-items:center;justify-content:space-between}
-.n-logo{font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:-.5px;display:flex;align-items:center}
-.n-bolt{color:var(--a)}
-.n-links{display:flex;gap:36px;list-style:none}
-.n-links a{font-size:13px;font-weight:500;color:var(--g);transition:color .2s}.n-links a:hover{color:var(--w)}
+@keyframes floatA{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(2deg)}}
+@keyframes floatB{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(-2deg)}}
+@keyframes floatC{0%,100%{transform:translateY(0) rotate(0deg)}33%{transform:translateY(-10px) rotate(1deg)}66%{transform:translateY(-20px) rotate(-1deg)}}
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.25)}28%{transform:scale(1)}}
 
-/* ═══ TOGGLE ═══ */
-.tog-w{display:flex;justify-content:center;margin-bottom:72px}
-.tog{display:flex;background:rgba(255,255,255,.03);border:1px solid var(--b);border-radius:999px;padding:4px;gap:4px}
-.tog-b{padding:11px 26px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--g);transition:all .25s;font-family:'Inter',sans-serif}
-.tog-b.on{background:var(--w);color:#060606}
+.hero-content{position:relative;z-index:2;max-width:1200px}
+.hero-eyebrow{font-family:var(--ff-mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--red)}
+.hero-title{font-family:var(--ff-display);font-size:clamp(72px,11vw,180px);line-height:.9;letter-spacing:-.01em}
+.hero-title .line{display:block;overflow:hidden}
+.hero-title .word{display:inline-block;transform:translateY(105%)}
+.hero-title .accent{color:var(--red)}
+.hero-title .outline{color:transparent;-webkit-text-stroke:1px var(--white)}
+.hero-sub{max-width:480px;margin-top:40px;font-size:16px;line-height:1.65;color:rgba(242,242,240,.55);opacity:0;transform:translateY(20px)}
+.hero-actions{display:flex;gap:20px;align-items:center;margin-top:48px;opacity:0;transform:translateY(20px)}
+.btn-primary{display:inline-flex;align-items:center;gap:12px;background:var(--red);color:var(--white);padding:18px 36px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:none;border-radius:2px;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;inset:0;background:var(--white);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.btn-primary:hover::after{transform:scaleX(1)}
+.btn-primary:hover{box-shadow:0 0 40px rgba(232,0,28,.4);transform:translateY(-2px)}
+.btn-primary .btn-text{position:relative;z-index:1;transition:color .4s}
+.btn-primary .btn-icon{position:relative;z-index:1}
+.btn-primary:hover .btn-text{color:var(--red)}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;color:var(--white);font-size:13px;font-weight:500;letter-spacing:.08em;text-decoration:none;opacity:.6;transition:opacity .3s,gap .3s}
+.btn-ghost:hover{opacity:1;gap:16px}
+.hero-scroll{position:absolute;bottom:40px;right:48px;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0}
+.hs-label{font-family:var(--ff-mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-lr}
+.hs-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--red),transparent);animation:scrollDown 2s ease-in-out infinite}
+@keyframes scrollDown{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* ═══ HERO ═══ */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:160px 0 80px;overflow:hidden}
-.orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
-.o1{width:900px;height:900px;background:radial-gradient(circle,rgba(200,255,62,.065) 0%,transparent 65%);top:-300px;left:50%;transform:translateX(-50%)}
-.o2{width:600px;height:600px;background:radial-gradient(circle,rgba(62,255,200,.045) 0%,transparent 65%);bottom:-200px;right:-150px}
-.o3{width:400px;height:400px;background:radial-gradient(circle,rgba(255,62,200,.03) 0%,transparent 65%);top:20%;left:-100px}
+/* ─── MARQUEE ─── */
+.marquee-section{overflow:hidden;border-top:1px solid var(--gray2);border-bottom:1px solid var(--gray2);background:var(--gray)}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
+.marquee-track.rev{animation:marquee2 22s linear infinite;background:var(--black)}
+.marquee-item{display:inline-flex;align-items:center;gap:32px;padding:20px 40px;font-family:var(--ff-display);font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.marquee-item .dot{width:6px;height:6px;background:var(--red);border-radius:50%;flex-shrink:0}
+.marquee-item.hl{color:var(--white)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes marquee2{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
-/* ─── FLOATING WORLD ─── */
-.fworld{position:absolute;inset:0;pointer-events:none}
-.fo{position:absolute;will-change:transform}
+/* ─── TOGGLE ─── */
+#toggle-section{padding:140px 48px}
+.section-eyebrow{font-family:var(--ff-mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:48px;display:flex;align-items:center;gap:12px}
+.section-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--red)}
+.toggle-tabs{display:flex;gap:0;border:1px solid var(--gray2);border-radius:4px;overflow:hidden;width:fit-content;margin-bottom:80px}
+.toggle-tab{padding:14px 32px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--muted);border:none;cursor:pointer;transition:background .3s,color .3s}
+.toggle-tab.active{background:var(--red);color:var(--white)}
+.toggle-content{display:none}
+.toggle-content.active{display:block}
+.tc-headline{font-family:var(--ff-display);font-size:clamp(40px,6vw,88px);line-height:.95;letter-spacing:-.01em;margin-bottom:40px}
+.tc-headline em{color:var(--red);font-style:normal}
+.tc-body{font-size:17px;line-height:1.7;color:rgba(242,242,240,.55);max-width:600px;margin-bottom:56px}
+.tc-services{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gray2);border:1px solid var(--gray2);border-radius:4px;overflow:hidden;margin-bottom:56px}
+.tc-service{background:var(--black);padding:32px 28px;transition:background .3s}
+.tc-service:hover{background:var(--gray)}
+.tc-service-num{font-family:var(--ff-mono);font-size:10px;color:var(--red);letter-spacing:.15em;margin-bottom:16px}
+.tc-service-name{font-size:15px;font-weight:600;margin-bottom:8px}
+.tc-service-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.tc-link{display:inline-flex;align-items:center;gap:10px;color:var(--white);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:4px;transition:gap .3s}
+.tc-link:hover{gap:18px}
 
-/* Phone mockup */
-.fo-phone{top:8%;right:3%}
-.ph-wrap{width:170px;background:#0a0a0a;border:1.5px solid var(--b2);border-radius:28px;padding:14px 10px;box-shadow:0 0 100px rgba(0,0,0,.95),0 0 40px rgba(200,255,62,.04),inset 0 1px 0 rgba(255,255,255,.05)}
-.ph-notch{width:54px;height:6px;background:var(--b2);border-radius:99px;margin:0 auto 12px}
-.ph-screen{background:#080808;border-radius:16px;overflow:hidden;padding:10px}
-.ph-stories{display:flex;gap:6px;margin-bottom:10px}
-.ph-story{width:32px;height:32px;border-radius:50%;border:2px solid var(--a);background:var(--b2);flex-shrink:0}
-.ph-story.you{background:linear-gradient(135deg,var(--a),var(--a2));border-color:transparent}
-.ph-post{background:var(--b);border-radius:8px;overflow:hidden;margin-bottom:8px}
-.ph-post-img{height:80px;background:linear-gradient(135deg,rgba(200,255,62,.15),rgba(62,255,200,.1));display:flex;align-items:center;justify-content:center;font-size:24px}
-.ph-post-acts{padding:8px;display:flex;gap:10px;align-items:center}
-.ph-act{font-size:16px}
-.ph-likes{font-size:10px;color:var(--a);font-weight:700;margin-bottom:4px;padding:0 8px}
-.ph-caption{font-size:9px;color:var(--g);padding:0 8px 8px;line-height:1.4}
-.ph-row{height:6px;border-radius:3px;background:var(--b2);margin-bottom:5px}
-.ph-row.a{background:rgba(200,255,62,.2);width:85%}.ph-row.sm{width:60%}
-.ph-home{width:28px;height:3px;background:var(--b2);border-radius:2px;margin:10px auto 0}
+/* ─── KINETIC ─── */
+.kinetic-section{padding:100px 0;border-top:1px solid var(--gray2);overflow:hidden}
+.kinetic-row{display:flex;margin-bottom:16px}
+.kinetic-row:last-child{margin-bottom:0}
+.kinetic-text{font-family:var(--ff-display);font-size:clamp(60px,8vw,120px);white-space:nowrap;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.12);display:flex;align-items:center;gap:40px}
+.kinetic-text .solid{color:var(--white);-webkit-text-stroke:0}
+.kinetic-text .kr{color:var(--red);-webkit-text-stroke:0}
+.kinetic-text .kt-dot{width:12px;height:12px;background:var(--red);border-radius:50%;flex-shrink:0}
 
-/* TikTok card */
-.fo-tiktok{top:12%;left:2%}
-.tk-card{width:130px;background:#0a0a0a;border:1px solid var(--b2);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.8)}
-.tk-video{height:200px;background:linear-gradient(180deg,#1a1a2e,#16213e);position:relative;display:flex;align-items:center;justify-content:center}
-.tk-play{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:14px}
-.tk-badge{position:absolute;top:8px;left:8px;background:rgba(200,255,62,.9);color:#060606;font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:1px}
-.tk-views{position:absolute;bottom:8px;left:8px;font-size:9px;color:rgba(255,255,255,.7);font-weight:600}
-.tk-side{position:absolute;right:8px;bottom:20px;display:flex;flex-direction:column;gap:10px;align-items:center}
-.tk-ico{font-size:18px;display:flex;flex-direction:column;align-items:center;gap:1px}
-.tk-ico span{font-size:8px;color:rgba(255,255,255,.6)}
+/* ─── PROCESS ─── */
+#process{padding:140px 48px;border-top:1px solid var(--gray2)}
+.section-tag{font-family:var(--ff-mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:80px;display:flex;align-items:center;gap:12px}
+.section-tag::before{content:'';display:block;width:32px;height:1px;background:var(--red)}
+.process-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px 120px;max-width:960px}
+.process-step{position:relative}
+.ps-num{font-family:var(--ff-display);font-size:80px;line-height:1;color:transparent;-webkit-text-stroke:1px var(--gray2);margin-bottom:24px;transition:color .4s,-webkit-text-stroke .4s}
+.process-step:hover .ps-num{color:var(--red);-webkit-text-stroke:1px var(--red)}
+.ps-title{font-size:20px;font-weight:600;margin-bottom:12px}
+.ps-desc{font-size:14px;line-height:1.7;color:var(--muted)}
 
-/* Instagram card */
-.fo-insta{bottom:22%;right:2%}
-.ig-card{width:200px;background:#0a0a0a;border:1px solid var(--b2);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.8)}
-.ig-header{padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--b)}
-.ig-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);display:flex;align-items:center;justify-content:center;font-size:14px}
-.ig-name{font-size:11px;font-weight:700}
-.ig-time{font-size:9px;color:var(--g)}
-.ig-img{height:140px;background:linear-gradient(135deg,rgba(200,255,62,.12),rgba(62,255,200,.08));display:flex;align-items:center;justify-content:center;font-size:36px}
-.ig-footer{padding:10px 12px}
-.ig-acts{display:flex;gap:10px;margin-bottom:6px;font-size:16px}
-.ig-likes{font-size:10px;font-weight:700;margin-bottom:3px}
-.ig-caption{font-size:9px;color:var(--g);line-height:1.4}
+/* ─── STATS ─── */
+#stats{padding:140px 48px;background:var(--gray);border-top:1px solid var(--gray2)}
+.stats-headline{font-family:var(--ff-display);font-size:clamp(36px,5vw,72px);margin-bottom:80px;max-width:600px;line-height:1;letter-spacing:-.01em}
+.stats-headline .accent{color:var(--red)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gray2)}
+.stat-card{background:var(--gray);padding:48px 32px;border-bottom:3px solid transparent;transition:border-color .3s,background .3s}
+.stat-card:hover{background:var(--black);border-color:var(--red)}
+.stat-number{font-family:var(--ff-display);font-size:clamp(48px,6vw,88px);line-height:1;color:var(--white);margin-bottom:12px}
+.stat-number .red{color:var(--red)}
+.stat-label{font-size:13px;color:var(--muted);letter-spacing:.05em;line-height:1.5}
 
-/* LinkedIn card */
-.fo-linkedin{bottom:8%;left:18%}
-.li-card{width:220px;background:#0a0a0a;border:1px solid var(--b2);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.8)}
-.li-header{padding:12px;border-bottom:1px solid var(--b);display:flex;gap:10px;align-items:start}
-.li-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--a2));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.li-meta{font-size:9px}
-.li-meta strong{font-size:11px;font-weight:700;display:block;margin-bottom:2px}
-.li-meta span{color:var(--g)}
-.li-body{padding:10px 12px;font-size:10px;line-height:1.6;color:var(--g)}
-.li-body strong{color:var(--w)}
-.li-footer{padding:8px 12px;border-top:1px solid var(--b);display:flex;gap:12px}
-.li-react{font-size:9px;color:var(--g);display:flex;align-items:center;gap:4px}
-.li-react span{font-size:14px}
+/* ─── HORIZ CARDS ─── */
+#horiz{padding:140px 0;overflow:hidden;border-top:1px solid var(--gray2)}
+.horiz-head{padding:0 48px;margin-bottom:60px}
+.horiz-track{display:flex;gap:24px;padding:0 48px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab}
+.horiz-track:active{cursor:grabbing}
+.horiz-track::-webkit-scrollbar{display:none}
+.horiz-card{width:380px;flex-shrink:0;scroll-snap-align:start;border:1px solid var(--gray2);border-radius:4px;padding:48px 36px;background:var(--black);position:relative;overflow:hidden;transition:border-color .4s,background .4s}
+.horiz-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.horiz-card:hover{background:var(--gray)}
+.horiz-card:hover::before{transform:scaleX(1)}
+.hc-icon{width:52px;height:52px;border:1px solid var(--gray2);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:36px;transition:background .3s,border-color .3s}
+.horiz-card:hover .hc-icon{background:var(--red);border-color:var(--red)}
+.hc-icon svg{width:24px;fill:none;stroke:var(--muted);stroke-width:1.5;transition:stroke .3s}
+.horiz-card:hover .hc-icon svg{stroke:var(--white)}
+.hc-tag{font-family:var(--ff-mono);font-size:9px;letter-spacing:.2em;color:var(--red);text-transform:uppercase;margin-bottom:12px}
+.hc-title{font-size:22px;font-weight:600;margin-bottom:16px;line-height:1.3}
+.hc-desc{font-size:14px;line-height:1.7;color:var(--muted)}
+.hc-price{margin-top:32px;padding-top:32px;border-top:1px solid var(--gray2);font-family:var(--ff-display);font-size:40px;line-height:1;color:var(--white)}
+.hc-price small{font-family:var(--ff-body);font-size:12px;color:var(--muted);vertical-align:middle;margin-left:4px}
 
-/* Stats bubble */
-.fo-stat1{top:30%;left:16%;animation:f4 7s ease-in-out infinite}
-.fo-stat2{top:58%;right:12%;animation:f1 9s ease-in-out infinite reverse}
-.stat-bub{background:rgba(10,10,10,.95);border:1px solid var(--b2);backdrop-filter:blur(16px);border-radius:16px 16px 16px 4px;padding:12px 16px;box-shadow:0 12px 48px rgba(0,0,0,.8)}
-.stat-bub.r{border-radius:16px 16px 4px 16px}
-.sb-n{font-family:'Archivo Black',sans-serif;font-size:24px;color:var(--a);display:block;line-height:1}
-.sb-l{font-size:10px;color:var(--g);display:block;margin-top:2px}
+/* ─── BEFORE/AFTER ─── */
+#ba{padding:140px 48px;border-top:1px solid var(--gray2)}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gray2);margin-top:80px;border-radius:4px;overflow:hidden}
+.ba-col{padding:60px 48px;background:var(--black)}
+.ba-col-head{margin-bottom:48px}
+.ba-pill{display:inline-block;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;border-radius:32px}
+.ba-pill.before{background:var(--gray2);color:var(--muted)}
+.ba-pill.after{background:var(--red);color:var(--white)}
+.ba-item{display:flex;align-items:flex-start;gap:14px;padding:20px 0;border-bottom:1px solid var(--gray2)}
+.ba-item:last-child{border-bottom:none}
+.ba-item svg{width:18px;flex-shrink:0;margin-top:2px}
+.ba-item p{font-size:15px;line-height:1.5;color:rgba(242,242,240,.6)}
+.ba-col.after-col .ba-item p{color:rgba(242,242,240,.85)}
 
-/* Hashtags */
-.fo-tags{top:45%;left:1%;animation:f2 8s ease-in-out infinite}
-.hashtags{display:flex;flex-direction:column;gap:6px}
-.ht{font-size:11px;font-weight:600;color:rgba(200,255,62,.4);letter-spacing:.5px}
+/* ─── TESTIMONIALS ─── */
+#testimonials{padding:140px 48px;background:var(--red)}
+#testimonials .section-tag{color:rgba(242,242,240,.5)}
+#testimonials .section-tag::before{background:rgba(242,242,240,.5)}
+.testi-headline{font-family:var(--ff-display);font-size:clamp(40px,6vw,88px);line-height:.95;letter-spacing:-.01em;color:var(--white);margin-bottom:80px;max-width:800px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,.2)}
+.testi-card{background:rgba(0,0,0,.15);padding:48px 36px;transition:background .3s}
+.testi-card:hover{background:rgba(0,0,0,.3)}
+.testi-quote{font-size:15px;line-height:1.7;color:rgba(242,242,240,.85);margin-bottom:36px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:40px;height:40px;background:rgba(242,242,240,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-size:16px;color:var(--white)}
+.testi-name{font-size:14px;font-weight:600;color:var(--white)}
+.testi-role{font-size:11px;color:rgba(242,242,240,.5);margin-top:2px}
 
-/* Camera */
-.fo-cam{top:35%;right:20%;animation:f3 6s ease-in-out infinite}
-.cam-ico{width:56px;height:44px;border:2px solid rgba(200,255,62,.25);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(200,255,62,.04);box-shadow:0 0 20px rgba(200,255,62,.1)}
+/* ─── CTA FINAL ─── */
+#cta-final{padding:180px 48px;text-align:center;border-top:1px solid var(--gray2);position:relative;overflow:hidden}
+.cta-bg-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--ff-display);font-size:30vw;color:transparent;-webkit-text-stroke:1px rgba(242,242,240,.04);white-space:nowrap;pointer-events:none;line-height:1}
+.cta-headline{font-family:var(--ff-display);font-size:clamp(52px,9vw,160px);line-height:.9;letter-spacing:-.01em;position:relative;z-index:1;margin-bottom:48px}
+.cta-headline em{color:var(--red);font-style:normal}
+.cta-headline .outline{color:transparent;-webkit-text-stroke:1px var(--white)}
+.cta-sub{font-size:17px;color:var(--muted);max-width:480px;margin:0 auto 64px;line-height:1.65;position:relative;z-index:1}
+.cta-btn-wrap{position:relative;z-index:1;display:inline-block}
+.btn-mag{display:inline-flex;align-items:center;gap:16px;background:var(--red);color:var(--white);padding:24px 56px;font-size:14px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s;position:relative;overflow:hidden}
+.btn-mag:hover{transform:scale(1.04);box-shadow:0 20px 60px rgba(232,0,28,.5)}
+.btn-mag::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
+.btn-mag:hover::before{opacity:1}
+.cta-meta{margin-top:32px;font-size:12px;color:var(--muted);position:relative;z-index:1;letter-spacing:.05em}
 
-/* Bolt */
-.fo-bolt1{bottom:35%;right:5%;font-size:64px;color:var(--a);filter:drop-shadow(0 0 30px rgba(200,255,62,.7));animation:f3 5s ease-in-out infinite}
-.fo-bolt2{top:22%;right:28%;font-size:28px;color:var(--a);opacity:.4;animation:f1 7s ease-in-out infinite reverse;filter:drop-shadow(0 0 12px rgba(200,255,62,.5))}
+/* ─── FOOTER ─── */
+footer{padding:60px 48px 40px;border-top:1px solid var(--gray2);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:40px}
+.footer-logo{font-family:var(--ff-display);font-size:20px;letter-spacing:.04em}
+.footer-logo span{color:var(--red)}
+.footer-links{display:flex;gap:32px;list-style:none;justify-content:center}
+.footer-links a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .3s}
+.footer-links a:hover{color:var(--white)}
+.footer-right{text-align:right;font-size:12px;color:var(--muted)}
+.footer-copy{margin-top:40px;padding-top:40px;border-top:1px solid var(--gray2);grid-column:1/-1;text-align:center;font-size:11px;color:rgba(242,242,240,.2);letter-spacing:.08em}
 
-/* At */
-.fo-at{top:55%;left:28%;font-family:'Archivo Black',sans-serif;font-size:52px;color:transparent;-webkit-text-stroke:2px rgba(200,255,62,.15);animation:f2 10s ease-in-out infinite;line-height:1}
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(40px)}
 
-/* Eye */
-.fo-eye{bottom:18%;left:5%;width:80px;height:46px;border:1.5px solid rgba(200,255,62,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:f1 6s ease-in-out infinite reverse}
-.fo-eye::before{content:'';width:18px;height:18px;border-radius:50%;background:var(--a);opacity:.6}
+/* ─── RED LINE HOVER ─── */
+.red-underline{position:relative;display:inline-block}
+.red-underline::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.red-underline:hover::after{transform:scaleX(1)}
 
-/* Cursor */
-.fo-cur{top:68%;right:30%;animation:f4 4s ease-in-out infinite}
-.fo-cur svg{opacity:.25}
-
-/* Play button */
-.fo-play{bottom:30%;left:10%;animation:f3 8s ease-in-out infinite}
-.play-ico{width:52px;height:52px;border-radius:50%;border:2px solid rgba(200,255,62,.2);display:flex;align-items:center;justify-content:center;background:rgba(200,255,62,.04);font-size:20px;box-shadow:0 0 24px rgba(200,255,62,.08)}
-
-/* Reaction cluster */
-.fo-reacts{bottom:42%;right:18%;animation:f2 6s ease-in-out infinite}
-.reacts{display:flex;gap:4px;background:rgba(10,10,10,.9);border:1px solid var(--b2);border-radius:999px;padding:6px 10px;backdrop-filter:blur(8px)}
-.react{font-size:16px;animation:rPop .5s ease-out both}
-.react:nth-child(1){animation-delay:0s}
-.react:nth-child(2){animation-delay:.1s}
-.react:nth-child(3){animation-delay:.2s}
-@keyframes rPop{from{transform:scale(0) translateY(10px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
-
-/* Chart line */
-.fo-chart{top:15%;right:20%;animation:f1 8s ease-in-out infinite}
-.chart-mini{width:120px;height:60px;background:rgba(10,10,10,.9);border:1px solid var(--b2);border-radius:10px;padding:8px;backdrop-filter:blur(8px);overflow:hidden}
-.chart-svg{width:100%;height:100%}
-
-/* Notification */
-.fo-notif{top:52%;right:1%;animation:f4 11s ease-in-out infinite}
-.notif{background:rgba(10,10,10,.95);border:1px solid var(--b2);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.7);max-width:180px}
-.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--a);flex-shrink:0;box-shadow:0 0 8px rgba(200,255,62,.6);animation:pulse 1.5s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.8)}}
-.notif-txt{font-size:10px;line-height:1.4;color:var(--w)}
-.notif-txt strong{color:var(--a)}
-
-@keyframes f1{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-16px) rotate(1.5deg)}}
-@keyframes f2{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes f3{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.04)}}
-@keyframes f4{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
-
-/* Hero text */
-.hero-inner{position:relative;z-index:2;text-align:center;max-width:1000px;margin:0 auto}
-.hero-title{font-size:clamp(56px,9vw,120px);letter-spacing:-4px;line-height:.9;margin-bottom:28px}
-.h-ac{color:var(--a)}
-.hero-sub{font-size:17px;color:var(--g);max-width:480px;margin:0 auto 44px;line-height:1.85;font-weight:300}
-.hero-ctas{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-
-/* Scroll hint */
-.sc-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2}
-.sc-hint em{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--g);font-style:normal}
-.sc-l{width:1px;height:44px;background:linear-gradient(to bottom,var(--a),transparent);animation:scl 1.8s ease-in-out infinite}
-@keyframes scl{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-
-/* ═══ MARQUEE ═══ */
-.mq{border-top:1px solid var(--b);border-bottom:1px solid var(--b);overflow:hidden;background:rgba(255,255,255,.008)}
-.mq-t{display:flex;animation:mqa 20s linear infinite;width:max-content}
-.mq-i{display:flex;align-items:center;gap:36px;padding:16px 36px 16px 0;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--g);white-space:nowrap}
-.mq-d{width:3px;height:3px;border-radius:50%;background:var(--a);flex-shrink:0}
-@keyframes mqa{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* ═══ SECTIONS BASE ═══ */
-section{padding:130px 0;position:relative;z-index:2}
-.s-b{border-top:1px solid var(--b)}
-.s-ey{margin-bottom:20px}
-.s-t{font-size:clamp(36px,5vw,66px);letter-spacing:-2.5px;margin-bottom:20px}
-.s-sub{font-size:17px;color:var(--g);max-width:500px;line-height:1.8;font-weight:300}
-
-/* ═══ SOCIAL PROOF STRIP ═══ */
-.proof-strip{border-top:1px solid var(--b);background:var(--s)}
-.proof-inner{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
-.proof-item{padding:32px 48px;text-align:center;border-right:1px solid var(--b);flex:1;min-width:180px}
-.proof-item:last-child{border-right:none}
-.proof-n{font-family:'Archivo Black',sans-serif;font-size:42px;letter-spacing:-2px;line-height:1;color:var(--w)}
-.proof-l{font-size:12px;color:var(--g);margin-top:4px;letter-spacing:.5px}
-
-/* ═══ KINETIC TEXT ═══ */
-.kinetic-section{border-top:1px solid var(--b);overflow:hidden;padding:80px 0}
-.kinetic-row{display:flex;align-items:center;white-space:nowrap;overflow:hidden;border-bottom:1px solid var(--b);padding:20px 0}
-.kinetic-row:last-child{border-bottom:none}
-.kinetic-text{font-family:'Archivo Black',sans-serif;font-size:clamp(40px,6vw,80px);letter-spacing:-2px;padding:0 40px;flex-shrink:0;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.12);transition:color .3s,-webkit-text-stroke .3s}
-.kinetic-text.filled{color:var(--w);-webkit-text-stroke:0}
-.kinetic-text .ac{color:var(--a)}
-.kt-track{display:flex;animation:ktA 12s linear infinite;width:max-content}
-.kt-track.rev{animation:ktB 14s linear infinite}
-.kt-sep{font-size:24px;color:var(--a);margin:0 20px;flex-shrink:0}
-@keyframes ktA{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes ktB{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
-
-/* ═══ STATS ═══ */
-.st-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;background:var(--b);gap:1px;margin-top:64px}
-.st-c{background:var(--bg);padding:48px 36px;position:relative;overflow:hidden;transition:background .3s;cursor:default}
-.st-c:hover{background:var(--s)}
-.st-top{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--a),transparent);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.23,1,.32,1)}
-.st-c:hover .st-top{transform:scaleX(1)}
-.st-tag{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--a);margin-bottom:12px;display:block}
-.st-n{font-family:'Archivo Black',sans-serif;font-size:56px;line-height:1;letter-spacing:-2px;margin-bottom:10px}
-.st-l{font-size:14px;color:var(--g);line-height:1.55;max-width:170px}
-
-/* ═══ BEFORE / AFTER ═══ */
-.ba{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;background:var(--b);margin:64px 0}
-.ba-col{background:var(--bg);padding:48px}
-.ba-lbl{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:8px;color:var(--g)}
-.ba-lbl.ac{color:var(--a)}
-.ba-lbl::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
-.ba-list{list-style:none;display:flex;flex-direction:column;gap:18px}
-.ba-list li{font-size:15px;line-height:1.7;padding-left:24px;position:relative;color:var(--g)}
-.bc .ba-list li::before{content:'×';position:absolute;left:0;color:var(--b2);font-weight:700;font-size:18px;line-height:1.2}
-.ac-col .ba-list li{color:var(--w)}
-.ac-col .ba-list li::before{content:'→';position:absolute;left:0;color:var(--a);font-weight:700}
-
-/* ═══ CARDS ═══ */
-.offer-h{margin-bottom:44px}
-.offer-h h3{font-size:clamp(26px,3vw,40px);letter-spacing:-1px;margin-bottom:12px}
-.offer-h p{color:var(--g);font-size:15px;max-width:460px;font-weight:300}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px}
-.cards.one{grid-template-columns:1fr;max-width:580px}
-.card{border:1px solid var(--b);border-radius:var(--rl);padding:40px;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden;background:var(--s);transition:all .4s cubic-bezier(.23,1,.32,1)}
-.card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(200,255,62,.035) 0%,transparent 55%);opacity:0;transition:opacity .3s}
-.card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.07)}.card:hover::before{opacity:1}
-.card.ft{border-color:rgba(200,255,62,.18);background:#09090a}.card.ft::before{opacity:1}
-.card.ft:hover{border-color:rgba(200,255,62,.4)}
-.c-lbl{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--g)}.card.ft .c-lbl{color:var(--a)}
-.c-title{font-size:26px;letter-spacing:-.5px}
-.c-desc{font-size:14px;color:var(--g);line-height:1.75;font-weight:300}
-.c-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;padding:5px 12px;border-radius:999px;border:1px solid var(--b);color:var(--g);width:fit-content}.card.ft .c-tag{border-color:rgba(200,255,62,.2);color:var(--a)}
-.price-r{display:flex;align-items:baseline;gap:10px}
-.price{font-family:'Archivo Black',sans-serif;font-size:44px;letter-spacing:-2px}
-.price-d{font-size:13px;color:var(--g)}
-.bdg{font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--a);color:#060606;letter-spacing:.5px}
-.dv{height:1px;background:var(--b)}
-.ll{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g);margin-bottom:14px}
-.fl-list{list-style:none;display:flex;flex-direction:column;gap:12px}
-.fl-list li{font-size:14px;line-height:1.6;color:var(--w);padding-left:18px;position:relative}
-.fl-list li::before{content:'⚡';position:absolute;left:0;font-size:11px;top:2px}
-.cta-b{border:1px solid var(--b);border-radius:var(--rl);padding:60px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;position:relative;overflow:hidden;background:radial-gradient(ellipse 70% 90% at 50% -10%,rgba(200,255,62,.055) 0%,transparent 70%)}
-.cta-b::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,255,62,.35),transparent)}
-.cta-b h3{font-size:clamp(26px,3.5vw,44px);letter-spacing:-1px}
-.cta-b p{color:var(--g);font-size:16px;max-width:400px;font-weight:300}
-
-/* ═══ FAHED 3D ═══ */
-.fahed-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.photo-wrap{position:relative}
-.photo-tilt{border-radius:24px;overflow:hidden;position:relative;background:var(--s);border:1px solid var(--b2);box-shadow:0 40px 120px rgba(0,0,0,.9),0 0 0 1px rgba(200,255,62,.04);min-height:480px}
-.photo-tilt img{width:100%;display:block;filter:contrast(1.05) brightness(.95) saturate(.88)}
-.photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,6,.92) 0%,rgba(6,6,6,.1) 50%,transparent 75%);pointer-events:none}
-.photo-tilt::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.025) 3px,rgba(0,0,0,.025) 4px)}
-.photo-name{position:absolute;bottom:0;left:0;right:0;padding:28px;z-index:4}
-.photo-name h3{font-size:26px;letter-spacing:-1px;margin-bottom:3px}
-.photo-name span{font-size:12px;color:var(--g)}
-.ph-badge{position:absolute;background:rgba(8,8,8,.93);border:1px solid var(--b2);backdrop-filter:blur(16px);border-radius:14px;padding:10px 14px;z-index:5;box-shadow:0 8px 32px rgba(0,0,0,.8)}
-.ph-badge.t{top:18px;right:-16px}.ph-badge.m{top:44%;left:-20px}
-.pn{font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--a);display:block;line-height:1.1}
-.pl{font-size:10px;color:var(--g);white-space:nowrap}
-.ph-cr1{position:absolute;top:14px;left:14px;width:36px;height:36px;border-top:2px solid var(--a);border-left:2px solid var(--a);z-index:5}
-.ph-cr2{position:absolute;bottom:14px;right:14px;width:36px;height:36px;border-bottom:2px solid var(--a);border-right:2px solid var(--a);z-index:5}
-.photo-glow{position:absolute;inset:-2px;border-radius:26px;z-index:-1;background:linear-gradient(135deg,rgba(200,255,62,.18),transparent 40%,rgba(62,255,200,.1));animation:gp 4s ease-in-out infinite}
-@keyframes gp{0%,100%{opacity:.4}50%{opacity:1}}
-.fahed-text .s-t{margin-top:20px;margin-bottom:28px}
-.fahed-text p{font-size:15px;color:var(--g);line-height:1.9;margin-bottom:16px;font-weight:300}
-.f-sig{margin-top:28px;padding-top:22px;border-top:1px solid var(--b);font-size:13px;font-weight:600}
-.prs{display:flex;flex-direction:column;gap:1px;border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;background:var(--b);margin-top:28px}
-.pr{background:var(--bg);padding:22px 28px;display:flex;gap:16px;transition:background .2s}.pr:hover{background:var(--s)}
-.pr-n{font-family:'Archivo Black',sans-serif;font-size:11px;color:var(--a);min-width:20px;padding-top:1px;flex-shrink:0}
-.pr-c h4{font-size:13px;font-weight:600;margin-bottom:3px;font-family:'Inter',sans-serif}
-.pr-c p{font-size:12px;color:var(--g);line-height:1.6}
-
-/* ═══ FAQ ═══ */
-.faq-grid{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start}
-.faq-list{border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;background:var(--b);display:flex;flex-direction:column;gap:1px}
-.faq-it{background:var(--bg)}
-.faq-q{width:100%;background:none;border:none;color:var(--w);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;text-align:left;padding:22px 26px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .2s;line-height:1.5}
-.faq-q:hover{background:var(--s)}
-.faq-ic{min-width:20px;height:20px;border-radius:50%;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--g);transition:transform .3s,border-color .2s,color .2s;flex-shrink:0}
-.faq-it.op .faq-ic{transform:rotate(45deg);border-color:var(--a);color:var(--a)}
-.faq-ans{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.23,1,.32,1)}
-.faq-ai{padding:0 26px 22px;font-size:14px;color:var(--g);line-height:1.85;font-weight:300}
-
-/* ═══ FINAL CTA ═══ */
-.fin{text-align:center}
-.fin-inner{max-width:800px;margin:0 auto;position:relative}
-.fin-glow{position:absolute;width:800px;height:400px;background:radial-gradient(ellipse,rgba(200,255,62,.07) 0%,transparent 70%);left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
-.fin-inner h2{font-size:clamp(52px,8vw,100px);letter-spacing:-4px;line-height:.9;margin-bottom:24px}
-.fin-inner p{font-size:17px;color:var(--g);margin-bottom:40px;line-height:1.8;max-width:480px;margin-left:auto;margin-right:auto;font-weight:300}
-.fin-note{margin-top:18px;font-size:12px;color:#2e2e2e;letter-spacing:.5px}
-
-/* ═══ FOOTER ═══ */
-footer{border-top:1px solid var(--b);padding:52px 0;position:relative;z-index:2}
-.ft-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
-.ft-logo{font-family:'Archivo Black',sans-serif;font-size:20px;letter-spacing:-.5px}
-.ft-sub{font-size:12px;color:var(--g);margin-top:4px;font-weight:300}
-.ft-links{display:flex;flex-wrap:wrap;gap:24px;list-style:none}
-.ft-links a{font-size:13px;color:var(--g);transition:color .2s}.ft-links a:hover{color:var(--w)}
-.ft-copy{font-size:11px;color:var(--b2)}
-
-/* ═══ MODE ═══ */
-.w-ent{display:block}.w-ctr{display:none}
-body.ctr .w-ent{display:none}
-body.ctr .w-ctr{display:block}
-body.ctr .h-ent{display:none}
-body.ctr .h-ctr{display:block}
-.h-ctr{display:none}
-
-/* REVEAL */
-.gr{opacity:0;transform:translateY(36px)}
-.gr.done{opacity:1;transform:translateY(0);transition:opacity .75s ease,transform .75s ease}
-
-/* ═══ RESPONSIVE ═══ */
-@media(max-width:1024px){.fo-linkedin,.fo-tiktok{display:none}}
-@media(max-width:900px){.st-grid{grid-template-columns:1fr 1fr}.ba{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.fahed-grid{grid-template-columns:1fr;gap:52px}.faq-grid{grid-template-columns:1fr;gap:44px}.n-links{display:none}.fo-insta,.fo-tags,.fo-cam,.fo-reacts,.fo-chart,.fo-notif{display:none}.ph-badge{display:none}}
-@media(max-width:600px){.st-grid{grid-template-columns:1fr 1fr}.st-n{font-size:38px}.hero-title{font-size:52px;letter-spacing:-2px}.fo-phone,.fo-stat1,.fo-stat2{display:none}.fo-bolt1{font-size:52px}.cta-b{padding:36px 20px}.proof-item{padding:24px 28px}.kinetic-section{padding:48px 0}.footer .ft-row{flex-direction:column;align-items:flex-start}}
+@media(max-width:768px){
+  nav{padding:20px 24px}
+  .nav-links{display:none}
+  #hero{padding:0 24px 60px}
+  .hero-title{font-size:clamp(52px,14vw,88px)}
+  #toggle-section,#process,#stats,#horiz,#ba,#testimonials,#cta-final{padding:80px 24px}
+  .tc-services{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .process-grid{grid-template-columns:1fr}
+  .ba-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr;text-align:center}
+  .footer-right{text-align:center}
+}
 </style>
 </head>
 <body>
 
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
 <!-- LOADER -->
 <div id="loader">
   <div class="loader-logo">
-    <span id="ll1">netfluentia</span><span class="loader-bolt" id="ll2">⚡</span>
+    <span>N</span><span>E</span><span>T</span><span>F</span><span>L</span><span>U</span><span>E</span><span>N</span><span>T</span><span>I</span><span>A</span>
   </div>
-  <div class="loader-bar"><div class="loader-fill" id="lf"></div></div>
-  <div class="loader-pct" id="lp">0%</div>
+  <div>
+    <div class="loader-bar-wrap"><div class="loader-bar" id="lbar"></div></div>
+    <div class="loader-pct" id="lpct">0%</div>
+  </div>
 </div>
 
-<canvas id="bg-canvas"></canvas>
-<div class="grid-bg"></div>
-<div class="cur" id="cur"><div id="cr"></div><div id="cd"></div></div>
-
-<div class="wrap">
-
 <!-- NAV -->
-<nav id="nav">
-  <div class="container c2">
-    <a href="#" class="n-logo">netfluentia<em class="n-bolt" style="font-style:normal">⚡</em></a>
-    <ul class="n-links">
-      <li><a href="#resultats">Résultats</a></li>
-      <li><a href="#entrepreneurs">Entrepreneurs</a></li>
-      <li><a href="#centres">Centres</a></li>
-      <li><a href="#fahed">Fondateur</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-    <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-p" style="font-size:13px;padding:11px 22px">Réserver un appel</a>
-  </div>
+<nav id="main-nav">
+  <a href="#" class="nav-logo">netfluentia<span>⚡</span></a>
+  <ul class="nav-links">
+    <li><a href="#toggle-section" class="red-underline">Services</a></li>
+    <li><a href="#process" class="red-underline">Méthode</a></li>
+    <li><a href="#stats" class="red-underline">Résultats</a></li>
+  </ul>
+  <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="nav-cta">Consultation gratuite</a>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-noise"></div>
 
-  <div class="fworld">
-
-    <!-- Phone -->
-    <div class="fo fo-phone" style="animation:f1 7s ease-in-out infinite">
-      <div class="ph-wrap">
-        <div class="ph-notch"></div>
-        <div class="ph-screen">
-          <div class="ph-stories">
-            <div class="ph-story you"></div>
-            <div class="ph-story"></div>
-            <div class="ph-story"></div>
-            <div class="ph-story"></div>
-          </div>
-          <div class="ph-post">
-            <div class="ph-post-img">⚡</div>
-            <div class="ph-post-acts"><span class="ph-act">❤️</span><span class="ph-act">💬</span><span class="ph-act">📤</span></div>
-            <div class="ph-likes">2 847 J'aime</div>
-            <div class="ph-caption"><strong>netfluentia</strong> L'attention devient des clients. 🚀</div>
-          </div>
-          <div class="ph-row a"></div>
-          <div class="ph-row"></div>
-          <div class="ph-row sm"></div>
-        </div>
-        <div class="ph-home"></div>
-      </div>
-    </div>
-
-    <!-- TikTok -->
-    <div class="fo fo-tiktok" style="animation:f2 9s ease-in-out infinite">
-      <div class="tk-card">
-        <div class="tk-video">
-          <div class="tk-badge">LIVE</div>
-          <div class="tk-play">▶</div>
-          <div class="tk-views">👁 1.2M vues</div>
-          <div class="tk-side">
-            <div class="tk-ico">❤️<span>48K</span></div>
-            <div class="tk-ico">💬<span>2K</span></div>
-            <div class="tk-ico">↗<span>8K</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Instagram -->
-    <div class="fo fo-insta" style="animation:f1 8s ease-in-out infinite reverse">
-      <div class="ig-card">
-        <div class="ig-header">
-          <div class="ig-av">⚡</div>
-          <div>
-            <div class="ig-name">netfluentia</div>
-            <div class="ig-time">il y a 2h</div>
-          </div>
-        </div>
-        <div class="ig-img">🚀</div>
-        <div class="ig-footer">
-          <div class="ig-acts"><span>❤️</span><span>💬</span><span>📤</span></div>
-          <div class="ig-likes">12 394 J'aime</div>
-          <div class="ig-caption"><strong>netfluentia</strong> Votre marque, votre croissance ⚡ #PersonalBranding</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LinkedIn -->
-    <div class="fo fo-linkedin" style="animation:f4 10s ease-in-out infinite">
-      <div class="li-card">
-        <div class="li-header">
-          <div class="li-av">⚡</div>
-          <div class="li-meta">
-            <strong>Fahed Chahbani</strong>
-            <span>Fondateur @Netfluentia · 1er</span>
-          </div>
-        </div>
-        <div class="li-body">
-          <strong>25 millions de vues</strong> générées en 12 mois.<br>
-          Voici comment on l'a fait →
-        </div>
-        <div class="li-footer">
-          <div class="li-react"><span>👍</span> 847</div>
-          <div class="li-react"><span>💬</span> 124</div>
-          <div class="li-react"><span>🔁</span> 89</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stats bubbles -->
-    <div class="fo fo-stat1">
-      <div class="stat-bub"><span class="sb-n">25M+</span><span class="sb-l">vues générées</span></div>
-    </div>
-    <div class="fo fo-stat2">
-      <div class="stat-bub r"><span class="sb-n">+50</span><span class="sb-l">entrepreneurs</span></div>
-    </div>
-
-    <!-- Hashtags -->
-    <div class="fo fo-tags">
-      <div class="hashtags">
-        <div class="ht">#PersonalBranding</div>
-        <div class="ht">#Contenu</div>
-        <div class="ht">#Acquisition</div>
-        <div class="ht">#LinkedIn</div>
-      </div>
-    </div>
-
-    <!-- Camera -->
-    <div class="fo fo-cam"><div class="cam-ico">📸</div></div>
-
-    <!-- Bolts -->
-    <div class="fo fo-bolt1">⚡</div>
-    <div class="fo fo-bolt2">⚡</div>
-
-    <!-- @ -->
-    <div class="fo fo-at">@</div>
-
-    <!-- Eye -->
-    <div class="fo fo-eye"></div>
-
-    <!-- Cursor -->
-    <div class="fo fo-cur">
-      <svg width="28" height="32" viewBox="0 0 28 32" fill="none">
-        <path d="M3 3L3 25L10 18L15 30L20 28L15 16L25 16L3 3Z" fill="rgba(200,255,62,.45)" stroke="rgba(200,255,62,.25)" stroke-width="1.5"/>
-      </svg>
-    </div>
-
-    <!-- Play -->
-    <div class="fo fo-play"><div class="play-ico">▶</div></div>
-
-    <!-- Reactions -->
-    <div class="fo fo-reacts">
-      <div class="reacts">
-        <div class="react">❤️</div>
-        <div class="react">🔥</div>
-        <div class="react">👏</div>
-        <div class="react">⚡</div>
-      </div>
-    </div>
-
-    <!-- Chart -->
-    <div class="fo fo-chart">
-      <div class="chart-mini">
-        <svg class="chart-svg" viewBox="0 0 104 44" fill="none" preserveAspectRatio="none">
-          <polyline points="0,40 16,32 28,34 40,20 52,22 64,12 76,14 88,4 104,6" stroke="rgba(200,255,62,0.7)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <polyline points="0,40 16,32 28,34 40,20 52,22 64,12 76,14 88,4 104,6 104,44 0,44" fill="rgba(200,255,62,0.06)"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Notification -->
-    <div class="fo fo-notif">
-      <div class="notif">
-        <div class="notif-dot"></div>
-        <div class="notif-txt"><strong>+847 vues</strong> sur votre dernier post</div>
-      </div>
-    </div>
-
+  <!-- FLOATING OBJECTS -->
+  <div class="fobj fb-bubble">
+    <svg viewBox="0 0 80 72" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 4h64a4 4 0 0 1 4 4v44a4 4 0 0 1-4 4H28L8 72V52H8a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" stroke="rgba(242,242,240,0.25)" fill="none" stroke-width="1.5"/>
+      <circle cx="26" cy="28" r="4" fill="rgba(242,242,240,0.4)"/>
+      <circle cx="40" cy="28" r="4" fill="rgba(242,242,240,0.4)"/>
+      <circle cx="54" cy="28" r="4" fill="rgba(242,242,240,0.4)"/>
+    </svg>
   </div>
-
-  <div class="container">
-    <div class="tog-w">
-      <div class="tog">
-        <button class="tog-b on" data-m="ent">Je suis entrepreneur</button>
-        <button class="tog-b" data-m="ctr">Je suis un centre de formation</button>
+  <div class="fobj fb-at"><span>@</span></div>
+  <div class="fobj fb-play">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="30" stroke="rgba(242,242,240,0.2)" stroke-width="1.5"/>
+      <polygon points="26,20 48,32 26,44" fill="rgba(242,242,240,0.5)"/>
+    </svg>
+  </div>
+  <div class="fobj fb-hash"><span>#</span></div>
+  <div class="fobj fb-notif">
+    <div class="fb-notif-inner">
+      <div class="fn-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       </div>
-    </div>
-    <div class="h-ent hero-inner" id="h-ent">
-      <div class="s-ey"><span class="tag">Agence de communication</span></div>
-      <h1 class="hero-title">On crée<br><span class="h-ac">l'attention</span><br>Vous signez.</h1>
-      <p class="hero-sub">On construit votre marque personnelle sur LinkedIn, TikTok & Instagram. Une présence qui attire les bons clients — sans courir après eux.</p>
-      <div class="hero-ctas">
-        <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-p">Réserver un appel</a>
-        <a href="#entrepreneurs" class="btn btn-g">Voir comment →</a>
-      </div>
-    </div>
-    <div class="h-ctr hero-inner" id="h-ctr">
-      <div class="s-ey"><span class="tag">Agence de communication</span></div>
-      <h1 class="hero-title">On remplit<br><span class="h-ac">vos classes</span><br>Vous formez.</h1>
-      <p class="hero-sub">On rend votre centre visible et désirable. Plus d'étudiants inscrits, plus d'entreprises partenaires — grâce à une vraie machine de contenu.</p>
-      <div class="hero-ctas">
-        <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-p">Réserver un appel</a>
-        <a href="#centres" class="btn btn-g">Voir comment →</a>
+      <div class="fn-text" id="fnText">
+        <strong>Nouveau follower</strong>
+        <span>+2,847 cette semaine</span>
       </div>
     </div>
   </div>
-  <div class="sc-hint"><em>scroll</em><div class="sc-l"></div></div>
+  <div class="fobj fb-stat">
+    <div class="fb-stat-inner">
+      <div class="fs-num">25M+</div>
+      <div class="fs-lbl">Vues générées</div>
+    </div>
+  </div>
+  <div class="fobj fb-eye">
+    <svg viewBox="0 0 52 36" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 18S10 2 26 2s25 16 25 16-9 16-25 16S1 18 1 18z" stroke="rgba(242,242,240,0.3)" stroke-width="1.5" fill="none"/>
+      <circle cx="26" cy="18" r="7" stroke="rgba(242,242,240,0.5)" stroke-width="1.5" fill="none"/>
+      <circle cx="26" cy="18" r="3" fill="rgba(232,0,28,0.7)"/>
+    </svg>
+  </div>
+  <div class="fobj fb-cursor">
+    <svg viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 2l36 20-16 4-6 16z" fill="rgba(242,242,240,0.8)"/>
+    </svg>
+  </div>
+  <div class="fobj fb-chart">
+    <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="4,52 20,36 36,40 52,18 76,8" stroke="var(--red)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M4,52 20,36 36,40 52,18 76,8 76,52 Z" fill="rgba(232,0,28,0.1)"/>
+      <circle cx="76" cy="8" r="4" fill="var(--red)"/>
+    </svg>
+  </div>
+  <div class="fobj fb-trend">
+    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 36 28 16 36 24 44 8" stroke="var(--red)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <polyline points="36,8 44,8 44,16" stroke="var(--red)" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>
+  </div>
+  <div class="fobj fb-heart">
+    <svg viewBox="0 0 44 40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22 36 C22 36 4 24 4 13a9 9 0 0 1 18-4 9 9 0 0 1 18 4c0 11-18 23-18 23z" stroke="var(--red)" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="fobj fb-bolt">
+    <svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="22,2 4,34 20,34 18,58 36,26 20,26" fill="var(--red)"/>
+    </svg>
+  </div>
+  <div class="fobj fb-share">
+    <svg viewBox="0 0 36 40" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="30" cy="6" r="4" stroke="rgba(242,242,240,0.4)" stroke-width="1.5" fill="none"/>
+      <circle cx="30" cy="34" r="4" stroke="rgba(242,242,240,0.4)" stroke-width="1.5" fill="none"/>
+      <circle cx="6" cy="20" r="4" stroke="rgba(242,242,240,0.4)" stroke-width="1.5" fill="none"/>
+      <line x1="10" y1="18" x2="26" y2="8" stroke="rgba(242,242,240,0.4)" stroke-width="1.5"/>
+      <line x1="10" y1="22" x2="26" y2="32" stroke="rgba(242,242,240,0.4)" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="fobj fb-react">
+    <div class="fb-react-inner">
+      <div class="fr-item" data-c="12k">❤️</div>
+      <div class="fr-item" data-c="8k">🔥</div>
+      <div class="fr-item" data-c="5k">👏</div>
+      <div class="fr-item" data-c="3k">⚡</div>
+    </div>
+  </div>
+  <div class="fobj fb-cam">
+    <svg viewBox="0 0 56 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="10" width="52" height="32" rx="4" stroke="rgba(242,242,240,0.25)" stroke-width="1.5" fill="none"/>
+      <path d="M18 10V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4" stroke="rgba(242,242,240,0.25)" stroke-width="1.5" fill="none"/>
+      <circle cx="28" cy="26" r="9" stroke="rgba(242,242,240,0.25)" stroke-width="1.5" fill="none"/>
+      <circle cx="28" cy="26" r="5" stroke="rgba(232,0,28,0.5)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+  <div class="fobj fb-tiktok"><span>TK</span></div>
+  <div class="fobj fb-wifi">
+    <svg viewBox="0 0 48 40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 14 C12 4 36 4 46 14" stroke="rgba(242,242,240,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M8 22 C14 16 34 16 40 22" stroke="rgba(242,242,240,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M15 30 C18 27 30 27 33 30" stroke="rgba(242,242,240,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <circle cx="24" cy="37" r="2.5" fill="var(--red)"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Agence de communication digitale</div>
+    <h1 class="hero-title">
+      <span class="line"><span class="word">VOTRE</span>&nbsp;<span class="word outline">PRÉSENCE</span></span>
+      <span class="line"><span class="word accent">DIGITALE,</span></span>
+      <span class="line"><span class="word">RÉINVENTÉE</span></span>
+    </h1>
+    <p class="hero-sub">Nous transformons votre identité en force d'attraction. Contenu viral, personal branding stratégique, communauté engagée.</p>
+    <div class="hero-actions">
+      <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="btn-primary">
+        <span class="btn-text">Démarrer maintenant</span>
+        <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#process" class="btn-ghost">
+        Notre méthode
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hs-label">Scroll</div>
+    <div class="hs-line"></div>
+  </div>
 </section>
 
 <!-- MARQUEE -->
-<div class="mq">
-  <div class="mq-t">
-    <div class="mq-i">Personal branding<span class="mq-d"></span></div><div class="mq-i">Acquisition par le contenu<span class="mq-d"></span></div><div class="mq-i">Classes remplies<span class="mq-d"></span></div><div class="mq-i">Partenariats signés<span class="mq-d"></span></div><div class="mq-i">25M+ vues<span class="mq-d"></span></div><div class="mq-i">LinkedIn · TikTok · Instagram<span class="mq-d"></span></div><div class="mq-i">5 places / mois<span class="mq-d"></span></div>
-    <div class="mq-i">Personal branding<span class="mq-d"></span></div><div class="mq-i">Acquisition par le contenu<span class="mq-d"></span></div><div class="mq-i">Classes remplies<span class="mq-d"></span></div><div class="mq-i">Partenariats signés<span class="mq-d"></span></div><div class="mq-i">25M+ vues<span class="mq-d"></span></div><div class="mq-i">LinkedIn · TikTok · Instagram<span class="mq-d"></span></div><div class="mq-i">5 places / mois<span class="mq-d"></span></div>
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">Personal Branding <span class="dot"></span></div>
+    <div class="marquee-item hl">Contenu Viral <span class="dot"></span></div>
+    <div class="marquee-item">Instagram Growth <span class="dot"></span></div>
+    <div class="marquee-item hl">TikTok Strategy <span class="dot"></span></div>
+    <div class="marquee-item">LinkedIn Influence <span class="dot"></span></div>
+    <div class="marquee-item hl">Formation Intensive <span class="dot"></span></div>
+    <div class="marquee-item">Content Creation <span class="dot"></span></div>
+    <div class="marquee-item hl">Community Building <span class="dot"></span></div>
+    <div class="marquee-item">Personal Branding <span class="dot"></span></div>
+    <div class="marquee-item hl">Contenu Viral <span class="dot"></span></div>
+    <div class="marquee-item">Instagram Growth <span class="dot"></span></div>
+    <div class="marquee-item hl">TikTok Strategy <span class="dot"></span></div>
+    <div class="marquee-item">LinkedIn Influence <span class="dot"></span></div>
+    <div class="marquee-item hl">Formation Intensive <span class="dot"></span></div>
+    <div class="marquee-item">Content Creation <span class="dot"></span></div>
+    <div class="marquee-item hl">Community Building <span class="dot"></span></div>
+  </div>
+  <div class="marquee-track rev">
+    <div class="marquee-item">Réseaux Sociaux <span class="dot"></span></div>
+    <div class="marquee-item hl">Stratégie digitale <span class="dot"></span></div>
+    <div class="marquee-item">Croissance organique <span class="dot"></span></div>
+    <div class="marquee-item hl">Audience qualifiée <span class="dot"></span></div>
+    <div class="marquee-item">Conversion <span class="dot"></span></div>
+    <div class="marquee-item hl">ROI mesurable <span class="dot"></span></div>
+    <div class="marquee-item">Réseaux Sociaux <span class="dot"></span></div>
+    <div class="marquee-item hl">Stratégie digitale <span class="dot"></span></div>
+    <div class="marquee-item">Croissance organique <span class="dot"></span></div>
+    <div class="marquee-item hl">Audience qualifiée <span class="dot"></span></div>
+    <div class="marquee-item">Conversion <span class="dot"></span></div>
+    <div class="marquee-item hl">ROI mesurable <span class="dot"></span></div>
   </div>
 </div>
 
-<!-- PROOF STRIP -->
-<div class="proof-strip">
-  <div class="container">
-    <div class="proof-inner">
-      <div class="proof-item"><div class="proof-n" data-c="25" data-s="M+">0</div><div class="proof-l">Vues générées</div></div>
-      <div class="proof-item"><div class="proof-n" data-c="50" data-p="+">0</div><div class="proof-l">Entrepreneurs accompagnés</div></div>
-      <div class="proof-item"><div class="proof-n" data-c="5" data-p="+">0</div><div class="proof-l">Centres de formation</div></div>
-      <div class="proof-item"><div class="proof-n">5<span style="font-size:22px;color:var(--g)">/mois</span></div><div class="proof-l">Places sélectives</div></div>
+<!-- TOGGLE -->
+<section id="toggle-section">
+  <div class="section-eyebrow">Nos solutions</div>
+  <div class="toggle-tabs">
+    <button class="toggle-tab active" onclick="switchTab('entrepreneur')">Entrepreneur</button>
+    <button class="toggle-tab" onclick="switchTab('formation')">Centre de formation</button>
+  </div>
+  <div class="toggle-content active" id="tab-entrepreneur">
+    <div class="tc-headline">Devenez une <em>référence</em><br>dans votre secteur</div>
+    <p class="tc-body">Nous construisons votre marque personnelle de A à Z — positionnement, contenu stratégique, croissance organique. Votre audience vous attend.</p>
+    <div class="tc-services">
+      <div class="tc-service">
+        <div class="tc-service-num">01</div>
+        <div class="tc-service-name">Personal Branding</div>
+        <div class="tc-service-desc">Identité visuelle, positionnement, storytelling authentique qui convertit.</div>
+      </div>
+      <div class="tc-service">
+        <div class="tc-service-num">02</div>
+        <div class="tc-service-name">Création de contenu</div>
+        <div class="tc-service-desc">Reels, posts, carrousels — du contenu qui génère visibilité et leads.</div>
+      </div>
+      <div class="tc-service">
+        <div class="tc-service-num">03</div>
+        <div class="tc-service-name">Gestion des réseaux</div>
+        <div class="tc-service-desc">Pilotage complet de vos comptes Instagram, TikTok et LinkedIn.</div>
+      </div>
     </div>
+    <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="tc-link">Réserver un appel stratégique <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
   </div>
-</div>
+  <div class="toggle-content" id="tab-formation">
+    <div class="tc-headline">Remplissez vos <em>formations</em><br>en continu</div>
+    <p class="tc-body">Nous créons la visibilité qui attire les bons apprenants au bon moment. Funnel de contenu, autorité digitale, acquisition organique optimisée.</p>
+    <div class="tc-services">
+      <div class="tc-service">
+        <div class="tc-service-num">01</div>
+        <div class="tc-service-name">Autorité de marque</div>
+        <div class="tc-service-desc">Positionnez votre centre comme l'expert incontournable de votre domaine.</div>
+      </div>
+      <div class="tc-service">
+        <div class="tc-service-num">02</div>
+        <div class="tc-service-name">Funnel de contenu</div>
+        <div class="tc-service-desc">Stratégie éditoriale pour attirer et convertir des prospects qualifiés.</div>
+      </div>
+      <div class="tc-service">
+        <div class="tc-service-num">03</div>
+        <div class="tc-service-name">Publicité sociale</div>
+        <div class="tc-service-desc">Campagnes Meta & TikTok Ads pour maximiser vos inscriptions.</div>
+      </div>
+    </div>
+    <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="tc-link">Discuter de votre projet <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
 
-<!-- KINETIC TEXT -->
+<!-- KINETIC -->
 <div class="kinetic-section">
   <div class="kinetic-row">
-    <div class="kt-track">
-      <span class="kinetic-text filled">VISIBILITÉ<span class="kt-sep">⚡</span></span>
-      <span class="kinetic-text">CONTENU<span class="kt-sep">⚡</span></span>
-      <span class="kinetic-text filled">CONVERSION<span class="kt-sep">⚡</span></span>
-      <span class="kinetic-text">CLIENTS<span class="kt-sep">⚡</span></span>
-      <span class="kinetic-text filled">VISIBILITÉ<span class="kt-sep">⚡</span></span>
-      <span class="kinetic-text">CONTENU<span class="kt-sep">⚡</span></span>
-      <span class="kinetic-text filled">CONVERSION<span class="kt-sep">⚡</span></span>
-      <span class="kinetic-text">CLIENTS<span class="kt-sep">⚡</span></span>
+    <div class="kinetic-text" id="k1">
+      VIRAL <span class="kt-dot"></span> <span class="solid">IMPACT</span> <span class="kt-dot"></span> GROWTH <span class="kt-dot"></span> <span class="kr">INFLUENCE</span> <span class="kt-dot"></span> VIRAL <span class="kt-dot"></span> <span class="solid">IMPACT</span> <span class="kt-dot"></span> GROWTH <span class="kt-dot"></span> <span class="kr">INFLUENCE</span>
     </div>
   </div>
   <div class="kinetic-row">
-    <div class="kt-track rev">
-      <span class="kinetic-text">LINKEDIN<span class="kt-sep">·</span></span>
-      <span class="kinetic-text filled">TIKTOK<span class="kt-sep">·</span></span>
-      <span class="kinetic-text">INSTAGRAM<span class="kt-sep">·</span></span>
-      <span class="kinetic-text filled">PERSONAL BRANDING<span class="kt-sep">·</span></span>
-      <span class="kinetic-text">LINKEDIN<span class="kt-sep">·</span></span>
-      <span class="kinetic-text filled">TIKTOK<span class="kt-sep">·</span></span>
-      <span class="kinetic-text">INSTAGRAM<span class="kt-sep">·</span></span>
-      <span class="kinetic-text filled">PERSONAL BRANDING<span class="kt-sep">·</span></span>
+    <div class="kinetic-text" id="k2">
+      CONTENU <span class="kt-dot"></span> <span class="solid">STRATÉGIE</span> <span class="kt-dot"></span> <span class="kr">RÉSULTATS</span> <span class="kt-dot"></span> AUDIENCE <span class="kt-dot"></span> CONTENU <span class="kt-dot"></span> <span class="solid">STRATÉGIE</span> <span class="kt-dot"></span> <span class="kr">RÉSULTATS</span> <span class="kt-dot"></span> AUDIENCE
     </div>
   </div>
 </div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-tag">Notre méthode</div>
+  <h2 class="reveal" style="font-family:var(--ff-display);font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-.01em;margin-bottom:80px;max-width:600px">UNE APPROCHE<br><span style="color:var(--red)">CHIRURGICALE</span></h2>
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="ps-num">01</div>
+      <div class="ps-title">Audit & Stratégie</div>
+      <p class="ps-desc">Analyse complète de votre présence actuelle, de vos concurrents et de votre audience cible. On définit ensemble votre ADN digital.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="ps-num">02</div>
+      <div class="ps-title">Création de contenu</div>
+      <p class="ps-desc">Production de contenus haute valeur sur-mesure : visuels, vidéos, copywriting. Chaque pièce est optimisée pour l'algorithme et pour l'humain.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="ps-num">03</div>
+      <div class="ps-title">Distribution & Croissance</div>
+      <p class="ps-desc">Publication stratégique, engagement communautaire et optimisation continue basée sur la data. On fait croître votre audience organiquement.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="ps-num">04</div>
+      <div class="ps-title">Mesure & Optimisation</div>
+      <p class="ps-desc">Reporting mensuel détaillé, A/B testing permanent, pivot rapide si nécessaire. Vos résultats s'améliorent chaque semaine.</p>
+    </div>
+  </div>
+</section>
 
 <!-- STATS -->
-<section class="s-b" id="resultats">
-  <div class="container">
-    <div class="gr"><h2 class="s-t">Des chiffres,<br>pas des promesses.</h2></div>
-    <div class="st-grid gr">
-      <div class="st-c"><div class="st-top"></div><span class="st-tag">Visibilité</span><div class="st-n" data-c="25" data-s="M+">0</div><p class="st-l">De vues générées pour nos clients et nos propres projets.</p></div>
-      <div class="st-c"><div class="st-top"></div><span class="st-tag">Entrepreneurs</span><div class="st-n" data-c="50" data-p="+">0</div><p class="st-l">Entrepreneurs conseillés ou accompagnés.</p></div>
-      <div class="st-c"><div class="st-top"></div><span class="st-tag">Centres</span><div class="st-n" data-c="5" data-p="+">0</div><p class="st-l">Classes remplies et partenariats entreprises signés.</p></div>
-      <div class="st-c"><div class="st-top"></div><span class="st-tag">Sélectif</span><div class="st-n">5<span style="font-size:24px;color:var(--g)">/mois</span></div><p class="st-l">Places entrepreneur par mois. On sélectionne, on s'investit.</p></div>
+<section id="stats">
+  <div class="section-tag">Nos résultats</div>
+  <h2 class="stats-headline reveal">Les <span class="accent">chiffres</span><br>parlent d'eux-mêmes</h2>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number"><span class="counter" data-target="25">0</span>M<span class="red">+</span></div>
+      <div class="stat-label">Vues générées<br>pour nos clients</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number"><span class="counter" data-target="150">0</span><span class="red">+</span></div>
+      <div class="stat-label">Clients accompagnés<br>avec succès</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number"><span class="counter" data-target="340">0</span><span class="red">%</span></div>
+      <div class="stat-label">Croissance moyenne<br>en 90 jours</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number"><span class="counter" data-target="98">0</span><span class="red">%</span></div>
+      <div class="stat-label">Taux de satisfaction<br>client</div>
     </div>
   </div>
 </section>
 
-<!-- MONDE ENT -->
-<div class="w-ent" id="entrepreneurs">
-<section class="s-b">
-  <div class="container">
-    <div class="gr" style="margin-bottom:72px"><span class="tag s-ey">Pour entrepreneurs</span><h2 class="s-t" style="margin-top:20px;max-width:700px">Votre marque vous ramène des clients.</h2><p class="s-sub">Vous avez l'expertise. Il vous manque la visibilité qui transforme votre audience en chiffre d'affaires.</p></div>
-    <div class="ba gr">
-      <div class="ba-col bc"><div class="ba-lbl">Aujourd'hui</div><ul class="ba-list"><li>Vous postez sans régularité, et sans savoir si ça sert à quelque chose.</li><li>Vous générez quelques likes, mais jamais de rendez-vous.</li><li>Vous voyez des concurrents moins bons que vous prendre toute la lumière.</li><li>Vous n'avez pas de message clair : on ne sait pas pourquoi vous choisir.</li></ul></div>
-      <div class="ba-col ac-col"><div class="ba-lbl ac">Avec Netfluentia</div><ul class="ba-list"><li>Une ligne éditoriale claire et un rythme tenable, pensés pour vous.</li><li>Du contenu qui convertit en rendez-vous, pas juste en vanité.</li><li>Un positionnement qui vous rend incontournable sur votre sujet.</li><li>Une marque que les bons clients reconnaissent et viennent chercher.</li></ul></div>
+<!-- OFFERS -->
+<section id="horiz">
+  <div class="horiz-head section-tag">Nos offres</div>
+  <div class="horiz-track" id="horizTrack">
+    <div class="horiz-card">
+      <div class="hc-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <div class="hc-tag">Accompagnement</div>
+      <h3 class="hc-title">Pack Personal Branding</h3>
+      <p class="hc-desc">Stratégie complète, création de contenu mensuelle, gestion des réseaux et suivi performance hebdomadaire.</p>
+      <div class="hc-price">Sur devis <small>/ mois</small></div>
     </div>
-    <div class="offer-h gr"><h3>Deux façons de travailler ensemble.</h3><p>Selon votre moment : accompagnement individuel sur-mesure, ou programme collectif.</p></div>
-    <div class="cards gr">
-      <div class="card"><span class="c-lbl">Accompagnement individuel</span><h3 class="c-title">Personal branding</h3><p class="c-desc">On construit votre marque personnelle de A à Z sur les trois réseaux. Un suivi rapproché, taillé pour votre activité et vos objectifs.</p><span class="c-tag">⚡ 5 places par mois</span><div class="dv"></div><div><p class="ll">Ce qu'on met en place</p><ul class="fl-list"><li>Stratégie de contenu sur LinkedIn, TikTok & Instagram, adaptée à votre cible.</li><li>Positionnement et ligne éditoriale : un message clair que les gens retiennent.</li><li>Copywriting et formats pensés pour convertir, pas seulement pour générer des likes.</li><li>Méthodologie complète pour publier régulièrement sans y passer vos journées.</li></ul></div></div>
-      <div class="card ft"><div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><span class="c-lbl">Programme collectif</span><span class="bdg">Places limitées</span></div><h3 class="c-title">Le mois intensif</h3><p class="c-desc">Un mois en groupe restreint pour structurer votre acquisition et passer à l'action, avec un accès direct à Fahed.</p><div class="price-r"><span class="price">500€</span><span class="price-d">/ personne — 1 mois · 10 places max</span></div><div class="dv"></div><div><p class="ll">Ce que comprend le programme</p><ul class="fl-list"><li>10 places maximum pour un suivi réel, jamais dilué.</li><li>3 visios collectives d'1h par semaine : stratégie, contenu, acquisition.</li><li>1h en solo chaque semaine, rien que pour votre situation.</li><li>Accès au groupe WhatsApp pour avancer ensemble entre les sessions.</li><li>Accès aux méthodes et ressources utilisées au quotidien.</li><li>Échange direct avec Fahed par message, du lundi au vendredi.</li></ul></div></div>
+    <div class="horiz-card">
+      <div class="hc-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="hc-tag">Formation</div>
+      <h3 class="hc-title">1 Mois Intensif</h3>
+      <p class="hc-desc">Formation complète pour maîtriser votre communication en autonomie. 4 semaines, résultats concrets garantis.</p>
+      <div class="hc-price">500€ <small>/ programme</small></div>
     </div>
-    <div class="cta-b gr"><h3>Prêt à construire votre marque ?</h3><p>5 places entrepreneur par mois — on regarde votre situation ensemble.</p><a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-p">Réserver mon appel</a></div>
-  </div>
-</section>
-</div>
-
-<!-- MONDE CTR -->
-<div class="w-ctr" id="centres">
-<section class="s-b">
-  <div class="container">
-    <div class="gr" style="margin-bottom:72px"><span class="tag s-ey">Pour centres de formation</span><h2 class="s-t" style="margin-top:20px;max-width:700px">Des classes pleines. Des partenaires qui signent.</h2><p class="s-sub">Notre expertise : remplir vos sessions grâce au contenu. +5 centres accompagnés.</p></div>
-    <div class="ba gr">
-      <div class="ba-col bc"><div class="ba-lbl">Aujourd'hui</div><ul class="ba-list"><li>Des sessions qui peinent à se remplir, des places vides à la rentrée.</li><li>Une présence en ligne fade, qui ne donne pas envie de s'inscrire.</li><li>Du mal à attirer des entreprises partenaires pour l'alternance.</li><li>Aucune machine de contenu : tout repose sur le bouche-à-oreille.</li></ul></div>
-      <div class="ba-col ac-col"><div class="ba-lbl ac">Avec Netfluentia</div><ul class="ba-list"><li>Du contenu vidéo qui rend votre centre visible et désirable.</li><li>Une acquisition double cible : étudiants ET entreprises partenaires.</li><li>Des classes remplies grâce à un flux de contenu qui tourne en continu.</li><li>Des partenariats signés : la visibilité devient des accords concrets.</li></ul></div>
+    <div class="horiz-card">
+      <div class="hc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+      <div class="hc-tag">Consulting</div>
+      <h3 class="hc-title">Audit Stratégique</h3>
+      <p class="hc-desc">Analyse de votre présence digitale avec plan d'action détaillé et recommandations prioritaires.</p>
+      <div class="hc-price">Offert <small>/ 30 min</small></div>
     </div>
-    <div class="offer-h gr"><h3>L'acquisition par le contenu, clé en main.</h3><p>On s'installe avec vos équipes, on construit votre machine de contenu, et on remplit vos sessions.</p></div>
-    <div class="cards one gr">
-      <div class="card ft"><span class="c-lbl">Accompagnement complet</span><h3 class="c-title">Acquisition par le contenu</h3><p class="c-desc">On prend en charge votre visibilité et votre recrutement. Étudiants et entreprises : on attire les deux, en continu.</p><span class="c-tag">⚡ Pour organismes de formation</span><div class="dv"></div><div><p class="ll">Ce qu'on met en place</p><ul class="fl-list"><li>Production de contenu vidéo : on rend votre centre visible et crédible.</li><li>Acquisition double cible : campagnes pour les étudiants ET les entreprises.</li><li>Recrutement étudiants : on transforme l'audience en candidatures.</li><li>Recrutement entreprises : on génère des partenariats pour l'alternance.</li><li>Machine de contenu installée : un flux régulier qui tourne sur la durée.</li><li>On bosse avec vos équipes : on s'installe, on exécute, vous montez en compétence.</li></ul></div></div>
+    <div class="horiz-card">
+      <div class="hc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="hc-tag">Centre de formation</div>
+      <h3 class="hc-title">Visibilité Formation</h3>
+      <p class="hc-desc">Stratégie dédiée pour attirer des apprenants qualifiés et remplir vos sessions en continu.</p>
+      <div class="hc-price">Sur devis <small>/ trimestre</small></div>
     </div>
-    <div class="cta-b gr"><h3>Prêt à remplir vos sessions ?</h3><p>On regarde votre centre et on construit un plan d'acquisition concret.</p><a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-p">Réserver mon appel</a></div>
-  </div>
-</section>
-</div>
-
-<!-- FAHED 3D -->
-<section class="s-b" id="fahed">
-  <div class="container">
-    <div class="fahed-grid">
-      <div class="photo-wrap gr">
-        <div class="photo-tilt" id="pTilt" data-tilt data-tilt-max="13" data-tilt-speed="500" data-tilt-glare="true" data-tilt-max-glare="0.08" data-tilt-perspective="900">
-          <img src="assets/fahed.jpg" alt="Fahed Chahbani — Fondateur Netfluentia"/>
-          <div class="photo-overlay"></div>
-          <div class="photo-name"><h3>Fahed Chahbani</h3><span>Fondateur, Netfluentia</span></div>
-          <div class="ph-badge t"><span class="pn">25M+</span><span class="pl">vues générées</span></div>
-          <div class="ph-badge m"><span class="pn">5 ⚡</span><span class="pl">places / mois</span></div>
-          <div class="ph-cr1"></div><div class="ph-cr2"></div>
-        </div>
-        <div class="photo-glow"></div>
-      </div>
-      <div class="fahed-text gr">
-        <span class="tag s-ey">En transparence</span>
-        <h2 class="s-t">Voici comment<br>je travaille.</h2>
-        <p>Je ne vends pas du rêve, je construis des systèmes. Mon job : transformer votre visibilité en rendez-vous, en clients, en classes remplies — pas en likes qui ne paient pas les factures.</p>
-        <p>Tout est clair dès le départ : ce qu'on fait, pourquoi on le fait, et ce que ça doit produire. Vous savez toujours où on en est.</p>
-        <p>Et je ne prends pas tout le monde. Je sélectionne 5 entrepreneurs par mois pour pouvoir m'investir réellement dans chaque accompagnement.</p>
-        <div class="f-sig">Fahed Chahbani — Fondateur, Netfluentia</div>
-        <div class="prs">
-          <div class="pr"><span class="pr-n">01</span><div class="pr-c"><h4>Transparence totale</h4><p>Objectifs, méthode, résultats attendus : tout est posé dès le premier appel.</p></div></div>
-          <div class="pr"><span class="pr-n">02</span><div class="pr-c"><h4>Le résultat avant la vanité</h4><p>Chaque contenu a un rôle : attirer, prouver, convertir.</p></div></div>
-          <div class="pr"><span class="pr-n">03</span><div class="pr-c"><h4>On bosse ensemble, pas à votre place</h4><p>Je m'installe avec vous. Vous repartez avec une vraie compétence.</p></div></div>
-          <div class="pr"><span class="pr-n">04</span><div class="pr-c"><h4>Sélection assumée</h4><p>5 places entrepreneur par mois. Je choisis les profils avec qui je peux vraiment faire la différence.</p></div></div>
-        </div>
-      </div>
+    <div class="horiz-card">
+      <div class="hc-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="hc-tag">Performance</div>
+      <h3 class="hc-title">Publicité Sociale</h3>
+      <p class="hc-desc">Campagnes Meta & TikTok Ads à ROI optimisé. Ciblage précis, créatifs percutants, scaling progressif.</p>
+      <div class="hc-price">Sur devis <small>/ mois</small></div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="s-b" id="faq">
-  <div class="container">
-    <div class="faq-grid">
-      <div class="gr"><span class="tag s-ey">Questions fréquentes</span><h2 class="s-t" style="margin-top:20px">Ce que vous voulez savoir.</h2></div>
-      <div class="faq-list gr">
-        <div class="faq-it"><button class="faq-q">Je suis entrepreneur : par où je commence ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">Par un appel de 30 minutes. On regarde votre activité, votre cible et vos objectifs, puis on décide ensemble du bon format. Aucun engagement à réserver l'appel.</div></div></div>
-        <div class="faq-it"><button class="faq-q">Je dirige un centre de formation : comment ça se passe ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">On part de votre situation : taux de remplissage, présence en ligne, besoins en partenariats. On construit ensuite une machine de contenu qui attire étudiants et entreprises, et on l'installe avec vos équipes.</div></div></div>
-        <div class="faq-it"><button class="faq-q">Pourquoi seulement 5 places entrepreneur par mois ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">Parce qu'un vrai accompagnement demande du temps. En limitant à 5 entrepreneurs par mois, je m'implique réellement dans chaque projet. C'est la différence entre un suivi sérieux et un service de masse.</div></div></div>
-        <div class="faq-it"><button class="faq-q">Le programme de groupe, ça comprend quoi exactement ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">500€ par personne, 10 places maximum, sur 1 mois. 3 visios collectives d'1h par semaine, 1h en solo chaque semaine, accès au groupe WhatsApp, aux méthodes, et échange direct avec moi du lundi au vendredi.</div></div></div>
-        <div class="faq-it"><button class="faq-q">Combien coûtent les accompagnements sur-mesure ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">Ça dépend de votre situation. On en parle pendant l'appel, en toute transparence, et vous repartez avec une proposition claire. Aucun engagement.</div></div></div>
-        <div class="faq-it"><button class="faq-q">En combien de temps voit-on des résultats ?<span class="faq-ic">+</span></button><div class="faq-ans"><div class="faq-ai">La visibilité peut bouger vite, mais la transformation en clients est un travail de fond. On fixe dès le départ des objectifs clairs et mesurables pour que vous sachiez exactement où on va.</div></div></div>
-      </div>
+<!-- BEFORE/AFTER -->
+<section id="ba">
+  <div class="section-tag">Transformation</div>
+  <h2 class="reveal" style="font-family:var(--ff-display);font-size:clamp(40px,6vw,88px);line-height:.95;max-width:700px;letter-spacing:-.01em">AVANT vs <span style="color:var(--red)">APRÈS</span><br>NETFLUENTIA</h2>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-col-head"><span class="ba-pill before">AVANT</span></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Présence en ligne invisible et sans cohérence</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Publications irrégulières sans stratégie claire</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Engagement faible, audience qui ne convertit pas</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Du temps perdu à créer sans résultat mesurable</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><p>Clients qui vont chez vos concurrents plus visibles</p></div>
+    </div>
+    <div class="ba-col after-col">
+      <div class="ba-col-head"><span class="ba-pill after">APRÈS</span></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Identité forte, reconnaissable, qui attire naturellement</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Calendrier éditorial sur-mesure, contenu viral régulier</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Communauté engagée qui achète et recommande</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>ROI mesurable, croissance visible chaque mois</p></div>
+      <div class="ba-item"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Vous devenez la référence incontournable de votre niche</p></div>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="s-b fin">
-  <div class="container">
-    <div class="fin-inner gr">
-      <div class="fin-glow"></div>
-      <h2>Prêt à créer<br><span style="color:var(--a)">vos opportunités ?</span></h2>
-      <p>Un appel de 30 minutes pour voir votre situation et si on peut travailler ensemble. Sans engagement, et je vous dis franchement ce que j'en pense.</p>
-      <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener" class="btn btn-p" style="font-size:16px;padding:18px 44px">Réserver mon appel</a>
-      <p class="fin-note">Entrepreneurs : 5 places par mois · Centres : on étudie chaque projet</p>
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-tag">Témoignages</div>
+  <h2 class="testi-headline">Ce que disent<br>nos clients</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <p class="testi-quote">"Netfluentia a transformé ma présence LinkedIn. En 3 mois, j'ai multiplié mon audience par 8 et closé mes premiers clients grâce au contenu."</p>
+      <div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Sarah M.</div><div class="testi-role">Coach Business</div></div></div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">"La formation intensive d'un mois vaut largement le prix. J'ai tout compris sur la stratégie de contenu et mes formations se remplissent maintenant seules."</p>
+      <div class="testi-author"><div class="testi-avatar">K</div><div><div class="testi-name">Karim B.</div><div class="testi-role">Formateur Certifié</div></div></div>
+    </div>
+    <div class="testi-card">
+      <p class="testi-quote">"Des professionnels qui comprennent les enjeux business. Mon centre a augmenté ses inscriptions de 200% en 6 mois. Résultats exceptionnels."</p>
+      <div class="testi-author"><div class="testi-avatar">L</div><div><div class="testi-name">Leila D.</div><div class="testi-role">Directrice CFA</div></div></div>
     </div>
   </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <div class="cta-bg-text">NET</div>
+  <h2 class="cta-headline">
+    PRÊT À<br>
+    <span class="outline">PASSER</span><br>
+    <em>AU NIVEAU</em><br>
+    SUPÉRIEUR&nbsp;?
+  </h2>
+  <p class="cta-sub">30 minutes de consultation offerte. Sans engagement. On analyse votre situation et on vous dit exactement quoi faire.</p>
+  <div class="cta-btn-wrap">
+    <a href="https://calendly.com/chahbani-fahed/30min" target="_blank" class="btn-mag" id="magBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Réserver ma consultation gratuite
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <p class="cta-meta">⚡ Réponse garantie sous 24h · Aucun engagement · 100% offert</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="container">
-    <div class="ft-row">
-      <div><div class="ft-logo">netfluentia<span style="color:var(--a)">⚡</span></div><div class="ft-sub">L'agence qui transforme l'attention en clients.</div></div>
-      <ul class="ft-links"><li><a href="https://calendly.com/chahbani-fahed/30min" target="_blank" rel="noopener">Réserver un appel</a></li><li><a href="#entrepreneurs">Entrepreneurs</a></li><li><a href="#centres">Centres</a></li><li><a href="#faq">FAQ</a></li></ul>
-      <div class="ft-copy">© 2026 Netfluentia</div>
-    </div>
+  <div class="footer-logo">netfluentia<span>⚡</span></div>
+  <ul class="footer-links">
+    <li><a href="#toggle-section">Services</a></li>
+    <li><a href="#process">Méthode</a></li>
+    <li><a href="#stats">Résultats</a></li>
+    <li><a href="https://calendly.com/chahbani-fahed/30min" target="_blank">Contact</a></li>
+  </ul>
+  <div class="footer-right">
+    <div style="font-size:13px;color:var(--white);margin-bottom:4px">chahbani-fahed@gmail.com</div>
+    <div>Paris, France</div>
   </div>
+  <div class="footer-copy">© 2025 Netfluentia — Tous droits réservés</div>
 </footer>
-</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
-gsap.registerPlugin(ScrollTrigger);
-
-/* ═══ LOADER ═══ */
-const lf=document.getElementById('lf'),lp=document.getElementById('lp');
-const ll1=document.getElementById('ll1'),ll2=document.getElementById('ll2');
-let prog=0;
-gsap.to(ll1,{y:'0%',duration:.6,ease:'power3.out',delay:.2});
-gsap.to(ll2,{y:'0%',duration:.6,ease:'back.out(2)',delay:.4});
-const li=setInterval(()=>{prog+=Math.random()*12+4;if(prog>=100){prog=100;clearInterval(li);setTimeout(()=>{gsap.to('#loader',{opacity:0,duration:.5,ease:'power2.in',onComplete:()=>{document.getElementById('loader').style.display='none';startHero()}})},200)}lf.style.width=prog+'%';lp.textContent=Math.round(prog)+'%'},80);
-
-/* ═══ PARTICLES ═══ */
-const cv=document.getElementById('bg-canvas'),ctx=cv.getContext('2d');
-let W,H,pts=[];
-function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight}rsz();window.addEventListener('resize',rsz);
-class P{constructor(){this.r()}r(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.25;this.vy=(Math.random()-.5)*.25;this.s=Math.random()*1.3+.3;this.a=Math.random()*.3+.06;this.col=Math.random()>.7?'200,255,62':'190,190,190'}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fillStyle=`rgba(${this.col},${this.a})`;ctx.fill()}upd(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.r()}}
-for(let i=0;i<130;i++)pts.push(new P());
-function dLines(){for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(200,255,62,${.032*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke()}}}
-(function loop(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.upd();p.draw()});dLines();requestAnimationFrame(loop)})();
-
-/* ═══ CURSOR ═══ */
-const curEl=document.getElementById('cur'),cr=document.getElementById('cr'),cd=document.getElementById('cd');
+// ─── CURSOR ───
+const dot=document.getElementById('cur-dot');
+const ring=document.getElementById('cur-ring');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;curEl.style.left=mx+'px';curEl.style.top=my+'px'});
-(function lp2(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(lp2)})();
-document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'))});
-document.addEventListener('mousedown',()=>document.body.classList.add('click'));
-document.addEventListener('mouseup',()=>document.body.classList.remove('click'));
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+(function ac(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ac)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hover-active'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hover-active'));
+});
 
-/* ═══ NAV ═══ */
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s',scrollY>50),{passive:true});
-
-/* ═══ HERO INTRO ═══ */
-function startHero(){
-  gsap.timeline({delay:.1})
-    .fromTo('.hero-inner',{opacity:0,y:56},{opacity:1,y:0,duration:1,ease:'power3.out'})
-    .fromTo('.fo-phone',{opacity:0,x:70,rotate:8},{opacity:1,x:0,rotate:0,duration:1.1,ease:'power2.out'},'<.3')
-    .fromTo('.fo-tiktok',{opacity:0,x:-50},{opacity:1,x:0,duration:.9,ease:'power2.out'},'<.1')
-    .fromTo('.fo-bolt1',{opacity:0,scale:.2},{opacity:1,scale:1,duration:.8,ease:'back.out(3)'},'<.2')
-    .fromTo('.fo-bolt2',{opacity:0,scale:.2},{opacity:.4,scale:1,duration:.6,ease:'back.out(2)'},'<.1')
-    .fromTo('.fo-stat1',{opacity:0,y:24},{opacity:1,y:0,duration:.6,ease:'power2.out'},'<.1')
-    .fromTo('.fo-stat2',{opacity:0,y:-24},{opacity:1,y:0,duration:.6,ease:'power2.out'},'<.15')
-    .fromTo('.fo-insta',{opacity:0,x:40},{opacity:1,x:0,duration:.7,ease:'power2.out'},'<.1')
-    .fromTo('.fo-linkedin',{opacity:0,y:30},{opacity:1,y:0,duration:.7,ease:'power2.out'},'<.1')
-    .fromTo('.fo-tags,.fo-cam,.fo-at,.fo-eye,.fo-cur,.fo-play,.fo-reacts,.fo-chart,.fo-notif',{opacity:0},{opacity:1,duration:.5,stagger:.06},'<.2')
-    .fromTo('.sc-hint',{opacity:0},{opacity:1,duration:.5},'<.3');
+// ─── LOADER ───
+const bar=document.getElementById('lbar');
+const pct=document.getElementById('lpct');
+const letters=[...document.querySelectorAll('.loader-logo span')];
+let p=0;
+letters.forEach((l,i)=>{
+  setTimeout(()=>{l.style.transition='transform .6s cubic-bezier(.34,1.56,.64,1),opacity .4s';l.style.transform='translateY(0)';l.style.opacity='1'},i*60+200);
+});
+const iv=setInterval(()=>{
+  p=Math.min(p+(Math.random()*3+1),100);
+  bar.style.width=p+'%';
+  pct.textContent=Math.floor(p)+'%';
+  if(p>=100){clearInterval(iv);setTimeout(startSite,400)}
+},40);
+function startSite(){
+  gsap.to('#loader',{opacity:0,duration:.8,ease:'power2.in',onComplete:()=>{
+    document.getElementById('loader').style.display='none';
+    initSite();
+  }});
 }
 
-/* ═══ TOGGLE ═══ */
-document.querySelectorAll('.tog-b').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('.tog-b').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    document.body.classList.toggle('ctr',b.dataset.m==='ctr');
-    gsap.fromTo('#h-ent,#h-ctr',{opacity:0,y:16},{opacity:1,y:0,duration:.5,ease:'power2.out'});
+// ─── INIT ───
+function initSite(){
+  // Lenis smooth scroll
+  const lenis=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
+  function rf(t){lenis.raf(t);requestAnimationFrame(rf)}
+  requestAnimationFrame(rf);
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(t=>lenis.raf(t*1000));
+  gsap.ticker.lagSmoothing(0);
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Nav
+  gsap.from('#main-nav',{y:-60,opacity:0,duration:1,ease:'power3.out',delay:.1});
+
+  // Floating objects reveal
+  document.querySelectorAll('.fobj').forEach((el,i)=>{
+    gsap.to(el,{opacity:1,duration:1.4,delay:1+i*.07,ease:'power2.out'});
   });
-});
 
-/* ═══ MOUSE PARALLAX ═══ */
-document.addEventListener('mousemove',e=>{
-  const x=(e.clientX/W-.5)*28,y=(e.clientY/H-.5)*20;
-  gsap.to('.fo-phone',{x:x*.95,y:y*.75,duration:1.5,ease:'power1.out'});
-  gsap.to('.fo-tiktok',{x:-x*.7,y:-y*.55,duration:1.7,ease:'power1.out'});
-  gsap.to('.fo-insta',{x:x*.6,y:-y*.4,duration:1.4,ease:'power1.out'});
-  gsap.to('.fo-linkedin',{x:-x*.4,y:y*.5,duration:1.6,ease:'power1.out'});
-  gsap.to('.fo-bolt1',{x:x*.5,y:y*.4,duration:1.2,ease:'power1.out'});
-  gsap.to('.fo-bolt2',{x:-x*.3,y:-y*.3,duration:1,ease:'power1.out'});
-  gsap.to('.fo-stat1',{x:-x*.35,y:y*.6,duration:1.3,ease:'power1.out'});
-  gsap.to('.fo-stat2',{x:x*.65,y:-y*.45,duration:1.5,ease:'power1.out'});
-  gsap.to('.fo-at',{x:-x*.22,y:y*.28,duration:1.8,ease:'power1.out'});
-  gsap.to('.fo-eye',{x:x*.28,y:-y*.22,duration:1.4,ease:'power1.out'});
-  gsap.to('.fo-chart',{x:x*.4,y:y*.35,duration:1.1,ease:'power1.out'});
-  gsap.to('.fo-notif',{x:-x*.5,y:y*.38,duration:1.3,ease:'power1.out'});
-  gsap.to('.fo-reacts',{x:x*.45,y:-y*.35,duration:1.2,ease:'power1.out'});
-  gsap.to('.o1',{x:x*.08,y:y*.06,duration:2.5,ease:'power1.out'});
-  gsap.to('.o2',{x:-x*.12,y:-y*.09,duration:3,ease:'power1.out'});
-});
+  // Hero headline words
+  gsap.to('.hero-title .word',{y:'0%',duration:1.1,stagger:.08,ease:'power4.out',delay:.5});
+  gsap.to('.hero-sub',{opacity:1,y:0,duration:.8,delay:1.3,ease:'power3.out'});
+  gsap.to('.hero-actions',{opacity:1,y:0,duration:.8,delay:1.6,ease:'power3.out'});
+  gsap.to('.hero-scroll',{opacity:1,duration:1,delay:2,ease:'power2.out'});
 
-/* ═══ SCROLL REVEALS ═══ */
-document.querySelectorAll('.gr').forEach((el,i)=>{
-  gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:.8,ease:'power2.out',delay:(i%3)*.05,
-    scrollTrigger:{trigger:el,start:'top 88%',once:true,onEnter:()=>el.classList.add('done')}});
-});
-
-/* ═══ COUNTERS ═══ */
-document.querySelectorAll('[data-c]').forEach(el=>{
-  ScrollTrigger.create({trigger:el,start:'top 85%',once:true,onEnter:()=>{
-    const t=+el.dataset.c,s=el.dataset.s||'',p=el.dataset.p||'';
-    gsap.fromTo({v:0},{v:t},{duration:1.8,ease:'power2.out',onUpdate:function(){el.textContent=p+Math.round(this.targets()[0].v)+s}});
-  }});
-});
-
-/* ═══ FAQ ═══ */
-document.querySelectorAll('.faq-q').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const it=btn.parentElement,ans=it.querySelector('.faq-ans'),op=it.classList.contains('op');
-    document.querySelectorAll('.faq-it').forEach(i=>{i.classList.remove('op');i.querySelector('.faq-ans').style.maxHeight=null});
-    if(!op){it.classList.add('op');ans.style.maxHeight=ans.scrollHeight+'px'}
+  // Mouse parallax
+  const fobjs=document.querySelectorAll('.fobj');
+  document.addEventListener('mousemove',e=>{
+    const cx=window.innerWidth/2,cy=window.innerHeight/2;
+    const dx=(e.clientX-cx)/cx,dy=(e.clientY-cy)/cy;
+    fobjs.forEach((el,i)=>{
+      const d=(i%4+1)*14;
+      gsap.to(el,{x:dx*d,y:dy*d,duration:1.6,ease:'power2.out',overwrite:'auto'});
+    });
   });
-});
 
-/* ═══ PHONE BARS ANIMATION ═══ */
-function animBars(){document.querySelectorAll('.ph-bar,.ph-bar.v1,.ph-bar.v2,.ph-bar.v3,.ph-bar.v4,.ph-bar.v5').forEach(b=>{const h=['35%','60%','42%','88%','56%','30%','75%'][Math.floor(Math.random()*7)];b.style.transition='height .8s ease';b.style.height=h})}
-setInterval(animBars,2000);
+  // Kinetic scroll text
+  gsap.to('#k1',{x:'-20%',ease:'none',scrollTrigger:{trigger:'.kinetic-section',scrub:1.5}});
+  gsap.fromTo('#k2',{x:'-20%'},{x:'0%',ease:'none',scrollTrigger:{trigger:'.kinetic-section',scrub:1.5}});
 
-/* ═══ NOTIFICATION CYCLE ═══ */
-const msgs=['+847 vues sur votre dernier post','Nouveau message de votre client','📈 +2 341 impressions','🔥 Viral : +15K vues en 2h','✅ Rendez-vous confirmé'];
-let mi=0;
-setInterval(()=>{mi=(mi+1)%msgs.length;const txt=document.querySelector('.notif-txt');if(txt){gsap.to(txt,{opacity:0,y:-6,duration:.2,onComplete:()=>{txt.innerHTML=`<strong>${msgs[mi].split(' ')[0]}</strong> ${msgs[mi].slice(msgs[mi].indexOf(' ')+1)}`;gsap.to(txt,{opacity:1,y:0,duration:.3})}})}},3000);
+  // Reveals
+  gsap.utils.toArray('.reveal').forEach(el=>{
+    gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none none'}});
+  });
+
+  // Counters
+  document.querySelectorAll('.counter').forEach(el=>{
+    const t=+el.dataset.target;
+    ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{
+      gsap.to({v:0},{v:t,duration:2,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(this.targets()[0].v)}});
+    }});
+  });
+
+  // Cards stagger
+  gsap.from('.stat-card',{opacity:0,y:40,duration:.8,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'#stats',start:'top 75%'}});
+  gsap.from('.horiz-card',{opacity:0,y:40,duration:.8,stagger:.12,ease:'power3.out',scrollTrigger:{trigger:'#horiz',start:'top 80%'}});
+  gsap.from('.testi-card',{opacity:0,y:40,duration:.8,stagger:.15,ease:'power3.out',scrollTrigger:{trigger:'#testimonials',start:'top 75%'}});
+  gsap.from('.process-step',{opacity:0,y:40,duration:.9,stagger:.2,ease:'power3.out',scrollTrigger:{trigger:'#process',start:'top 75%'}});
+  gsap.from('.ba-col:first-child',{opacity:0,x:-60,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'#ba',start:'top 75%'}});
+  gsap.from('.ba-col.after-col',{opacity:0,x:60,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'#ba',start:'top 75%'}});
+  gsap.from('.cta-headline',{opacity:0,y:80,duration:1.2,ease:'power4.out',scrollTrigger:{trigger:'#cta-final',start:'top 70%'}});
+
+  // Magnetic CTA
+  const magBtn=document.getElementById('magBtn');
+  magBtn.addEventListener('mousemove',e=>{
+    const r=magBtn.getBoundingClientRect();
+    gsap.to(magBtn,{x:(e.clientX-(r.left+r.width/2))*.25,y:(e.clientY-(r.top+r.height/2))*.25,duration:.4,ease:'power2.out'});
+  });
+  magBtn.addEventListener('mouseleave',()=>gsap.to(magBtn,{x:0,y:0,duration:.6,ease:'elastic.out(1,.5)'}));
+
+  // Notification rotation
+  const msgs=[
+    ['Nouveau follower','+2,847 cette semaine'],
+    ['Vidéo virale','1.2M vues en 48h'],
+    ['Lead entrant','Via Instagram Stories'],
+    ['Nouveau client','Signé ce matin'],
+  ];
+  let ni=0;
+  setInterval(()=>{
+    ni=(ni+1)%msgs.length;
+    const el=document.getElementById('fnText');
+    if(!el)return;
+    gsap.to(el,{opacity:0,y:-8,duration:.25,onComplete:()=>{
+      el.innerHTML=`<strong>${msgs[ni][0]}</strong><span>${msgs[ni][1]}</span>`;
+      gsap.to(el,{opacity:1,y:0,duration:.3});
+    }});
+  },3000);
+
+  // Horizontal drag
+  const track=document.getElementById('horizTrack');
+  let drag=false,sx=0,sl=0;
+  track.addEventListener('mousedown',e=>{drag=true;sx=e.pageX-track.offsetLeft;sl=track.scrollLeft});
+  window.addEventListener('mouseup',()=>{drag=false});
+  track.addEventListener('mousemove',e=>{if(!drag)return;e.preventDefault();track.scrollLeft=sl-(e.pageX-track.offsetLeft-sx)*1.5});
+}
+
+// ─── TOGGLE ───
+function switchTab(id){
+  document.querySelectorAll('.toggle-tab').forEach((t,i)=>t.classList.toggle('active',['entrepreneur','formation'][i]===id));
+  document.querySelectorAll('.toggle-content').forEach(c=>c.classList.remove('active'));
+  const el=document.getElementById('tab-'+id);
+  el.classList.add('active');
+  gsap.from(el,{opacity:0,y:20,duration:.45,ease:'power3.out'});
+}
 </script>
 </body>
 </html>
