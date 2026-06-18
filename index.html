@@ -561,10 +561,16 @@ let p=0,_gsapReady=false,_loaderDone=false;
 ls.forEach((l,i)=>setTimeout(()=>{l.style.transition='transform .5s cubic-bezier(.34,1.56,.64,1),opacity .35s';l.style.transform='translateY(0)';l.style.opacity='1'},i*50+100));
 const iv=setInterval(()=>{p=Math.min(p+(Math.random()*3+1),100);lb.style.width=p+'%';lp.textContent=Math.floor(p)+'%';if(p>=100){clearInterval(iv);_loaderDone=true;tryGo()}},36);
 function tryGo(){if(_loaderDone&&_gsapReady)setTimeout(go,300)}
-function go(){gsap.to('#loader',{opacity:0,duration:.7,ease:'power2.in',onComplete:()=>{document.getElementById('loader').style.display='none';init()}})}
+function go(){
+  const ldr=document.getElementById('loader');
+  if(window.gsap){gsap.to(ldr,{opacity:0,duration:.7,ease:'power2.in',onComplete:()=>{ldr.style.display='none';init()}})}
+  else{ldr.style.transition='opacity .7s';ldr.style.opacity='0';setTimeout(()=>{ldr.style.display='none';init()},700)}
+}
+/* Timeout de secours : si les CDN ne répondent pas en 8s, on ouvre quand même */
+setTimeout(()=>{if(!_gsapReady){_gsapReady=true;tryGo()}},8000);
 
 /* Load GSAP + Lenis dynamically so they don't block the loader */
-function loadScript(src,cb){const s=document.createElement('script');s.src=src;s.onload=cb;document.head.appendChild(s)}
+function loadScript(src,cb,eb){const s=document.createElement('script');s.src=src;s.onload=cb;s.onerror=eb||cb;document.head.appendChild(s)}
 loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',()=>{
   loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',()=>{
     loadScript('https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js',()=>{
@@ -574,6 +580,7 @@ loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',()=>
 });
 
 function init(){
+  if(!window.gsap||!window.Lenis){return}
   const lenis=new Lenis({duration:1.1,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
   function rf(t){lenis.raf(t);requestAnimationFrame(rf)}
   requestAnimationFrame(rf);
