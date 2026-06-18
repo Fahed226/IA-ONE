@@ -545,10 +545,8 @@ footer{padding:52px 52px 36px;border-top:1px solid rgba(239,239,237,.04);display
   <div class="fco">© 2025 Netfluentia — Tous droits réservés</div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
+/* Cursor + spotlight — runs immediately, no GSAP needed */
 const spl=document.getElementById('spl'),cd=document.getElementById('cd'),cr=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
 window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px';spl.style.setProperty('--mx',mx+'px');spl.style.setProperty('--my',my+'px')});
@@ -556,12 +554,24 @@ window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=
 document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('ha'));el.addEventListener('mouseleave',()=>document.body.classList.remove('ha'))});
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>60),{passive:true});
 
+/* Loader — runs immediately, no deps */
 const lb=document.getElementById('lb'),lp=document.getElementById('lpct');
 const ls=[...document.querySelectorAll('.ll span')];
-let p=0;
+let p=0,_gsapReady=false,_loaderDone=false;
 ls.forEach((l,i)=>setTimeout(()=>{l.style.transition='transform .5s cubic-bezier(.34,1.56,.64,1),opacity .35s';l.style.transform='translateY(0)';l.style.opacity='1'},i*50+100));
-const iv=setInterval(()=>{p=Math.min(p+(Math.random()*3+1),100);lb.style.width=p+'%';lp.textContent=Math.floor(p)+'%';if(p>=100){clearInterval(iv);setTimeout(go,300)}},36);
+const iv=setInterval(()=>{p=Math.min(p+(Math.random()*3+1),100);lb.style.width=p+'%';lp.textContent=Math.floor(p)+'%';if(p>=100){clearInterval(iv);_loaderDone=true;tryGo()}},36);
+function tryGo(){if(_loaderDone&&_gsapReady)setTimeout(go,300)}
 function go(){gsap.to('#loader',{opacity:0,duration:.7,ease:'power2.in',onComplete:()=>{document.getElementById('loader').style.display='none';init()}})}
+
+/* Load GSAP + Lenis dynamically so they don't block the loader */
+function loadScript(src,cb){const s=document.createElement('script');s.src=src;s.onload=cb;document.head.appendChild(s)}
+loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',()=>{
+  loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',()=>{
+    loadScript('https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js',()=>{
+      _gsapReady=true;tryGo();
+    });
+  });
+});
 
 function init(){
   const lenis=new Lenis({duration:1.1,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});
