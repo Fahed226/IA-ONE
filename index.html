@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IA-ONE — Le Podcast du Motion Design</title>
-  <meta name="description" content="IA-ONE — Le podcast qui explore les coulisses du motion design, de la création visuelle et de l'intelligence artificielle dans la création." />
+  <title>IA-ONE — Le Podcast Motion Design & IA Créative</title>
+  <meta name="description" content="IA-ONE — Le podcast qui explore les coulisses du motion design, de la création visuelle et de l'intelligence artificielle. Par Quiet Force Studio." />
+  <meta property="og:title" content="IA-ONE — Le Podcast Motion Design" />
+  <meta property="og:description" content="Coulisses, outils, obsessions. Chaque épisode, on décortique la création visuelle avec ceux qui la font vraiment." />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -12,23 +15,37 @@
 </head>
 <body>
 
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-logo">
+      <span class="loader-text">IA<span class="loader-dash">—</span>ONE</span>
+      <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
+    </div>
+  </div>
+
   <!-- CURSOR -->
   <div class="cursor" id="cursor"></div>
-  <div class="cursor-follower" id="cursorFollower"></div>
+  <div class="cursor-follower" id="cursorFollower">
+    <span class="cursor-label" id="cursorLabel"></span>
+  </div>
 
-  <!-- NOISE OVERLAY -->
+  <!-- NOISE -->
   <div class="noise"></div>
 
   <!-- NAV -->
   <nav class="nav" id="nav">
-    <div class="nav-logo">
+    <a href="#hero" class="nav-logo">
       <span class="logo-text">IA<span class="logo-accent">—</span>ONE</span>
-    </div>
+    </a>
     <div class="nav-links">
       <a href="#episodes" class="nav-link">Épisodes</a>
       <a href="#about" class="nav-link">À propos</a>
       <a href="#guests" class="nav-link">Invités</a>
-      <a href="#listen" class="nav-link nav-cta">Écouter</a>
+      <a href="#community" class="nav-link">Communauté</a>
+      <a href="#listen" class="nav-link nav-cta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Écouter
+      </a>
     </div>
     <button class="nav-burger" id="navBurger" aria-label="Menu">
       <span></span><span></span>
@@ -40,28 +57,36 @@
     <a href="#episodes" class="mobile-link">Épisodes</a>
     <a href="#about" class="mobile-link">À propos</a>
     <a href="#guests" class="mobile-link">Invités</a>
+    <a href="#community" class="mobile-link">Communauté</a>
     <a href="#listen" class="mobile-link">Écouter</a>
   </div>
 
   <!-- HERO -->
   <section class="hero" id="hero">
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
     <div class="hero-bg">
       <div class="hero-orb hero-orb-1"></div>
       <div class="hero-orb hero-orb-2"></div>
       <div class="hero-orb hero-orb-3"></div>
-      <div class="hero-grid"></div>
     </div>
 
     <div class="hero-content">
-      <div class="hero-badge">
+      <div class="hero-badge" id="heroBadge">
         <span class="badge-dot"></span>
         <span>Nouveau · Épisode 12 disponible</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
 
       <h1 class="hero-title">
-        <span class="title-line" data-text="Le podcast">Le podcast</span>
-        <span class="title-line title-line-accent" data-text="motion design">motion design</span>
-        <span class="title-line" data-text="& IA créative">& IA créative</span>
+        <span class="title-word">Le</span>
+        <span class="title-word">podcast</span>
+        <br/>
+        <span class="title-word title-accent">motion</span>
+        <span class="title-word title-accent">design</span>
+        <br/>
+        <span class="title-word">&</span>
+        <span class="title-word">IA</span>
+        <span class="title-word">créative</span>
       </h1>
 
       <p class="hero-sub">
@@ -70,17 +95,27 @@
       </p>
 
       <div class="hero-actions">
-        <a href="#listen" class="btn-primary">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          Écouter maintenant
+        <button class="btn-primary hero-play-btn" id="heroPlayBtn">
+          <span class="btn-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span>Écouter le dernier épisode</span>
+        </button>
+        <a href="#episodes" class="btn-ghost">
+          Voir tous les épisodes
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="#episodes" class="btn-ghost">Voir les épisodes →</a>
       </div>
 
       <div class="hero-stats">
         <div class="stat">
-          <span class="stat-num" data-target="12">0</span>
+          <span class="stat-num" data-target="12">0</span><span class="stat-suffix">+</span>
           <span class="stat-label">Épisodes</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="4200">0</span>
+          <span class="stat-label">Auditeurs</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
@@ -89,112 +124,148 @@
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
-          <span class="stat-num" data-target="4200">0</span>
-          <span class="stat-label">Auditeurs</span>
+          <span class="stat-num" data-target="98">0</span><span class="stat-suffix">%</span>
+          <span class="stat-label">Satisfaction</span>
         </div>
       </div>
     </div>
 
     <div class="hero-visual">
-      <div class="vinyl-wrap">
-        <div class="vinyl" id="vinyl">
-          <div class="vinyl-inner">
-            <div class="vinyl-label">
-              <span class="vinyl-title">IA—ONE</span>
-              <span class="vinyl-ep">EP.12</span>
+      <div class="vinyl-scene" id="vinylScene">
+        <div class="vinyl-container">
+          <div class="vinyl" id="vinyl">
+            <div class="vinyl-grooves"></div>
+            <div class="vinyl-center">
+              <div class="vinyl-label">
+                <span class="vinyl-brand">IA—ONE</span>
+                <span class="vinyl-ep">EP.12</span>
+                <div class="vinyl-dot"></div>
+              </div>
             </div>
+            <div class="vinyl-shine"></div>
+          </div>
+          <div class="vinyl-arm" id="vinylArm">
+            <div class="arm-body"></div>
+            <div class="arm-needle"></div>
           </div>
         </div>
-        <div class="vinyl-shadow"></div>
+        <div class="vinyl-reflection"></div>
       </div>
-      <div class="waveform" id="waveform">
-        <svg viewBox="0 0 400 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <g id="waveBars"></g>
-        </svg>
+      <div class="hero-ep-preview">
+        <div class="ep-preview-track">
+          <canvas id="miniWave" width="260" height="40"></canvas>
+          <div class="ep-preview-progress" id="epProgress"></div>
+        </div>
+        <div class="ep-preview-info">
+          <div>
+            <strong>L'IA va-t-elle tuer le motion design ?</strong>
+            <span>52 min · Épisode 12</span>
+          </div>
+          <button class="mini-play" id="miniPlay">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" id="miniPlayIcon"><path d="M8 5v14l11-7z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" id="miniPauseIcon" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
     <div class="hero-scroll">
-      <div class="scroll-line"></div>
+      <div class="scroll-indicator">
+        <div class="scroll-dot"></div>
+      </div>
       <span>Défiler</span>
     </div>
   </section>
 
   <!-- MARQUEE -->
   <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span>Motion Design</span><span class="sep">·</span>
-      <span>Intelligence Artificielle</span><span class="sep">·</span>
-      <span>Création Visuelle</span><span class="sep">·</span>
-      <span>After Effects</span><span class="sep">·</span>
-      <span>Branding Animé</span><span class="sep">·</span>
-      <span>Quiet Force Studio</span><span class="sep">·</span>
-      <span>Motion Design</span><span class="sep">·</span>
-      <span>Intelligence Artificielle</span><span class="sep">·</span>
-      <span>Création Visuelle</span><span class="sep">·</span>
-      <span>After Effects</span><span class="sep">·</span>
-      <span>Branding Animé</span><span class="sep">·</span>
-      <span>Quiet Force Studio</span><span class="sep">·</span>
-      <span>Motion Design</span><span class="sep">·</span>
-      <span>Intelligence Artificielle</span><span class="sep">·</span>
+    <div class="marquee-track marquee-left">
+      <span>Motion Design</span><span class="sep">✦</span>
+      <span>Intelligence Artificielle</span><span class="sep">✦</span>
+      <span>After Effects</span><span class="sep">✦</span>
+      <span>Création Visuelle</span><span class="sep">✦</span>
+      <span>Branding Animé</span><span class="sep">✦</span>
+      <span>Quiet Force Studio</span><span class="sep">✦</span>
+      <span>Creative Coding</span><span class="sep">✦</span>
+      <span>3D Motion</span><span class="sep">✦</span>
+      <span>Motion Design</span><span class="sep">✦</span>
+      <span>Intelligence Artificielle</span><span class="sep">✦</span>
+      <span>After Effects</span><span class="sep">✦</span>
+      <span>Création Visuelle</span><span class="sep">✦</span>
+      <span>Branding Animé</span><span class="sep">✦</span>
+      <span>Quiet Force Studio</span><span class="sep">✦</span>
+      <span>Creative Coding</span><span class="sep">✦</span>
+      <span>3D Motion</span><span class="sep">✦</span>
     </div>
   </div>
 
   <!-- FEATURED EPISODE -->
   <section class="featured" id="featured">
     <div class="container">
-      <div class="section-label">
+      <div class="section-label reveal">
         <span class="label-line"></span>
         <span>Épisode à la une</span>
       </div>
 
-      <div class="featured-card">
+      <div class="featured-card reveal">
         <div class="featured-artwork">
-          <div class="artwork-bg">
-            <div class="artwork-gradient"></div>
-            <div class="artwork-number">12</div>
+          <div class="fa-bg">
+            <div class="fa-number">12</div>
+            <div class="fa-rings">
+              <div class="fa-ring fa-ring-1"></div>
+              <div class="fa-ring fa-ring-2"></div>
+              <div class="fa-ring fa-ring-3"></div>
+            </div>
           </div>
-          <button class="play-btn-large" id="featuredPlay">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <button class="play-btn-xl" id="featuredPlayBtn">
+            <div class="play-ripple"></div>
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </button>
+          <div class="fa-tags-overlay">
+            <span class="fa-tag">52 min</span>
+            <span class="fa-tag">10 juin 2026</span>
+          </div>
         </div>
 
-        <div class="featured-info">
+        <div class="featured-body">
           <div class="ep-meta">
-            <span class="ep-num">Épisode 12</span>
-            <span class="ep-dot">·</span>
-            <span class="ep-duration">52 min</span>
-            <span class="ep-dot">·</span>
-            <span class="ep-date">10 juin 2026</span>
+            <span class="ep-badge">Épisode 12</span>
+            <span>·</span>
+            <span>Marie Fontaine</span>
+            <span>·</span>
+            <span>Quiet Force Studio</span>
           </div>
-          <h2 class="featured-title">L'IA va-t-elle tuer le motion design ?</h2>
+
+          <h2 class="featured-title">L'IA va-t-elle tuer le<br/>motion design ?</h2>
+
           <p class="featured-desc">
             On reçoit <strong>Marie Fontaine</strong>, directrice artistique chez Quiet Force Studio,
-            pour parler de l'impact réel de l'IA générative sur nos métiers.
-            Entre peur, fascination et opportunités concrètes — une conversation sans filtre.
+            pour une conversation sans filtre sur l'impact réel de l'IA générative sur nos métiers.
+            Entre peur, fascination et opportunités concrètes — un épisode qui change la perspective.
           </p>
+
+          <div class="featured-quote">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" opacity=".3"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+            <em>"L'IA ne remplace pas la vision, elle amplifie ceux qui en ont une."</em>
+          </div>
 
           <div class="featured-tags">
             <span class="tag">IA générative</span>
             <span class="tag">Direction artistique</span>
             <span class="tag">Futur du métier</span>
+            <span class="tag">Outils créatifs</span>
           </div>
 
           <div class="featured-actions">
-            <button class="btn-primary" id="featuredPlayBtn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              Écouter l'épisode
+            <button class="btn-primary" id="featuredPlayBtn2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Écouter maintenant
             </button>
-            <div class="platforms-mini">
-              <a href="#" class="platform-icon" title="Spotify">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-              </a>
-              <a href="#" class="platform-icon" title="Apple Podcasts">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4.5c1.654 0 3 1.346 3 3s-1.346 3-3 3-3-1.346-3-3 1.346-3 3-3zm5.5 14.5H6.5c-.276 0-.5-.224-.5-.5 0-2.485 2.015-4.5 4.5-4.5h3c2.485 0 4.5 2.015 4.5 4.5 0 .276-.224.5-.5.5z"/></svg>
-              </a>
-              <a href="#" class="platform-icon" title="YouTube">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-              </a>
+            <div class="share-row">
+              <span>Écouter sur</span>
+              <a href="#" class="plat-pill">Spotify</a>
+              <a href="#" class="plat-pill">Apple</a>
+              <a href="#" class="plat-pill">YouTube</a>
             </div>
           </div>
         </div>
@@ -203,179 +274,262 @@
   </section>
 
   <!-- AUDIO PLAYER -->
-  <div class="audio-player" id="audioPlayer">
-    <div class="player-info">
-      <div class="player-thumbnail">
-        <span>12</span>
+  <div class="player" id="player">
+    <div class="player-inner">
+      <div class="player-left">
+        <div class="player-thumb">12</div>
+        <div class="player-info">
+          <span class="player-title" id="playerTitle">L'IA va-t-elle tuer le motion design ?</span>
+          <span class="player-ep" id="playerEp">IA—ONE · Épisode 12</span>
+        </div>
       </div>
-      <div class="player-meta">
-        <span class="player-title">L'IA va-t-elle tuer le motion design ?</span>
-        <span class="player-ep">IA—ONE · Épisode 12</span>
+      <div class="player-center">
+        <div class="player-controls">
+          <button class="pctrl" id="pPrev" title="Précédent">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+          </button>
+          <button class="pctrl pctrl-main" id="pPlay">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" id="pPlayIcon"><path d="M8 5v14l11-7z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" id="pPauseIcon" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <button class="pctrl" id="pNext" title="Suivant">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.02 3.64L8 17.14V9.86zM16 6h2v12h-2z"/></svg>
+          </button>
+        </div>
+        <div class="player-progress-wrap">
+          <span class="p-time" id="pCurrent">0:00</span>
+          <div class="player-bar" id="playerBar">
+            <div class="player-bar-fill" id="playerFill"></div>
+            <div class="player-bar-dot"></div>
+          </div>
+          <span class="p-time">52:00</span>
+        </div>
+      </div>
+      <div class="player-right">
+        <button class="pctrl pctrl-speed" id="speedBtn" title="Vitesse">1×</button>
+        <div class="player-vol">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          <input type="range" class="vol-range" id="volRange" min="0" max="100" value="80" />
+        </div>
+        <button class="player-close" id="pClose">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
       </div>
     </div>
-    <div class="player-controls">
-      <button class="ctrl-btn" id="prevBtn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-      </button>
-      <button class="ctrl-btn ctrl-play" id="mainPlay">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" id="playIcon"><path d="M8 5v14l11-7z"/></svg>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" id="pauseIcon" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-      </button>
-      <button class="ctrl-btn" id="nextBtn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.02 3.64L8 17.14V9.86zM16 6h2v12h-2z"/></svg>
-      </button>
-    </div>
-    <div class="player-progress">
-      <span class="time-current" id="timeCurrent">0:00</span>
-      <div class="progress-bar" id="progressBar">
-        <div class="progress-fill" id="progressFill"></div>
-        <div class="progress-handle" id="progressHandle"></div>
-      </div>
-      <span class="time-total">52:00</span>
-    </div>
-    <div class="player-volume">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-      <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80" />
-    </div>
-    <button class="player-close" id="playerClose">✕</button>
   </div>
 
   <!-- EPISODES -->
   <section class="episodes" id="episodes">
     <div class="container">
       <div class="section-header">
-        <div class="section-label">
+        <div class="section-label reveal">
           <span class="label-line"></span>
           <span>Tous les épisodes</span>
         </div>
-        <h2 class="section-title">Des conversations <br/><em>qui comptent</em></h2>
+        <div class="section-header-row">
+          <h2 class="section-title reveal">Des conversations <br/><em>qui comptent</em></h2>
+          <div class="ep-filters reveal">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="ia">IA</button>
+            <button class="filter-btn" data-filter="outils">Outils</button>
+            <button class="filter-btn" data-filter="business">Business</button>
+          </div>
+        </div>
       </div>
 
-      <div class="episodes-grid">
+      <div class="ep-list" id="epList">
 
-        <article class="ep-card" data-ep="11">
-          <div class="ep-card-header">
-            <div class="ep-artwork ep-artwork-purple">
-              <span class="ep-num-large">11</span>
+        <article class="ep-row reveal" data-tags="ia">
+          <div class="ep-row-num">12</div>
+          <div class="ep-row-color" style="background:linear-gradient(135deg,#c8ff00,#88cc00)"></div>
+          <div class="ep-row-body">
+            <div class="ep-row-meta">
+              <span>10 juin 2026</span>
+              <span>·</span>
+              <span>52 min</span>
+              <span>·</span>
+              <span class="ep-row-tag">IA</span>
             </div>
-            <div class="ep-card-meta">
-              <span class="ep-label">Épisode 11</span>
-              <span class="ep-time">44 min · 28 mai 2026</span>
+            <h3>L'IA va-t-elle tuer le motion design ?</h3>
+            <p>Marie Fontaine explore l'impact réel de l'IA générative avec un regard sans filtre sur l'avenir du métier.</p>
+            <div class="ep-row-guest">
+              <div class="ep-guest-avatar" style="background:linear-gradient(135deg,#c8ff00,#88cc00);color:#000">MF</div>
+              Marie Fontaine · DA, Quiet Force Studio
             </div>
           </div>
-          <h3 class="ep-card-title">Motion design & branding : comment créer une identité qui bouge</h3>
-          <p class="ep-card-desc">Avec Thomas Mayer, on plonge dans l'art de donner vie à une marque grâce au mouvement. Cas concrets, erreurs de débutant et philosophie de la fluidité.</p>
-          <div class="ep-card-footer">
-            <div class="ep-tags">
-              <span class="tag">Branding</span>
-              <span class="tag">Identité visuelle</span>
-            </div>
-            <button class="ep-play-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-          </div>
+          <button class="ep-row-play" data-ep="12">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </article>
 
-        <article class="ep-card" data-ep="10">
-          <div class="ep-card-header">
-            <div class="ep-artwork ep-artwork-orange">
-              <span class="ep-num-large">10</span>
+        <article class="ep-row reveal" data-tags="branding">
+          <div class="ep-row-num">11</div>
+          <div class="ep-row-color" style="background:linear-gradient(135deg,#a855f7,#7c3aed)"></div>
+          <div class="ep-row-body">
+            <div class="ep-row-meta">
+              <span>28 mai 2026</span>
+              <span>·</span>
+              <span>44 min</span>
+              <span>·</span>
+              <span class="ep-row-tag">Branding</span>
             </div>
-            <div class="ep-card-meta">
-              <span class="ep-label">Épisode 10</span>
-              <span class="ep-time">38 min · 14 mai 2026</span>
+            <h3>Motion design & branding : créer une identité qui bouge</h3>
+            <p>L'art de donner vie à une marque grâce au mouvement. Cas concrets, erreurs de débutant et philosophie de la fluidité.</p>
+            <div class="ep-row-guest">
+              <div class="ep-guest-avatar" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">TM</div>
+              Thomas Mayer · Motion designer
             </div>
           </div>
-          <h3 class="ep-card-title">Freelance en motion : survivre et prospérer en 2026</h3>
-          <p class="ep-card-desc">Sarah Dumas partage son parcours de 5 ans en freelance. Trouver ses clients, fixer ses tarifs, et rester créatif sous pression.</p>
-          <div class="ep-card-footer">
-            <div class="ep-tags">
-              <span class="tag">Freelance</span>
-              <span class="tag">Business</span>
-            </div>
-            <button class="ep-play-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-          </div>
+          <button class="ep-row-play" data-ep="11">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </article>
 
-        <article class="ep-card" data-ep="9">
-          <div class="ep-card-header">
-            <div class="ep-artwork ep-artwork-green">
-              <span class="ep-num-large">09</span>
+        <article class="ep-row reveal" data-tags="business">
+          <div class="ep-row-num">10</div>
+          <div class="ep-row-color" style="background:linear-gradient(135deg,#f97316,#ea580c)"></div>
+          <div class="ep-row-body">
+            <div class="ep-row-meta">
+              <span>14 mai 2026</span>
+              <span>·</span>
+              <span>38 min</span>
+              <span>·</span>
+              <span class="ep-row-tag">Business</span>
             </div>
-            <div class="ep-card-meta">
-              <span class="ep-label">Épisode 09</span>
-              <span class="ep-time">61 min · 30 avr. 2026</span>
+            <h3>Freelance en motion : survivre et prospérer en 2026</h3>
+            <p>5 ans de freelance, des clients, des tarifs, et la créativité sous pression — sans langue de bois.</p>
+            <div class="ep-row-guest">
+              <div class="ep-guest-avatar" style="background:linear-gradient(135deg,#f97316,#ea580c)">SD</div>
+              Sarah Dumas · Freelance motion designer
             </div>
           </div>
-          <h3 class="ep-card-title">After Effects ou pas : quel logiciel choisir en 2026 ?</h3>
-          <p class="ep-card-desc">Debate épique entre deux motion designers aux workflows opposés. Ae, Cavalry, Rive, Houdini — on compare tout sans pitié.</p>
-          <div class="ep-card-footer">
-            <div class="ep-tags">
-              <span class="tag">Outils</span>
-              <span class="tag">Workflow</span>
-            </div>
-            <button class="ep-play-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-          </div>
+          <button class="ep-row-play" data-ep="10">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </article>
 
-        <article class="ep-card" data-ep="8">
-          <div class="ep-card-header">
-            <div class="ep-artwork ep-artwork-blue">
-              <span class="ep-num-large">08</span>
+        <article class="ep-row reveal" data-tags="outils">
+          <div class="ep-row-num">09</div>
+          <div class="ep-row-color" style="background:linear-gradient(135deg,#22c55e,#16a34a)"></div>
+          <div class="ep-row-body">
+            <div class="ep-row-meta">
+              <span>30 avr. 2026</span>
+              <span>·</span>
+              <span>61 min</span>
+              <span>·</span>
+              <span class="ep-row-tag">Outils</span>
             </div>
-            <div class="ep-card-meta">
-              <span class="ep-label">Épisode 08</span>
-              <span class="ep-time">47 min · 16 avr. 2026</span>
+            <h3>After Effects ou pas : quel logiciel choisir en 2026 ?</h3>
+            <p>Debate épique entre deux workflows opposés. Ae, Cavalry, Rive, Houdini — comparaison sans pitié.</p>
+            <div class="ep-row-guest">
+              <div class="ep-guest-avatar" style="background:linear-gradient(135deg,#22c55e,#16a34a)">AL</div>
+              Antoine Leblanc · Creative coder
             </div>
           </div>
-          <h3 class="ep-card-title">Les coulisses d'un studio de motion design parisien</h3>
-          <p class="ep-card-desc">Visite virtuelle de Quiet Force Studio. Comment on gère une équipe créative, les process de production, et l'équilibre entre qualité et délais.</p>
-          <div class="ep-card-footer">
-            <div class="ep-tags">
-              <span class="tag">Studio</span>
-              <span class="tag">Management</span>
-            </div>
-            <button class="ep-play-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-          </div>
+          <button class="ep-row-play" data-ep="9">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </article>
 
-        <article class="ep-card" data-ep="7">
-          <div class="ep-card-header">
-            <div class="ep-artwork ep-artwork-pink">
-              <span class="ep-num-large">07</span>
+        <article class="ep-row reveal" data-tags="studio">
+          <div class="ep-row-num">08</div>
+          <div class="ep-row-color" style="background:linear-gradient(135deg,#3b82f6,#2563eb)"></div>
+          <div class="ep-row-body">
+            <div class="ep-row-meta">
+              <span>16 avr. 2026</span>
+              <span>·</span>
+              <span>47 min</span>
+              <span>·</span>
+              <span class="ep-row-tag">Studio</span>
             </div>
-            <div class="ep-card-meta">
-              <span class="ep-label">Épisode 07</span>
-              <span class="ep-time">55 min · 2 avr. 2026</span>
+            <h3>Les coulisses d'un studio de motion design parisien</h3>
+            <p>Visite virtuelle de Quiet Force Studio. Gestion d'équipe créative, process de production, qualité vs délais.</p>
+            <div class="ep-row-guest">
+              <div class="ep-guest-avatar" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">RC</div>
+              Romain Chevalier · Studio director
             </div>
           </div>
-          <h3 class="ep-card-title">Design génératif : quand le code devient un pinceau</h3>
-          <p class="ep-card-desc">Exploration du creative coding avec Processing, p5.js et TouchDesigner. Comment les règles et algorithmes génèrent de l'esthétique pure.</p>
-          <div class="ep-card-footer">
-            <div class="ep-tags">
-              <span class="tag">Génératif</span>
-              <span class="tag">Code créatif</span>
-            </div>
-            <button class="ep-play-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-          </div>
+          <button class="ep-row-play" data-ep="8">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </article>
 
-        <article class="ep-card ep-card-cta" data-ep="more">
-          <div class="ep-cta-inner">
-            <span class="ep-cta-num">+7</span>
-            <p>Épisodes précédents à découvrir</p>
-            <a href="#listen" class="btn-ghost-sm">Voir tous →</a>
+        <article class="ep-row reveal" data-tags="ia outils">
+          <div class="ep-row-num">07</div>
+          <div class="ep-row-color" style="background:linear-gradient(135deg,#ec4899,#db2777)"></div>
+          <div class="ep-row-body">
+            <div class="ep-row-meta">
+              <span>2 avr. 2026</span>
+              <span>·</span>
+              <span>55 min</span>
+              <span>·</span>
+              <span class="ep-row-tag">IA</span>
+            </div>
+            <h3>Design génératif : quand le code devient un pinceau</h3>
+            <p>Creative coding avec Processing, p5.js et TouchDesigner. Comment les algorithmes génèrent de l'esthétique pure.</p>
+            <div class="ep-row-guest">
+              <div class="ep-guest-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777)">JB</div>
+              Julie Bernard · Art director & codeuse
+            </div>
           </div>
+          <button class="ep-row-play" data-ep="7">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </article>
 
+        <article class="ep-row reveal" data-tags="business branding">
+          <div class="ep-row-num">06</div>
+          <div class="ep-row-color" style="background:linear-gradient(135deg,#f59e0b,#d97706)"></div>
+          <div class="ep-row-body">
+            <div class="ep-row-meta">
+              <span>19 mars 2026</span>
+              <span>·</span>
+              <span>49 min</span>
+              <span>·</span>
+              <span class="ep-row-tag">Business</span>
+            </div>
+            <h3>Pitcher un projet motion à un client qui ne comprend rien</h3>
+            <p>Techniques de présentation, storytelling visuel, et comment transformer un brief flou en projet de rêve.</p>
+            <div class="ep-row-guest">
+              <div class="ep-guest-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706)">NP</div>
+              Nina Petit · 3D artist & producer
+            </div>
+          </div>
+          <button class="ep-row-play" data-ep="6">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </article>
+
+        <article class="ep-row reveal" data-tags="outils ia">
+          <div class="ep-row-num">05</div>
+          <div class="ep-row-color" style="background:linear-gradient(135deg,#06b6d4,#0891b2)"></div>
+          <div class="ep-row-body">
+            <div class="ep-row-meta">
+              <span>5 mars 2026</span>
+              <span>·</span>
+              <span>42 min</span>
+              <span>·</span>
+              <span class="ep-row-tag">Outils</span>
+            </div>
+            <h3>Son & motion : le rôle sous-estimé du sound design</h3>
+            <p>Le son comme élément de narration visuelle. Comment l'audio transforme une animation bonne en expérience inoubliable.</p>
+            <div class="ep-row-guest">
+              <div class="ep-guest-avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">KV</div>
+              Kevin Vidal · Sound designer
+            </div>
+          </div>
+          <button class="ep-row-play" data-ep="5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </article>
+
+      </div>
+
+      <div class="ep-load-more reveal">
+        <button class="btn-ghost-outline" id="loadMore">
+          Voir les épisodes précédents
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -383,72 +537,91 @@
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="container">
-      <div class="about-inner">
+      <div class="about-grid">
         <div class="about-left">
-          <div class="section-label">
+          <div class="section-label reveal">
             <span class="label-line"></span>
-            <span>À propos du podcast</span>
+            <span>À propos</span>
           </div>
-          <h2 class="section-title">Créé par des <br/><em>makers</em>, pour <br/>des makers</h2>
-          <p class="about-text">
+          <h2 class="section-title reveal">Créé par des <em>makers</em>,<br/>pour des makers</h2>
+          <p class="about-text reveal">
             IA-ONE est né d'une conviction simple : les meilleures conversations sur
             la création se passent en dehors des conférences. Dans les studios,
-            les calls Slack, les after-works.
+            les calls Slack de 23h, les after-works qui durent.
           </p>
-          <p class="about-text">
+          <p class="about-text reveal">
             On ramène ces conversations à la surface. Chaque épisode, un invité,
-            un sujet, zéro langue de bois.
+            un sujet, zéro langue de bois. Pas de sponsors qui dictent le contenu,
+            pas de format corporate — juste du vrai.
           </p>
-          <div class="about-host">
-            <div class="host-avatar">
-              <div class="avatar-placeholder">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              </div>
+
+          <div class="about-host reveal">
+            <div class="host-av">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
             </div>
-            <div class="host-info">
+            <div>
               <strong>Fahed Chahbani</strong>
-              <span>Fondateur · Quiet Force Studio</span>
+              <span>Fondateur · Quiet Force Studio · Paris</span>
+              <a href="https://quiet-force-studio.fr" target="_blank" rel="noopener" class="host-link">
+                quiet-force-studio.fr →
+              </a>
             </div>
+          </div>
+
+          <div class="about-manifesto reveal">
+            <blockquote>
+              "Le mouvement est le langage universel de la création moderne.
+              IA-ONE existe pour que ceux qui le parlent couramment puissent
+              se retrouver, s'inspirer, et aller plus loin."
+            </blockquote>
+            <cite>— Fahed Chahbani</cite>
           </div>
         </div>
 
         <div class="about-right">
           <div class="about-values">
-            <div class="value-card">
-              <div class="value-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            <div class="value-card reveal reveal-delay-1">
+              <div class="vc-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
               </div>
-              <div>
-                <strong>Bi-mensuel</strong>
-                <p>Un nouvel épisode tous les quinze jours, sans exception.</p>
-              </div>
+              <strong>Bi-mensuel</strong>
+              <p>Un nouvel épisode tous les quinze jours, sans exception depuis janvier 2026.</p>
             </div>
-            <div class="value-card">
-              <div class="value-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div class="value-card reveal reveal-delay-2">
+              <div class="vc-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </div>
-              <div>
-                <strong>Invités de terrain</strong>
-                <p>Motion designers, DA, directeurs de studio, développeurs créatifs.</p>
-              </div>
+              <strong>Invités de terrain</strong>
+              <p>Motion designers, DA, directeurs de studio, creative coders — uniquement des praticiens.</p>
             </div>
-            <div class="value-card">
-              <div class="value-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <div class="value-card reveal reveal-delay-3">
+              <div class="vc-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               </div>
-              <div>
-                <strong>Sans filtre</strong>
-                <p>Pas de storytelling corporate. Des vrais retours d'expérience.</p>
-              </div>
+              <strong>Sans filtre</strong>
+              <p>Pas de storytelling corporate. Des vrais retours d'expérience, les réussites comme les échecs.</p>
             </div>
-            <div class="value-card">
-              <div class="value-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <div class="value-card reveal reveal-delay-4">
+              <div class="vc-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
               </div>
-              <div>
-                <strong>Gratuit & libre</strong>
-                <p>Disponible sur toutes les plateformes, sans abonnement requis.</p>
-              </div>
+              <strong>100% gratuit</strong>
+              <p>Disponible sur toutes les plateformes, sans abonnement premium ni contenu caché.</p>
+            </div>
+          </div>
+
+          <div class="about-numbers reveal">
+            <div class="an-item">
+              <span class="an-num">52</span>
+              <span class="an-label">min. / épisode en moyenne</span>
+            </div>
+            <div class="an-item">
+              <span class="an-num">4</span>
+              <span class="an-label">plateformes d'écoute</span>
+            </div>
+            <div class="an-item">
+              <span class="an-num">0</span>
+              <span class="an-label">sponsor, 0 compromis</span>
             </div>
           </div>
         </div>
@@ -460,54 +633,182 @@
   <section class="guests" id="guests">
     <div class="container">
       <div class="section-header">
-        <div class="section-label">
+        <div class="section-label reveal">
           <span class="label-line"></span>
-          <span>Invités</span>
+          <span>Les invités</span>
         </div>
-        <h2 class="section-title">Les voix <br/><em>du mouvement</em></h2>
+        <h2 class="section-title reveal">Les voix <em>du mouvement</em></h2>
       </div>
 
-      <div class="guests-scroll">
-        <div class="guests-track">
-          <div class="guest-card">
-            <div class="guest-avatar guest-avatar-1">MF</div>
+      <div class="guests-grid">
+        <div class="guest-card reveal reveal-delay-1" data-ep="12">
+          <div class="gc-bg" style="--gc:linear-gradient(135deg,#c8ff00,#88cc00)"></div>
+          <div class="gc-avatar" style="background:linear-gradient(135deg,#c8ff00,#88cc00);color:#000">MF</div>
+          <div class="gc-info">
             <strong>Marie Fontaine</strong>
-            <span>DA · Quiet Force</span>
+            <span>Directrice Artistique</span>
+            <span class="gc-studio">Quiet Force Studio</span>
           </div>
-          <div class="guest-card">
-            <div class="guest-avatar guest-avatar-2">TM</div>
+          <div class="gc-ep">EP.12</div>
+          <button class="gc-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <div class="guest-card reveal reveal-delay-2" data-ep="11">
+          <div class="gc-bg" style="--gc:linear-gradient(135deg,#a855f7,#7c3aed)"></div>
+          <div class="gc-avatar" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">TM</div>
+          <div class="gc-info">
             <strong>Thomas Mayer</strong>
-            <span>Motion designer</span>
+            <span>Motion Designer</span>
+            <span class="gc-studio">Freelance · Paris</span>
           </div>
-          <div class="guest-card">
-            <div class="guest-avatar guest-avatar-3">SD</div>
+          <div class="gc-ep">EP.11</div>
+          <button class="gc-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <div class="guest-card reveal reveal-delay-3" data-ep="10">
+          <div class="gc-bg" style="--gc:linear-gradient(135deg,#f97316,#ea580c)"></div>
+          <div class="gc-avatar" style="background:linear-gradient(135deg,#f97316,#ea580c)">SD</div>
+          <div class="gc-info">
             <strong>Sarah Dumas</strong>
-            <span>Freelance</span>
+            <span>Motion Designer Freelance</span>
+            <span class="gc-studio">Lyon · Remote</span>
           </div>
-          <div class="guest-card">
-            <div class="guest-avatar guest-avatar-4">AL</div>
+          <div class="gc-ep">EP.10</div>
+          <button class="gc-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <div class="guest-card reveal reveal-delay-4" data-ep="9">
+          <div class="gc-bg" style="--gc:linear-gradient(135deg,#22c55e,#16a34a)"></div>
+          <div class="gc-avatar" style="background:linear-gradient(135deg,#22c55e,#16a34a)">AL</div>
+          <div class="gc-info">
             <strong>Antoine Leblanc</strong>
-            <span>Creative coder</span>
+            <span>Creative Coder</span>
+            <span class="gc-studio">Studio indé · Bordeaux</span>
           </div>
-          <div class="guest-card">
-            <div class="guest-avatar guest-avatar-5">JB</div>
-            <strong>Julie Bernard</strong>
-            <span>Art director</span>
-          </div>
-          <div class="guest-card">
-            <div class="guest-avatar guest-avatar-6">RC</div>
+          <div class="gc-ep">EP.09</div>
+          <button class="gc-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <div class="guest-card reveal reveal-delay-1" data-ep="8">
+          <div class="gc-bg" style="--gc:linear-gradient(135deg,#3b82f6,#2563eb)"></div>
+          <div class="gc-avatar" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">RC</div>
+          <div class="gc-info">
             <strong>Romain Chevalier</strong>
-            <span>Studio director</span>
+            <span>Directeur de Studio</span>
+            <span class="gc-studio">Studio Noir · Paris</span>
           </div>
-          <div class="guest-card">
-            <div class="guest-avatar guest-avatar-7">NP</div>
+          <div class="gc-ep">EP.08</div>
+          <button class="gc-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <div class="guest-card reveal reveal-delay-2" data-ep="7">
+          <div class="gc-bg" style="--gc:linear-gradient(135deg,#ec4899,#db2777)"></div>
+          <div class="gc-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777)">JB</div>
+          <div class="gc-info">
+            <strong>Julie Bernard</strong>
+            <span>Art Director & Codeuse</span>
+            <span class="gc-studio">Générative Studio</span>
+          </div>
+          <div class="gc-ep">EP.07</div>
+          <button class="gc-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <div class="guest-card reveal reveal-delay-3" data-ep="6">
+          <div class="gc-bg" style="--gc:linear-gradient(135deg,#f59e0b,#d97706)"></div>
+          <div class="gc-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706)">NP</div>
+          <div class="gc-info">
             <strong>Nina Petit</strong>
-            <span>3D artist</span>
+            <span>3D Artist & Producer</span>
+            <span class="gc-studio">Freelance · Nantes</span>
           </div>
-          <div class="guest-card">
-            <div class="guest-avatar guest-avatar-8">KV</div>
+          <div class="gc-ep">EP.06</div>
+          <button class="gc-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <div class="guest-card reveal reveal-delay-4" data-ep="5">
+          <div class="gc-bg" style="--gc:linear-gradient(135deg,#06b6d4,#0891b2)"></div>
+          <div class="gc-avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">KV</div>
+          <div class="gc-info">
             <strong>Kevin Vidal</strong>
-            <span>Sound designer</span>
+            <span>Sound Designer</span>
+            <span class="gc-studio">Studio Sonore · Lyon</span>
+          </div>
+          <div class="gc-ep">EP.05</div>
+          <button class="gc-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="guest-cta reveal">
+        <p>Vous êtes motion designer, DA ou créatif ? On est toujours à la recherche de nouvelles voix.</p>
+        <a href="mailto:podcast@quiet-force-studio.fr" class="btn-ghost-outline">
+          Proposer votre candidature →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY -->
+  <section class="community" id="community">
+    <div class="container">
+      <div class="community-inner reveal">
+        <div class="comm-left">
+          <div class="section-label">
+            <span class="label-line"></span>
+            <span>Communauté</span>
+          </div>
+          <h2 class="section-title">Rejoignez <em>4 200+</em><br/>créatifs</h2>
+          <p>Une communauté Discord active où les auditeurs partagent leurs projets, leurs outils favoris, et continuent les conversations des épisodes.</p>
+          <a href="#" class="btn-primary comm-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028z"/></svg>
+            Rejoindre le Discord
+          </a>
+        </div>
+        <div class="comm-right">
+          <div class="comm-stats">
+            <div class="cs-item">
+              <span class="cs-num">4 200</span>
+              <span class="cs-label">membres actifs</span>
+            </div>
+            <div class="cs-item">
+              <span class="cs-num">127</span>
+              <span class="cs-label">messages / jour</span>
+            </div>
+            <div class="cs-item">
+              <span class="cs-num">23</span>
+              <span class="cs-label">canaux thématiques</span>
+            </div>
+          </div>
+          <div class="comm-activity">
+            <div class="ca-msg">
+              <div class="ca-av" style="background:linear-gradient(135deg,#c8ff00,#88cc00);color:#000">TM</div>
+              <div class="ca-bubble">
+                <strong>Thomas</strong>
+                <p>Épisode 12 🔥 La citation de Marie sur l'IA qui amplifie la vision — ça m'a changé la perspective</p>
+              </div>
+            </div>
+            <div class="ca-msg ca-msg-right">
+              <div class="ca-bubble">
+                <strong>Sarah</strong>
+                <p>Totalement d'accord, j'ai envoyé l'épisode à tous mes clients qui ont peur de l'IA 😅</p>
+              </div>
+              <div class="ca-av" style="background:linear-gradient(135deg,#f97316,#ea580c)">SD</div>
+            </div>
+            <div class="ca-msg">
+              <div class="ca-av" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">AL</div>
+              <div class="ca-bubble">
+                <strong>Antoine</strong>
+                <p>La partie sur After Effects vs Cavalry était 🎯 vivement l'EP 13</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -517,59 +818,85 @@
   <!-- LISTEN / PLATFORMS -->
   <section class="listen" id="listen">
     <div class="container">
-      <div class="listen-inner">
-        <div class="section-label">
+      <div class="listen-top">
+        <div class="section-label reveal">
           <span class="label-line"></span>
           <span>Écouter</span>
         </div>
-        <h2 class="section-title listen-title">
-          Disponible partout<br/>où vous écoutez
-        </h2>
-        <p class="listen-sub">Abonnez-vous sur votre plateforme préférée pour ne manquer aucun épisode.</p>
+        <h2 class="section-title reveal">Disponible partout<br/>où vous écoutez</h2>
+        <p class="listen-sub reveal">Abonnez-vous sur votre plateforme préférée — et ne manquez aucun épisode.</p>
+      </div>
 
-        <div class="platforms-grid">
-          <a href="#" class="platform-card platform-spotify">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-            <span>Spotify</span>
-            <svg class="platform-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          </a>
-          <a href="#" class="platform-card platform-apple">
-            <svg width="32" height="32" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.6 130.4-317.3 258.3-317.3 72.5 0 132.9 47.4 178.3 47.4 43 0 110.9-50.7 191.5-50.7 30.7 0 110.3 2.6 163.7 74.1zm-234-181.5c32.4-38.1 55.9-91.4 55.9-144.7 0-7.7-.6-15.4-1.9-21.7-52.6 2-114.7 35.1-151.1 78.3-28.5 32.4-55.1 85.7-55.1 139.9 0 8.3 1.3 16.6 1.9 19.2 3.2.6 8.4 1.3 13.6 1.3 47.4 0 105.8-31.8 136.7-72.3z"/></svg>
-            <span>Apple Podcasts</span>
-            <svg class="platform-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          </a>
-          <a href="#" class="platform-card platform-youtube">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-            <span>YouTube</span>
-            <svg class="platform-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          </a>
-          <a href="#" class="platform-card platform-deezer">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M18.944 17.333h2.112v1.334h-2.112zM18.944 14.667h2.112V16h-2.112zm0-2.667h2.112v1.333h-2.112zm-3.168 5.333h2.112v1.334h-2.112zM12.608 19h2.112v1.333h-2.112zm6.336-8h2.112v1.333h-2.112zM15.776 14h2.112v1.333h-2.112zm0-2.667h2.112v1.333h-2.112zm-3.168 5.334h2.112v1.333h-2.112zm0-2.667h2.112v1.333h-2.112zm-3.168 5.333H11.6V20.8h-2.16zm0-2.667H11.6v1.334h-2.16zm-3.168 2.667h2.112v1.334H6.272zm-3.168 0h2.16v1.334H3.104z"/></svg>
-            <span>Deezer</span>
-            <svg class="platform-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          </a>
-          <a href="#" class="platform-card platform-rss">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
-            <span>Flux RSS</span>
-            <svg class="platform-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          </a>
-        </div>
-
-        <div class="newsletter-wrap">
-          <div class="newsletter-card">
-            <div class="newsletter-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <div class="newsletter-text">
-              <strong>Recevez chaque épisode par email</strong>
-              <p>+ les ressources et liens mentionnés dans l'épisode.</p>
-            </div>
-            <form class="newsletter-form" id="newsletterForm">
-              <input type="email" placeholder="votre@email.fr" class="newsletter-input" required />
-              <button type="submit" class="btn-primary newsletter-btn">S'abonner</button>
-            </form>
+      <div class="platforms-grid">
+        <a href="#" class="platform-card pc-spotify reveal reveal-delay-1">
+          <div class="pc-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
           </div>
+          <div class="pc-info">
+            <strong>Spotify</strong>
+            <span>4 200 auditeurs mensuels</span>
+          </div>
+          <svg class="pc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+
+        <a href="#" class="platform-card pc-apple reveal reveal-delay-2">
+          <div class="pc-icon">
+            <svg width="36" height="36" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.6 130.4-317.3 258.3-317.3 72.5 0 132.9 47.4 178.3 47.4 43 0 110.9-50.7 191.5-50.7 30.7 0 110.3 2.6 163.7 74.1zm-234-181.5c32.4-38.1 55.9-91.4 55.9-144.7 0-7.7-.6-15.4-1.9-21.7-52.6 2-114.7 35.1-151.1 78.3-28.5 32.4-55.1 85.7-55.1 139.9 0 8.3 1.3 16.6 1.9 19.2 3.2.6 8.4 1.3 13.6 1.3 47.4 0 105.8-31.8 136.7-72.3z"/></svg>
+          </div>
+          <div class="pc-info">
+            <strong>Apple Podcasts</strong>
+            <span>Note 4.9 / 5 ⭐</span>
+          </div>
+          <svg class="pc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+
+        <a href="#" class="platform-card pc-youtube reveal reveal-delay-3">
+          <div class="pc-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+          </div>
+          <div class="pc-info">
+            <strong>YouTube</strong>
+            <span>Version vidéo disponible</span>
+          </div>
+          <svg class="pc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+
+        <a href="#" class="platform-card pc-deezer reveal reveal-delay-4">
+          <div class="pc-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M18.944 17.333h2.112v1.334h-2.112zM18.944 14.667h2.112V16h-2.112zm0-2.667h2.112v1.333h-2.112zm-3.168 5.333h2.112v1.334h-2.112zM12.608 19h2.112v1.333h-2.112zm6.336-8h2.112v1.333h-2.112zM15.776 14h2.112v1.333h-2.112zm0-2.667h2.112v1.333h-2.112zm-3.168 5.334h2.112v1.333h-2.112zm0-2.667h2.112v1.333h-2.112zm-3.168 5.333H11.6V20.8h-2.16zm0-2.667H11.6v1.334h-2.16zm-3.168 2.667h2.112v1.334H6.272zm-3.168 0h2.16v1.334H3.104z"/></svg>
+          </div>
+          <div class="pc-info">
+            <strong>Deezer</strong>
+            <span>Flux mis à jour</span>
+          </div>
+          <svg class="pc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+
+        <a href="#" class="platform-card pc-rss reveal reveal-delay-1">
+          <div class="pc-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
+          </div>
+          <div class="pc-info">
+            <strong>Flux RSS</strong>
+            <span>Compatible tous players</span>
+          </div>
+          <svg class="pc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div class="newsletter reveal">
+        <div class="nl-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
+        <div class="nl-text">
+          <strong>Recevez chaque épisode dans votre boîte mail</strong>
+          <p>+ les ressources, liens et notes mentionnés dans l'épisode. Zéro spam, désabonnement en un clic.</p>
+        </div>
+        <form class="nl-form" id="nlForm">
+          <input type="email" placeholder="votre@email.fr" class="nl-input" required />
+          <button type="submit" class="btn-primary nl-btn">S'abonner gratuitement</button>
+        </form>
       </div>
     </div>
   </section>
@@ -577,44 +904,57 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-top">
+      <div class="footer-grid">
         <div class="footer-brand">
-          <span class="logo-text">IA<span class="logo-accent">—</span>ONE</span>
-          <p>Le podcast motion design & IA créative.<br/>Par <a href="https://quiet-force-studio.fr" target="_blank">Quiet Force Studio</a>.</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <strong>Podcast</strong>
-            <a href="#episodes">Épisodes</a>
-            <a href="#guests">Invités</a>
-            <a href="#about">À propos</a>
+          <span class="logo-text footer-logo">IA<span class="logo-accent">—</span>ONE</span>
+          <p>Le podcast motion design & IA créative.<br/>Par <a href="https://quiet-force-studio.fr" target="_blank" rel="noopener">Quiet Force Studio</a>.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Instagram" class="social-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="social-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="#" aria-label="X/Twitter" class="social-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.852L2.061 2.25H8.33l4.262 5.638L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+            </a>
+            <a href="#" aria-label="TikTok" class="social-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1-.07z"/></svg>
+            </a>
           </div>
-          <div class="footer-col">
+        </div>
+
+        <div class="footer-nav">
+          <div class="fn-col">
+            <strong>Podcast</strong>
+            <a href="#episodes">Tous les épisodes</a>
+            <a href="#guests">Les invités</a>
+            <a href="#about">À propos</a>
+            <a href="#community">Communauté</a>
+          </div>
+          <div class="fn-col">
             <strong>Écouter</strong>
             <a href="#">Spotify</a>
             <a href="#">Apple Podcasts</a>
             <a href="#">YouTube</a>
+            <a href="#">Deezer</a>
+            <a href="#">Flux RSS</a>
           </div>
-          <div class="footer-col">
+          <div class="fn-col">
             <strong>Studio</strong>
-            <a href="https://quiet-force-studio.fr" target="_blank">Site web</a>
+            <a href="https://quiet-force-studio.fr" target="_blank" rel="noopener">Quiet Force Studio</a>
             <a href="#">Contact</a>
             <a href="#">Proposer un sujet</a>
+            <a href="#">Devenir partenaire</a>
           </div>
         </div>
       </div>
+
       <div class="footer-bottom">
-        <span>© 2026 IA-ONE · Quiet Force Studio</span>
-        <div class="footer-socials">
-          <a href="#" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="#" aria-label="LinkedIn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          </a>
-          <a href="#" aria-label="Twitter/X">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.852L2.061 2.25H8.33l4.262 5.638L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
-          </a>
+        <span>© 2026 IA-ONE · Quiet Force Studio · Paris</span>
+        <div class="fb-links">
+          <a href="#">Mentions légales</a>
+          <a href="#">Politique de confidentialité</a>
         </div>
       </div>
     </div>

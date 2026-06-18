@@ -1,39 +1,70 @@
 /* ============================================================
-   IA-ONE — Script
+   IA-ONE — Script v2
    ============================================================ */
 
-/* ---- CURSOR ---- */
+/* ================================================================
+   LOADER
+   ================================================================ */
+const loader = document.getElementById('loader');
+const loaderFill = document.getElementById('loaderFill');
+let loadPct = 0;
+
+const loadInterval = setInterval(() => {
+  loadPct += Math.random() * 18;
+  if (loadPct >= 100) { loadPct = 100; clearInterval(loadInterval); finishLoad(); }
+  loaderFill.style.width = loadPct + '%';
+}, 80);
+
+function finishLoad() {
+  setTimeout(() => {
+    loader.classList.add('hidden');
+    document.body.style.overflow = '';
+    initAnimations();
+  }, 300);
+}
+
+document.body.style.overflow = 'hidden';
+
+/* ================================================================
+   CURSOR
+   ================================================================ */
 const cursor = document.getElementById('cursor');
 const follower = document.getElementById('cursorFollower');
+const cursorLabel = document.getElementById('cursorLabel');
 let mx = 0, my = 0, fx = 0, fy = 0;
 
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-});
+if (window.matchMedia('(hover:hover)').matches) {
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+  (function animCursor() {
+    fx += (mx - fx) * 0.1; fy += (my - fy) * 0.1;
+    follower.style.left = fx + 'px'; follower.style.top = fy + 'px';
+    requestAnimationFrame(animCursor);
+  })();
 
-function animFollower() {
-  fx += (mx - fx) * 0.12;
-  fy += (my - fy) * 0.12;
-  follower.style.left = fx + 'px';
-  follower.style.top = fy + 'px';
-  requestAnimationFrame(animFollower);
+  document.querySelectorAll('a, button, .ep-row, .guest-card, .platform-card, .value-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      follower.classList.add('hovering');
+      const label = el.dataset.cursor || '';
+      cursorLabel.textContent = label;
+    });
+    el.addEventListener('mouseleave', () => {
+      follower.classList.remove('hovering');
+      cursorLabel.textContent = '';
+    });
+  });
 }
-animFollower();
 
-document.querySelectorAll('a, button, .ep-card, .platform-card, .guest-card, .value-card').forEach(el => {
-  el.addEventListener('mouseenter', () => follower.classList.add('hovered'));
-  el.addEventListener('mouseleave', () => follower.classList.remove('hovered'));
-});
-
-/* ---- NAV ---- */
+/* ================================================================
+   NAV
+   ================================================================ */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 50);
+  nav.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
-/* ---- MOBILE MENU ---- */
 const burger = document.getElementById('navBurger');
 const mobileMenu = document.getElementById('mobileMenu');
 let menuOpen = false;
@@ -41,268 +72,392 @@ let menuOpen = false;
 burger.addEventListener('click', () => {
   menuOpen = !menuOpen;
   mobileMenu.classList.toggle('open', menuOpen);
-  burger.querySelectorAll('span')[0].style.transform = menuOpen ? 'translateY(7.5px) rotate(45deg)' : '';
-  burger.querySelectorAll('span')[1].style.transform = menuOpen ? 'translateY(-7.5px) rotate(-45deg)' : '';
+  const spans = burger.querySelectorAll('span');
+  spans[0].style.transform = menuOpen ? 'translateY(6.5px) rotate(45deg)' : '';
+  spans[1].style.transform = menuOpen ? 'translateY(-6.5px) rotate(-45deg)' : '';
 });
+document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
+  menuOpen = false; mobileMenu.classList.remove('open');
+  burger.querySelectorAll('span').forEach(s => s.style.transform = '');
+}));
 
-mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-  link.addEventListener('click', () => {
-    menuOpen = false;
-    mobileMenu.classList.remove('open');
-    burger.querySelectorAll('span').forEach(s => s.style.transform = '');
-  });
-});
+/* ================================================================
+   HERO CANVAS (particle field)
+   ================================================================ */
+function initCanvas() {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
 
-/* ---- WAVEFORM GENERATION ---- */
-const waveBars = document.getElementById('waveBars');
-if (waveBars) {
-  const numBars = 60;
-  for (let i = 0; i < numBars; i++) {
-    const h = 8 + Math.random() * 56;
-    const x = (i / numBars) * 400;
-    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    rect.setAttribute('x', x);
-    rect.setAttribute('y', (80 - h) / 2);
-    rect.setAttribute('width', '4');
-    rect.setAttribute('height', h);
-    rect.setAttribute('rx', '2');
-    rect.setAttribute('fill', i < numBars * 0.3 ? 'var(--accent)' : 'rgba(255,255,255,0.12)');
-    rect.style.transition = `fill 0.1s`;
-    waveBars.appendChild(rect);
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
   }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.3;
+      this.r = Math.random() * 1.5 + 0.5;
+      this.alpha = Math.random() * 0.5 + 0.1;
+      this.color = Math.random() > 0.7 ? '200,255,0' : '255,255,255';
+    }
+    update() {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(200,255,0,${0.06 * (1 - d / 100)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(animate);
+  }
+  animate();
 }
 
-/* ---- VINYL ROTATION ---- */
-const vinyl = document.getElementById('vinyl');
+/* ================================================================
+   WAVEFORM (mini hero canvas)
+   ================================================================ */
+function drawMiniWave() {
+  const canvas = document.getElementById('miniWave');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const bars = 52;
+  const heights = Array.from({length: bars}, () => 4 + Math.random() * 28);
+
+  function draw(progress = 0.3) {
+    ctx.clearRect(0, 0, W, H);
+    const bw = W / bars;
+    for (let i = 0; i < bars; i++) {
+      const h = heights[i];
+      const x = i * bw + bw * 0.2;
+      const w = bw * 0.55;
+      const isActive = i / bars <= progress;
+      ctx.fillStyle = isActive ? 'rgba(200,255,0,0.9)' : 'rgba(255,255,255,0.15)';
+      ctx.beginPath();
+      ctx.roundRect(x, (H - h) / 2, w, h, 2);
+      ctx.fill();
+    }
+  }
+  draw(0.3);
+  return { draw, heights };
+}
+
+/* ================================================================
+   AUDIO PLAYER STATE
+   ================================================================ */
+const EPISODES = [
+  { num: 12, title: "L'IA va-t-elle tuer le motion design ?", guest: "Marie Fontaine", duration: 52 * 60 },
+  { num: 11, title: "Motion design & branding : identité qui bouge", guest: "Thomas Mayer", duration: 44 * 60 },
+  { num: 10, title: "Freelance en motion : survivre en 2026", guest: "Sarah Dumas", duration: 38 * 60 },
+  { num: 9,  title: "After Effects ou pas : quel logiciel ?", guest: "Antoine Leblanc", duration: 61 * 60 },
+  { num: 8,  title: "Les coulisses d'un studio parisien", guest: "Romain Chevalier", duration: 47 * 60 },
+  { num: 7,  title: "Design génératif : le code comme pinceau", guest: "Julie Bernard", duration: 55 * 60 },
+  { num: 6,  title: "Pitcher un projet motion à un client", guest: "Nina Petit", duration: 49 * 60 },
+  { num: 5,  title: "Son & motion : le rôle du sound design", guest: "Kevin Vidal", duration: 42 * 60 },
+];
+
+let currentEp = 0;
 let isPlaying = false;
-
-/* ---- AUDIO PLAYER ---- */
-const audioPlayer = document.getElementById('audioPlayer');
-const mainPlay = document.getElementById('mainPlay');
-const playIcon = document.getElementById('playIcon');
-const pauseIcon = document.getElementById('pauseIcon');
-const progressFill = document.getElementById('progressFill');
-const progressBar = document.getElementById('progressBar');
-const timeCurrent = document.getElementById('timeCurrent');
-const playerClose = document.getElementById('playerClose');
-const volumeSlider = document.getElementById('volumeSlider');
-
 let progress = 0;
-let progressInterval = null;
-const TOTAL_SECONDS = 52 * 60;
+let playInterval = null;
+let speeds = [1, 1.25, 1.5, 2];
+let speedIdx = 0;
 
-function openPlayer() {
-  audioPlayer.classList.add('visible');
+const player = document.getElementById('player');
+const pPlay = document.getElementById('pPlay');
+const pPlayIcon = document.getElementById('pPlayIcon');
+const pPauseIcon = document.getElementById('pPauseIcon');
+const pCurrent = document.getElementById('pCurrent');
+const playerFill = document.getElementById('playerFill');
+const playerBar = document.getElementById('playerBar');
+const playerTitle = document.getElementById('playerTitle');
+const playerEp = document.getElementById('playerEp');
+const pClose = document.getElementById('pClose');
+const speedBtn = document.getElementById('speedBtn');
+const volRange = document.getElementById('volRange');
+const vinylEl = document.getElementById('vinyl');
+const vinylArm = document.getElementById('vinylArm');
+
+let miniWaveCtrl = null;
+const epProgress = document.getElementById('epProgress');
+
+function loadEpisode(idx) {
+  currentEp = idx;
+  progress = 0;
+  const ep = EPISODES[idx];
+  playerTitle.textContent = ep.title;
+  playerEp.textContent = `IA—ONE · Épisode ${ep.num}`;
+  document.querySelector('.player-thumb').textContent = ep.num;
+  playerFill.style.width = '0%';
+  pCurrent.textContent = '0:00';
+}
+
+function openPlayer(epIdx = 0) {
+  loadEpisode(epIdx);
+  player.classList.add('visible');
 }
 
 function togglePlay() {
   isPlaying = !isPlaying;
-  playIcon.style.display = isPlaying ? 'none' : 'block';
-  pauseIcon.style.display = isPlaying ? 'block' : 'none';
+  pPlayIcon.style.display = isPlaying ? 'none' : 'block';
+  pPauseIcon.style.display = isPlaying ? 'block' : 'none';
 
-  if (vinyl) {
-    vinyl.style.animationPlayState = isPlaying ? 'running' : 'paused';
+  // Sync hero mini play
+  const mpi = document.getElementById('miniPlayIcon');
+  const mpa = document.getElementById('miniPauseIcon');
+  if (mpi) mpi.style.display = isPlaying ? 'none' : 'block';
+  if (mpa) mpa.style.display = isPlaying ? 'block' : 'none';
+
+  if (vinylEl) {
+    vinylEl.style.animationPlayState = isPlaying ? 'running' : 'paused';
+    if (vinylArm) vinylArm.classList.toggle('playing', isPlaying);
   }
 
   if (isPlaying) {
-    progressInterval = setInterval(() => {
-      progress = Math.min(progress + 1, TOTAL_SECONDS);
-      const pct = (progress / TOTAL_SECONDS) * 100;
-      progressFill.style.width = pct + '%';
-      const mins = Math.floor(progress / 60);
-      const secs = progress % 60;
-      timeCurrent.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-
-      // animate waveform
-      if (waveBars) {
-        const bars = waveBars.querySelectorAll('rect');
-        const activeCount = Math.floor((progress / TOTAL_SECONDS) * bars.length);
-        bars.forEach((bar, i) => {
-          bar.setAttribute('fill', i <= activeCount ? 'var(--accent)' : 'rgba(255,255,255,0.12)');
-          if (isPlaying && Math.abs(i - activeCount) < 3) {
-            const jitter = 0.8 + Math.random() * 0.4;
-            const h = parseFloat(bar.getAttribute('height'));
-            bar.setAttribute('height', Math.max(4, h * jitter));
-            bar.setAttribute('y', (80 - parseFloat(bar.getAttribute('height'))) / 2);
-          }
-        });
-      }
-    }, 1000);
+    playInterval = setInterval(() => {
+      const ep = EPISODES[currentEp];
+      progress = Math.min(progress + 1, ep.duration);
+      const pct = (progress / ep.duration) * 100;
+      playerFill.style.width = pct + '%';
+      if (epProgress) epProgress.style.width = pct + '%';
+      const m = Math.floor(progress / 60), s = progress % 60;
+      pCurrent.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+      if (miniWaveCtrl) miniWaveCtrl.draw(pct / 100);
+    }, 1000 / speeds[speedIdx]);
   } else {
-    clearInterval(progressInterval);
-    if (vinyl) vinyl.style.animationPlayState = 'paused';
+    clearInterval(playInterval);
   }
 }
 
-[document.getElementById('featuredPlay'), document.getElementById('featuredPlayBtn')].forEach(btn => {
-  if (btn) btn.addEventListener('click', () => {
-    openPlayer();
-    if (!isPlaying) togglePlay();
-  });
+if (pPlay) pPlay.addEventListener('click', togglePlay);
+
+document.getElementById('pPrev')?.addEventListener('click', () => {
+  if (currentEp < EPISODES.length - 1) {
+    loadEpisode(currentEp + 1);
+    if (isPlaying) { clearInterval(playInterval); isPlaying = false; togglePlay(); }
+  }
+});
+document.getElementById('pNext')?.addEventListener('click', () => {
+  if (currentEp > 0) {
+    loadEpisode(currentEp - 1);
+    if (isPlaying) { clearInterval(playInterval); isPlaying = false; togglePlay(); }
+  }
 });
 
-if (mainPlay) mainPlay.addEventListener('click', togglePlay);
+if (speedBtn) {
+  speedBtn.addEventListener('click', () => {
+    speedIdx = (speedIdx + 1) % speeds.length;
+    speedBtn.textContent = speeds[speedIdx] + '×';
+    if (isPlaying) { clearInterval(playInterval); isPlaying = false; togglePlay(); }
+  });
+}
 
-if (playerClose) {
-  playerClose.addEventListener('click', () => {
-    audioPlayer.classList.remove('visible');
+if (pClose) {
+  pClose.addEventListener('click', () => {
+    player.classList.remove('visible');
     if (isPlaying) togglePlay();
   });
 }
 
-// Progress bar click
-if (progressBar) {
-  progressBar.addEventListener('click', e => {
-    const rect = progressBar.getBoundingClientRect();
-    const pct = (e.clientX - rect.left) / rect.width;
-    progress = Math.floor(pct * TOTAL_SECONDS);
-    progressFill.style.width = (pct * 100) + '%';
+if (playerBar) {
+  playerBar.addEventListener('click', e => {
+    const r = playerBar.getBoundingClientRect();
+    const pct = (e.clientX - r.left) / r.width;
+    progress = Math.floor(pct * EPISODES[currentEp].duration);
+    playerFill.style.width = (pct * 100) + '%';
+    if (epProgress) epProgress.style.width = (pct * 100) + '%';
   });
 }
 
-// Episode cards play
-document.querySelectorAll('.ep-play-btn').forEach(btn => {
-  btn.addEventListener('click', e => {
-    e.stopPropagation();
-    openPlayer();
+if (volRange) volRange.addEventListener('input', () => {});
+
+// All play triggers
+document.querySelectorAll('[id^="featuredPlayBtn"], #featuredPlay, #miniPlay, #heroPlayBtn').forEach(btn => {
+  btn?.addEventListener('click', () => {
+    openPlayer(0);
     if (!isPlaying) togglePlay();
   });
 });
 
-/* ---- COUNTER ANIMATION ---- */
-function animateCounter(el, target, duration = 2000) {
-  const start = performance.now();
-  const startVal = 0;
-
-  function update(time) {
-    const elapsed = time - start;
-    const t = Math.min(elapsed / duration, 1);
-    const ease = 1 - Math.pow(1 - t, 3);
-    const current = Math.round(startVal + (target - startVal) * ease);
-    el.textContent = current >= 1000 ? (current / 1000).toFixed(1) + 'k' : current;
-    if (t < 1) requestAnimationFrame(update);
-  }
-
-  requestAnimationFrame(update);
-}
-
-/* ---- INTERSECTION OBSERVER ---- */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      io.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-
-// Add reveal class to elements
-const revealTargets = [
-  '.featured-card',
-  '.ep-card',
-  '.value-card',
-  '.guest-card',
-  '.platform-card',
-  '.newsletter-card',
-  '.section-header',
-  '.about-left',
-  '.about-right',
-];
-revealTargets.forEach(selector => {
-  document.querySelectorAll(selector).forEach((el, i) => {
-    el.classList.add('reveal');
-    if (i < 4) el.classList.add(`reveal-delay-${i + 1}`);
-    io.observe(el);
+document.querySelectorAll('.ep-row-play').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const epNum = parseInt(btn.dataset.ep);
+    const idx = EPISODES.findIndex(e => e.num === epNum);
+    openPlayer(idx >= 0 ? idx : 0);
+    if (!isPlaying) togglePlay();
   });
 });
 
-// Counter animation on hero stats
-const statNums = document.querySelectorAll('.stat-num[data-target]');
-const statObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const target = parseInt(entry.target.dataset.target);
-      animateCounter(entry.target, target);
-      statObs.unobserve(entry.target);
+document.querySelectorAll('.ep-row').forEach(row => {
+  row.addEventListener('click', () => {
+    const epNum = parseInt(row.dataset.ep || 12);
+    const idx = EPISODES.findIndex(e => e.num === epNum);
+    openPlayer(idx >= 0 ? idx : 0);
+    if (!isPlaying) togglePlay();
+  });
+});
+
+document.querySelectorAll('.gc-play').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const card = btn.closest('.guest-card');
+    const epNum = parseInt(card?.dataset.ep || 12);
+    const idx = EPISODES.findIndex(e => e.num === epNum);
+    openPlayer(idx >= 0 ? idx : 0);
+    if (!isPlaying) togglePlay();
+  });
+});
+
+/* ================================================================
+   COUNTER ANIMATION
+   ================================================================ */
+function animCounter(el, target, suffix = '') {
+  const start = performance.now();
+  const dur = 2200;
+  function tick(now) {
+    const t = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - t, 4);
+    const val = Math.round(target * ease);
+    const display = val >= 1000 ? (val / 1000).toFixed(1) + 'k' : val;
+    el.textContent = display;
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = target >= 1000 ? (target / 1000).toFixed(1) + 'k' : target;
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ================================================================
+   INTERSECTION OBSERVER
+   ================================================================ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animCounter(e.target, parseInt(e.target.dataset.target));
+      counterObs.unobserve(e.target);
     }
   });
 }, { threshold: 0.5 });
-statNums.forEach(el => statObs.observe(el));
 
-/* ---- SMOOTH SCROLL ---- */
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObs.observe(el));
+
+/* ================================================================
+   EPISODE FILTERS
+   ================================================================ */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.ep-row').forEach(row => {
+      const tags = row.dataset.tags || '';
+      row.classList.toggle('hidden', filter !== 'all' && !tags.includes(filter));
+    });
   });
 });
 
-/* ---- NEWSLETTER ---- */
-const form = document.getElementById('newsletterForm');
-if (form) {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const btn = form.querySelector('.newsletter-btn');
-    btn.textContent = '✓ Abonné !';
-    btn.style.background = '#22c55e';
-    btn.style.boxShadow = '0 0 20px rgba(34,197,94,0.3)';
-    form.querySelector('input').value = '';
-    setTimeout(() => {
-      btn.textContent = "S'abonner";
-      btn.style.background = '';
-      btn.style.boxShadow = '';
-    }, 3000);
+/* ================================================================
+   LOAD MORE
+   ================================================================ */
+document.getElementById('loadMore')?.addEventListener('click', function() {
+  document.querySelectorAll('.ep-row.hidden').forEach(r => r.classList.remove('hidden'));
+  this.parentElement.style.display = 'none';
+});
+
+/* ================================================================
+   NEWSLETTER
+   ================================================================ */
+document.getElementById('nlForm')?.addEventListener('submit', e => {
+  e.preventDefault();
+  const btn = e.target.querySelector('.nl-btn');
+  const input = e.target.querySelector('.nl-input');
+  btn.textContent = '✓ Abonné !';
+  btn.style.background = '#22c55e';
+  btn.style.boxShadow = '0 0 20px rgba(34,197,94,0.3)';
+  input.value = '';
+  setTimeout(() => {
+    btn.textContent = 'S\'abonner gratuitement';
+    btn.style.background = '';
+    btn.style.boxShadow = '';
+  }, 4000);
+});
+
+/* ================================================================
+   SMOOTH SCROLL
+   ================================================================ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
-}
+});
 
-/* ---- PARALLAX ORBS ---- */
-window.addEventListener('mousemove', e => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 20;
-  const y = (e.clientY / window.innerHeight - 0.5) * 20;
-
-  document.querySelector('.hero-orb-1')?.style.setProperty('transform', `translate(${x * 0.3}px, ${y * 0.3}px)`);
-  document.querySelector('.hero-orb-2')?.style.setProperty('transform', `translate(${-x * 0.2}px, ${-y * 0.2}px)`);
-  document.querySelector('.hero-orb-3')?.style.setProperty('transform', `translate(${x * 0.5}px, ${y * 0.5}px)`);
+/* ================================================================
+   PARALLAX ORBS
+   ================================================================ */
+document.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 30;
+  const y = (e.clientY / window.innerHeight - 0.5) * 30;
+  document.querySelector('.hero-orb-1')?.style.setProperty('transform', `translate(${x * 0.4}px, ${y * 0.4}px)`);
+  document.querySelector('.hero-orb-2')?.style.setProperty('transform', `translate(${-x * 0.25}px, ${-y * 0.25}px)`);
+  document.querySelector('.hero-orb-3')?.style.setProperty('transform', `translate(${x * 0.6}px, ${y * 0.6}px)`);
 }, { passive: true });
 
-/* ---- TITLE SPLIT ANIMATION ---- */
-document.querySelectorAll('.title-line').forEach(line => {
-  const text = line.textContent;
-  line.innerHTML = '';
-  text.split('').forEach((char, i) => {
-    const span = document.createElement('span');
-    span.textContent = char === ' ' ? ' ' : char;
-    span.style.display = 'inline-block';
-    span.style.opacity = '0';
-    span.style.transform = 'translateY(20px)';
-    span.style.transition = `opacity 0.5s ease ${0.3 + i * 0.02}s, transform 0.5s ease ${0.3 + i * 0.02}s`;
-    line.appendChild(span);
-  });
-  setTimeout(() => {
-    line.querySelectorAll('span').forEach(s => {
-      s.style.opacity = '1';
-      s.style.transform = 'translateY(0)';
-    });
-  }, 100);
-});
-
-/* ---- GUESTS TRACK DRAG SCROLL ---- */
-const track = document.querySelector('.guests-track');
-if (track) {
-  let isDragging = false, startX = 0, scrollLeft = 0;
-  track.addEventListener('mousedown', e => {
-    isDragging = true; startX = e.pageX - track.offsetLeft;
-    scrollLeft = track.scrollLeft; track.style.cursor = 'grabbing';
-  });
-  track.addEventListener('mouseleave', () => { isDragging = false; track.style.cursor = ''; });
-  track.addEventListener('mouseup', () => { isDragging = false; track.style.cursor = ''; });
-  track.addEventListener('mousemove', e => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - track.offsetLeft;
-    track.scrollLeft = scrollLeft - (x - startX) * 1.5;
-  });
+/* ================================================================
+   INIT ALL
+   ================================================================ */
+function initAnimations() {
+  initCanvas();
+  miniWaveCtrl = drawMiniWave();
 }
+
+// Fallback if loader finishes very fast
+if (document.readyState === 'complete') initAnimations();
+else window.addEventListener('load', () => {
+  if (loadPct < 100) return;
+  initAnimations();
+});
