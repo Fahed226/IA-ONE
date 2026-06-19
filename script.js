@@ -124,6 +124,72 @@
     })();
   }
 
+  /* ---------- EQUALIZER (continuous, brand = sound) ---------- */
+  (function equalizer() {
+    const c = document.getElementById('eqCanvas');
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    let W, H, t = 0;
+    const N = 96;
+    const phase = Array.from({ length: N }, () => Math.random() * 6.283);
+    const speed = Array.from({ length: N }, () => 0.5 + Math.random() * 1.4);
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const resize = () => { W = c.width = c.offsetWidth * dpr; H = c.height = c.offsetHeight * dpr; };
+    resize(); addEventListener('resize', resize);
+    (function draw() {
+      ctx.clearRect(0, 0, W, H);
+      const gap = W / N, bw = gap * 0.42, mid = H / 2;
+      for (let i = 0; i < N; i++) {
+        const env = Math.sin((i / N) * Math.PI); // taper at edges
+        const a = (Math.sin(t * speed[i] + phase[i]) * .5 + .5);
+        const h = (4 + a * env * (H * .8)) ;
+        const x = i * gap + (gap - bw) / 2;
+        const g = ctx.createLinearGradient(0, mid - h / 2, 0, mid + h / 2);
+        g.addColorStop(0, 'rgba(255,107,53,.9)');
+        g.addColorStop(1, 'rgba(147,51,234,.55)');
+        ctx.fillStyle = g;
+        const r = bw / 2;
+        ctx.beginPath();
+        ctx.roundRect(x, mid - h / 2, bw, h, r);
+        ctx.fill();
+      }
+      t += reduce ? 0 : 0.035;
+      requestAnimationFrame(draw);
+    })();
+  })();
+
+  /* ---------- COUNTERS ---------- */
+  const cio = new IntersectionObserver((es) => {
+    es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target, to = +el.dataset.count, suf = el.dataset.suffix || '';
+      const t0 = performance.now(), dur = 1600;
+      (function up(now) {
+        const k = Math.min((now - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - k, 4);
+        el.textContent = Math.round(to * eased) + suf;
+        if (k < 1) requestAnimationFrame(up);
+      })(t0);
+      cio.unobserve(el);
+    });
+  }, { threshold: .6 });
+  document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+
+  /* ---------- CURSOR SPOTLIGHT on dark sections ---------- */
+  const spot = document.getElementById('spotlight');
+  if (hover && spot) {
+    addEventListener('mousemove', e => {
+      spot.style.setProperty('--sx', e.clientX + 'px');
+      spot.style.setProperty('--sy', e.clientY + 'px');
+    });
+    ['studio', 'booking', 'faq'].forEach(id => {
+      const s = document.getElementById(id);
+      if (!s) return;
+      s.addEventListener('mouseenter', () => spot.classList.add('on'));
+      s.addEventListener('mouseleave', () => spot.classList.remove('on'));
+    });
+  }
+
   /* ---------- HERO PARTICLES (depth field) ---------- */
   function startParticles() {
     if (reduce) return;
