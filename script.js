@@ -93,6 +93,20 @@
     });
   }
 
+  /* ---------- 3D TILT (premium card depth) ---------- */
+  if (hover && !reduce) {
+    document.querySelectorAll('.plan, .pack').forEach(card => {
+      const max = 6;
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - .5;
+        const py = (e.clientY - r.top) / r.height - .5;
+        card.style.transform = `perspective(900px) rotateY(${px * max}deg) rotateX(${-py * max}deg) translateY(-4px)`;
+      });
+      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    });
+  }
+
   /* ---------- FAQ ---------- */
   document.querySelectorAll('.faq-item').forEach(item => {
     const q = item.querySelector('.faq-q'), a = item.querySelector('.faq-a');
