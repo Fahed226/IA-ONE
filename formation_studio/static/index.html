@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formation Studio</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/vendor/marked.min.js"></script>
+  <script src="/static/vendor/purify.min.js"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">🎓 Formation Studio</div>
+    <button id="new-course" class="primary block">+ Nouvelle formation</button>
+    <h3>Mes formations</h3>
+    <ul id="course-list" class="course-list"></ul>
+  </aside>
+
+  <main id="main">
+    <!-- Brief -->
+    <section id="view-brief" class="view">
+      <h1>Créer une formation en ligne</h1>
+      <p class="muted">Décrivez votre formation : l'IA conçoit le programme, rédige chaque leçon, les exercices corrigés, les quiz, l'examen final, le projet de synthèse, le glossaire, la FAQ et la page de vente.</p>
+      <form id="brief-form" class="card grid">
+        <label class="span2">Sujet de la formation *
+          <input name="topic" required minlength="3" placeholder="Ex. : Maîtriser Excel pour l'analyse de données commerciales">
+        </label>
+        <label>Public cible
+          <input name="audience" value="Grand public" placeholder="Ex. : commerciaux B2B, étudiants, managers…">
+        </label>
+        <label>Niveau
+          <select name="level">
+            <option>débutant</option><option>intermédiaire</option><option>avancé</option><option>expert</option>
+          </select>
+        </label>
+        <label>Langue
+          <input name="language" value="français">
+        </label>
+        <label>Ton
+          <input name="tone" value="pédagogique, clair et motivant">
+        </label>
+        <label>Durée totale (heures)
+          <input name="duration_hours" type="number" min="0.5" max="500" step="0.5" value="10">
+        </label>
+        <label>Nombre de modules
+          <input name="modules_count" type="number" min="1" max="30" value="6">
+        </label>
+        <label>Leçons par module
+          <input name="lessons_per_module" type="number" min="1" max="15" value="4">
+        </label>
+        <label class="span2">Objectifs / résultats attendus
+          <textarea name="goals" rows="2" placeholder="Ce que les apprenants doivent savoir faire à la fin…"></textarea>
+        </label>
+        <label class="span2">Contraintes, contexte, outils imposés
+          <textarea name="constraints" rows="2" placeholder="Ex. : certification Qualiopi, secteur santé, utiliser Excel 365…"></textarea>
+        </label>
+        <fieldset class="span2 checks">
+          <legend>Éléments à inclure</legend>
+          <label><input type="checkbox" name="include_exercises" checked> Exercices corrigés</label>
+          <label><input type="checkbox" name="include_quizzes" checked> Quiz par module</label>
+          <label><input type="checkbox" name="include_final_exam" checked> Examen final</label>
+          <label><input type="checkbox" name="include_capstone" checked> Projet final + grille</label>
+          <label><input type="checkbox" name="include_video_scripts"> Scripts vidéo</label>
+          <label><input type="checkbox" name="include_slides"> Diapositives</label>
+        </fieldset>
+        <div class="span2 actions">
+          <button type="submit" name="mode" value="outline">1. Générer le programme (à valider)</button>
+          <button type="submit" name="mode" value="full" class="primary">Générer la formation complète</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Progression -->
+    <section id="view-job" class="view" hidden>
+      <h1>Génération en cours…</h1>
+      <div class="card">
+        <p id="job-step" class="step"></p>
+        <div class="progress"><i id="job-bar"></i></div>
+        <p id="job-pct" class="muted"></p>
+        <ul id="job-log" class="log"></ul>
+        <p id="job-error" class="error"></p>
+      </div>
+    </section>
+
+    <!-- Formation -->
+    <section id="view-course" class="view" hidden>
+      <header class="course-head">
+        <div>
+          <h1 id="c-title"></h1>
+          <p id="c-subtitle" class="muted"></p>
+          <div id="c-stats" class="stats"></div>
+        </div>
+        <div class="export">
+          <span class="muted">Exporter :</span>
+          <a data-fmt="html" class="btn">Site HTML</a>
+          <a data-fmt="scorm" class="btn">SCORM (LMS)</a>
+          <a data-fmt="markdown" class="btn">Markdown</a>
+          <a data-fmt="json" class="btn">JSON</a>
+          <button id="delete-course" class="danger">Supprimer</button>
+        </div>
+      </header>
+      <div id="c-banner"></div>
+      <nav class="tabs">
+        <button data-tab="programme" class="active">Programme</button>
+        <button data-tab="contenu">Leçons</button>
+        <button data-tab="evaluations">Évaluations</button>
+        <button data-tab="projet">Projet final</button>
+        <button data-tab="accompagnement">Accompagnement & vente</button>
+      </nav>
+      <div id="tab-programme" class="tab"></div>
+      <div id="tab-contenu" class="tab" hidden>
+        <div class="lessons-layout">
+          <ul id="lesson-tree" class="tree"></ul>
+          <article id="lesson-view" class="card prose"></article>
+        </div>
+      </div>
+      <div id="tab-evaluations" class="tab" hidden></div>
+      <div id="tab-projet" class="tab prose" hidden></div>
+      <div id="tab-accompagnement" class="tab prose" hidden></div>
+    </section>
+  </main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
