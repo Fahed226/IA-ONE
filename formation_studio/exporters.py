@@ -297,10 +297,11 @@ def _pages(course: Course) -> List[tuple[str, str, str]]:
 
 PLAYER_CSS = """
 :root{--bg:#f7f7fb;--panel:#fff;--text:#1d1d27;--muted:#6b6b7b;--accent:#4f46e5;--ok:#15803d;--ko:#b91c1c;--border:#e4e4ee}
-@media (prefers-color-scheme:dark){:root{--bg:#12121a;--panel:#1b1b26;--text:#ececf3;--muted:#9a9aae;--accent:#8b85ff;--ok:#4ade80;--ko:#f87171;--border:#2c2c3a}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#12121a;--panel:#1b1b26;--text:#ececf3;--muted:#9a9aae;--accent:#8b85ff;--ok:#4ade80;--ko:#f87171;--border:#2c2c3a}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#12121a;--panel:#1b1b26;--text:#ececf3;--muted:#9a9aae;--accent:#8b85ff;--ok:#4ade80;--ko:#f87171;--border:#2c2c3a}
 *{box-sizing:border-box}body{margin:0;font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
 .layout{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
-nav{background:var(--panel);border-right:1px solid var(--border);padding:16px;position:sticky;top:0;height:100vh;overflow:auto}
+nav{background:var(--panel);border-right:1px solid var(--border);padding:16px;position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:auto}
 nav h2{font-size:15px;margin:0 0 4px}.bar{height:6px;background:var(--border);border-radius:3px;margin:8px 0 16px}.bar>i{display:block;height:100%;background:var(--accent);border-radius:3px;width:0}
 nav a{display:block;padding:6px 8px;border-radius:6px;color:var(--text);text-decoration:none;font-size:14px}nav a.module{font-weight:600;margin-top:8px}
 nav a.active{background:var(--accent);color:#fff}nav a.seen:not(.active)::after{content:" ✓";color:var(--ok)}
