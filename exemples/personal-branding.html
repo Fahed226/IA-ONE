@@ -1,0 +1,1984 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Personal Branding : de l&#x27;invisible à la référence</title><style>
+:root{--bg:#f7f7fb;--panel:#fff;--text:#1d1d27;--muted:#6b6b7b;--accent:#4f46e5;--ok:#15803d;--ko:#b91c1c;--border:#e4e4ee}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#12121a;--panel:#1b1b26;--text:#ececf3;--muted:#9a9aae;--accent:#8b85ff;--ok:#4ade80;--ko:#f87171;--border:#2c2c3a}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#12121a;--panel:#1b1b26;--text:#ececf3;--muted:#9a9aae;--accent:#8b85ff;--ok:#4ade80;--ko:#f87171;--border:#2c2c3a}
+*{box-sizing:border-box}body{margin:0;font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+.layout{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+nav{background:var(--panel);border-right:1px solid var(--border);padding:16px;position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:auto}
+nav h2{font-size:15px;margin:0 0 4px}.bar{height:6px;background:var(--border);border-radius:3px;margin:8px 0 16px}.bar>i{display:block;height:100%;background:var(--accent);border-radius:3px;width:0}
+nav a{display:block;padding:6px 8px;border-radius:6px;color:var(--text);text-decoration:none;font-size:14px}nav a.module{font-weight:600;margin-top:8px}
+nav a.active{background:var(--accent);color:#fff}nav a.seen:not(.active)::after{content:" ✓";color:var(--ok)}
+main{padding:32px clamp(16px,5vw,64px);max-width:900px}section[hidden]{display:none}
+table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}td,th{border:1px solid var(--border);padding:6px 10px}
+pre{background:var(--panel);border:1px solid var(--border);padding:12px;border-radius:8px;overflow:auto}code{font-size:.92em}
+blockquote{border-left:4px solid var(--accent);margin:0;padding:4px 16px;color:var(--muted)}
+details{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin:8px 0}
+.question{border:1px solid var(--border);border-radius:8px;margin:12px 0;padding:12px;background:var(--panel)}
+.question label{display:block;padding:4px 0;cursor:pointer}.question.ok{border-color:var(--ok)}.question.ko{border-color:var(--ko)}
+.muted{color:var(--muted);font-size:14px}.explanation{font-size:14px;color:var(--muted)}
+button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px 18px;font-size:15px;cursor:pointer}
+.pager{display:flex;justify-content:space-between;margin-top:40px;gap:12px}
+.menu{display:none}
+@media (max-width:800px){.layout{grid-template-columns:1fr}nav{position:fixed;inset:0 20% 0 0;z-index:10;transform:translateX(-100%);transition:.2s}
+nav.open{transform:none}.menu{display:inline-block;position:sticky;top:8px;margin:8px 16px;z-index:11}main{padding:16px}}
+</style></head>
+<body data-course="413653a3d1b6"><button class="menu" type="button">☰ Sommaire</button>
+<div class="layout"><nav><h2>Personal Branding : de l&#x27;invisible à la référence</h2><span class="muted">Progression : <b id="pct">0 %</b></span>
+<div class="bar"><i></i></div><a href="#accueil" data-page="accueil">Accueil &amp; programme</a><a href="#m1" data-page="m1" class="module">Module 1 — Les fondations de sa marque personnelle</a><a href="#m1l1" data-page="m1l1">1.1 Ce qu&#x27;est (vraiment) une marque personnelle</a><a href="#m1l2" data-page="m1l2">1.2 Trouver son positionnement unique</a><a href="#m1l3" data-page="m1l3">1.3 Son histoire et son identité de marque</a><a href="#m1q" data-page="m1q">Quiz du module 1</a><a href="#m2" data-page="m2" class="module">Module 2 — Connaître son audience</a><a href="#m2l1" data-page="m2l1">2.1 Construire son persona</a><a href="#m2l2" data-page="m2l2">2.2 Écouter et étudier son audience</a><a href="#m2l3" data-page="m2l3">2.3 Choisir ses plateformes</a><a href="#m2q" data-page="m2q">Quiz du module 2</a><a href="#m3" data-page="m3" class="module">Module 3 — Créer du contenu qui marque</a><a href="#m3l1" data-page="m3l1">3.1 Ses piliers de contenu et la stratégie éditoriale</a><a href="#m3l2" data-page="m3l2">3.2 Écrire des accroches et des contenus qui retiennent</a><a href="#m3l3" data-page="m3l3">3.3 Les formats et le système de production</a><a href="#m3q" data-page="m3q">Quiz du module 3</a><a href="#m4" data-page="m4" class="module">Module 4 — Exploser sur les réseaux</a><a href="#m4l1" data-page="m4l1">4.1 Comprendre les algorithmes et optimiser son profil</a><a href="#m4l2" data-page="m4l2">4.2 Les leviers de croissance</a><a href="#m4l3" data-page="m4l3">4.3 Mesurer, analyser, ajuster</a><a href="#m4q" data-page="m4q">Quiz du module 4</a><a href="#m5" data-page="m5" class="module">Module 5 — Vendre grâce à son image</a><a href="#m5l1" data-page="m5l1">5.1 Construire une offre irrésistible</a><a href="#m5l2" data-page="m5l2">5.2 Transformer son audience en clients</a><a href="#m5l3" data-page="m5l3">5.3 Preuve sociale, réputation et durée</a><a href="#m5q" data-page="m5q">Quiz du module 5</a><a href="#projet" data-page="projet">Projet final</a><a href="#examen" data-page="examen">Examen final</a><a href="#glossaire" data-page="glossaire">Glossaire</a><a href="#faq" data-page="faq">FAQ</a><a href="#conclusion" data-page="conclusion">Conclusion &amp; certificat</a></nav>
+<main><section id="accueil"><h1>Personal Branding : de l&#x27;invisible à la référence</h1><p>Bienvenue dans cette formation ! 🎉</p>
+<p>Vous êtes ici parce que vous savez que votre expertise mérite d'être <strong>vue, reconnue et choisie</strong>. Dans les prochaines semaines, vous allez passer de « je publie de temps en temps sans vraiment savoir pourquoi » à une <strong>marque personnelle claire, une audience qualifiée et des clients qui viennent à vous</strong>.</p>
+<p>Pas de recette miracle ici : une méthode, des exercices concrets et un projet final qui vous fait avancer pour de vrai.</p><h2>Comment suivre cette formation</h2><ul>
+<li><strong>Rythme conseillé</strong> : 2 à 3 leçons par semaine, soit environ 5 semaines, puis 30 jours pour le projet final.</li>
+<li><strong>Faites les exercices</strong> : c'est là que la marque se construit. Chaque exercice sert au projet final.</li>
+<li><strong>Gardez un seul document</strong> (Notion, Google Docs) où vous rassemblez vos exercices : ce sera votre « bible de marque ».</li>
+<li><strong>Publiez dès le module 3</strong>, même si ce n'est pas parfait : la pratique vaut plus que la préparation.</li>
+<li><strong>Refaites l'exercice de la leçon 1.1</strong> à la fin pour mesurer votre progression.</li>
+</ul><hr><h1>Personal Branding : de l'invisible à la référence</h1>
+<h3>Construisez votre marque, faites grandir votre audience et vendez grâce à votre image</h3>
+<p>Une formation complète et pratique pour construire une marque personnelle forte : trouver son positionnement, connaître son audience, créer des contenus qui marquent, grandir sur les réseaux sociaux et transformer son image en clients. Chaque leçon se termine par un exercice corrigé, chaque module par un quiz, et la formation par un projet de lancement en 30 jours.</p>
+<p><strong>Public :</strong> Entrepreneurs, freelances, indépendants, consultants et créateurs qui veulent se faire connaître et vendre grâce à leur image<br />
+<strong>Niveau :</strong> débutant<br />
+<strong>Durée :</strong> 7 h 45 · 5 modules · 15 leçons</p>
+<h2>Prérequis</h2>
+<ul>
+<li>Avoir une activité, une expertise ou un projet à faire connaître</li>
+<li>Avoir un compte sur au moins un réseau social</li>
+<li>Aucune compétence technique ou marketing requise</li>
+</ul>
+<h2>Ce que vous saurez faire</h2>
+<ul>
+<li>Formuler un positionnement clair et différenciant</li>
+<li>Construire un persona fondé sur les vrais mots de son audience</li>
+<li>Planifier et produire un mois de contenus équilibrés</li>
+<li>Rédiger des accroches et des appels à l'action efficaces</li>
+<li>Optimiser son profil et activer les leviers de croissance</li>
+<li>Analyser ses statistiques et ajuster sa stratégie</li>
+<li>Construire une offre et un parcours qui transforment l'audience en clients</li>
+</ul>
+<h2>Compétences développées</h2>
+<ul>
+<li>Positionnement</li>
+<li>Storytelling</li>
+<li>Stratégie éditoriale</li>
+<li>Copywriting</li>
+<li>Croissance sur les réseaux</li>
+<li>Analyse de données</li>
+<li>Vente</li>
+</ul>
+<h2>Approche pédagogique</h2>
+<p>Chaque leçon combine explications, exemples réels, points clés et un exercice pratique corrigé. Les exercices s'enchaînent pour construire votre propre marque pas à pas, jusqu'au projet final de 30 jours.</p>
+<h2>Programme</h2>
+<h3>Module 1 — Les fondations de sa marque personnelle</h3>
+<p>Comprendre ce qu'est une marque personnelle, trouver son positionnement unique et construire son histoire et son identité.</p>
+<ul>
+<li>1.1 Ce qu'est (vraiment) une marque personnelle (25 min)</li>
+<li>1.2 Trouver son positionnement unique (35 min)</li>
+<li>1.3 Son histoire et son identité de marque (30 min)</li>
+</ul>
+<h3>Module 2 — Connaître son audience</h3>
+<p>Construire son persona, récolter les vrais mots de sa cible et choisir les bonnes plateformes.</p>
+<ul>
+<li>2.1 Construire son persona (30 min)</li>
+<li>2.2 Écouter et étudier son audience (30 min)</li>
+<li>2.3 Choisir ses plateformes (25 min)</li>
+</ul>
+<h3>Module 3 — Créer du contenu qui marque</h3>
+<p>Définir sa ligne éditoriale, écrire des contenus qui retiennent et produire efficacement.</p>
+<ul>
+<li>3.1 Ses piliers de contenu et la stratégie éditoriale (30 min)</li>
+<li>3.2 Écrire des accroches et des contenus qui retiennent (40 min)</li>
+<li>3.3 Les formats et le système de production (35 min)</li>
+</ul>
+<h3>Module 4 — Exploser sur les réseaux</h3>
+<p>Comprendre les algorithmes, optimiser son profil, activer les leviers de croissance et piloter par les chiffres.</p>
+<ul>
+<li>4.1 Comprendre les algorithmes et optimiser son profil (30 min)</li>
+<li>4.2 Les leviers de croissance (30 min)</li>
+<li>4.3 Mesurer, analyser, ajuster (25 min)</li>
+</ul>
+<h3>Module 5 — Vendre grâce à son image</h3>
+<p>Construire son offre, transformer son audience en clients et installer sa réputation dans la durée.</p>
+<ul>
+<li>5.1 Construire une offre irrésistible (35 min)</li>
+<li>5.2 Transformer son audience en clients (35 min)</li>
+<li>5.3 Preuve sociale, réputation et durée (30 min)</li>
+</ul><div class="pager"><span></span><a href="#m1">Module 1 — Les fondations de sa marque personnelle →</a></div></section><section id="m1"><h1>Module 1 — Les fondations de sa marque personnelle</h1><p>Comprendre ce qu'est une marque personnelle, trouver son positionnement unique et construire son histoire et son identité.</p><h2>Objectifs</h2><ul>
+<li>Définir sa marque personnelle</li>
+<li>Rédiger son positionnement</li>
+<li>Construire son récit et son identité</li>
+</ul><div class="pager"><a href="#accueil">← Accueil &amp; programme</a><a href="#m1l1">1.1 Ce qu&#x27;est (vraiment) une marque personnelle →</a></div></section><section id="m1l1"><h1>Leçon 1.1 — Ce qu'est (vraiment) une marque personnelle</h1>
+<p><em>Durée : 25 min · Format : vidéo + réflexion</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Définir la marque personnelle avec ses propres mots</li>
+<li>Distinguer réputation, visibilité et marque</li>
+<li>Identifier ce que la marque apporte à son activité</li>
+</ul>
+<p>Votre marque personnelle existe déjà : c'est <strong>ce que les gens disent de vous quand vous n'êtes pas dans la pièce</strong>. La question n'est donc pas « faut-il avoir une marque ? » mais « est-ce que je la laisse au hasard ou est-ce que je la construis ? ». Dans cette leçon, on pose les bases qui serviront pendant toute la formation.</p>
+<h2>Une définition simple et utilisable</h2>
+<p>Une marque personnelle, c'est l'association durable entre <strong>votre nom</strong> et <strong>une promesse</strong> dans l'esprit d'un public précis.</p>
+<blockquote>
+<p><em>« Quand je pense à Sarah, je pense à : la personne qui aide les kinés à remplir leur agenda grâce à Instagram. »</em></p>
+</blockquote>
+<p>Trois éléments doivent être présents :</p>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Question</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pour qui</strong></td>
+<td>Qui doit penser à vous ?</td>
+<td>Les kinés installés en libéral</td>
+</tr>
+<tr>
+<td><strong>Quoi</strong></td>
+<td>Pour quel résultat ?</td>
+<td>Remplir leur agenda</td>
+</tr>
+<tr>
+<td><strong>Comment</strong></td>
+<td>Avec quelle approche reconnaissable ?</td>
+<td>Instagram, sans danser devant la caméra</td>
+</tr>
+</tbody>
+</table>
+<h2>Visibilité, réputation, marque : trois choses différentes</h2>
+<ul>
+<li><strong>La visibilité</strong> : combien de personnes vous voient. On peut être très visible et oublié le lendemain.</li>
+<li><strong>La réputation</strong> : ce que les gens pensent de la qualité de votre travail.</li>
+<li><strong>La marque</strong> : l'idée claire et unique qu'ils associent à votre nom.</li>
+</ul>
+<p>Un compte à 100 000 abonnés sans positionnement clair a de la visibilité mais pas de marque. Une consultante à 3 000 abonnés que tout son secteur recommande a une marque forte. <strong>La marque transforme l'attention en confiance, et la confiance en ventes.</strong></p>
+<h2>Pourquoi c'est un actif commercial</h2>
+<p>Une marque personnelle bien construite :</p>
+<ol>
+<li><strong>Réduit le coût d'acquisition</strong> : les clients viennent à vous au lieu que vous alliez les chercher.</li>
+<li><strong>Permet de vendre plus cher</strong> : on paie plus volontiers une personne identifiée comme la référence.</li>
+<li><strong>Raccourcit le cycle de vente</strong> : le prospect vous connaît déjà avant le premier appel.</li>
+<li><strong>Vous appartient</strong> : contrairement à un poste ou un client, elle vous suit partout.</li>
+</ol>
+<p>Les gens achètent à des personnes qu'ils <strong>connaissent, apprécient et en qui ils ont confiance</strong>. Tout le travail de personal branding consiste à faire avancer votre audience sur ces trois marches.</p>
+<h2>Authenticité : ni masque, ni journal intime</h2>
+<p>Être authentique ne veut pas dire tout raconter. Pensez à une <strong>version éditée de vous-même</strong> : vraie, mais choisie.</p>
+<ul>
+<li>✅ Partager vos convictions, vos méthodes, vos coulisses de travail, vos échecs utiles.</li>
+<li>❌ Inventer un personnage que vous ne pourrez pas tenir dans la durée.</li>
+<li>❌ Exposer votre vie privée sans lien avec la promesse de votre marque.</li>
+</ul>
+<p>Règle pratique : <strong>tout contenu personnel doit servir un message professionnel.</strong></p>
+<h2>Exemples et études de cas</h2>
+<h3>Deux coachs sportifs, deux trajectoires</h3>
+<p>Karim et Julie sont tous deux coachs sportifs. Karim publie des séances variées « pour tout le monde ». Julie publie uniquement sur <strong>la remise en forme des mamans après la grossesse, en 20 minutes à la maison</strong>.</p>
+<p>Après un an, Karim a plus de vues ponctuelles, mais Julie a une liste d'attente : quand une maman cherche une solution, <strong>c'est son nom qui revient</strong>. La spécialisation a créé la marque.</p>
+<h2>À retenir</h2>
+<ul>
+<li>Votre marque existe déjà : autant la construire volontairement</li>
+<li>Marque = nom + promesse + public précis</li>
+<li>La visibilité sans positionnement ne crée pas de marque</li>
+<li>Objectif : que votre audience vous connaisse, vous apprécie et vous fasse confiance</li>
+<li>Authentique ne veut pas dire tout montrer</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Confondre nombre d'abonnés et force de marque</li>
+<li>Vouloir plaire à tout le monde</li>
+<li>Copier le style d'un créateur connu au lieu de trouver le sien</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Votre marque aujourd'hui (facile, ~20 min)</h3>
+<ol>
+<li>Envoyez ce message à 5 personnes qui vous connaissent professionnellement : <em>« En une phrase, pour quoi est-ce que tu me recommanderais ? »</em></li>
+<li>Notez les réponses mot pour mot.</li>
+<li>Comparez-les avec l'image que <strong>vous voulez</strong> donner. Qu'est-ce qui revient ? Qu'est-ce qui manque ?</li>
+</ol>
+<details><summary>Voir la solution</summary>
+
+Il n'y a pas de bonne réponse unique. Ce qu'il faut observer :
+
+- **Si les réponses sont toutes différentes**, votre marque est floue : le module 1 est prioritaire.
+- **Si elles se ressemblent mais ne correspondent pas à votre cible**, votre marque est claire mais mal orientée : repositionnez-vous (leçon 1.2).
+- **Si elles correspondent à ce que vous voulez**, vous avez une base : il faut maintenant l'amplifier (modules 3 et 4).
+
+Gardez ces réponses : vous referez l'exercice à la fin de la formation pour mesurer le chemin parcouru.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Montrez votre travail ! — Austin Kleon</strong> (livre) — Court et très concret sur l'art de partager son travail pour se faire connaître.</li>
+<li><strong>Influence et manipulation — Robert Cialdini</strong> (livre) — Les principes psychologiques (autorité, sympathie, preuve sociale) qui expliquent pourquoi une marque fait vendre.</li>
+</ul><div class="pager"><a href="#m1">← Module 1 — Les fondations de sa marque personnelle</a><a href="#m1l2">1.2 Trouver son positionnement unique →</a></div></section><section id="m1l2"><h1>Leçon 1.2 — Trouver son positionnement unique</h1>
+<p><em>Durée : 35 min · Format : atelier</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Choisir une niche à l'intersection de ses compétences, de ses envies et d'un marché</li>
+<li>Rédiger sa phrase de positionnement</li>
+<li>Identifier son angle différenciant</li>
+</ul>
+<p>Le positionnement est la décision la plus importante de votre marque. Un bon positionnement fait <strong>qu'on vous choisit sans vous comparer</strong>. Un mauvais vous condamne à être « un de plus ». Cette leçon vous fait passer de « je fais du marketing » à une promesse qui se retient.</p>
+<h2>L'intersection gagnante</h2>
+<p>Votre niche se trouve à l'intersection de trois cercles :</p>
+<ol>
+<li><strong>Ce que vous savez faire</strong> (compétences, expérience, résultats obtenus)</li>
+<li><strong>Ce que vous aimez faire</strong> (sinon vous ne tiendrez pas 2 ans de contenu)</li>
+<li><strong>Ce pour quoi des gens paient</strong> (un problème urgent et coûteux)</li>
+</ol>
+<p>Si un cercle manque : sans compétence, vous perdez en crédibilité ; sans envie, vous abandonnez ; sans marché, vous avez un hobby.</p>
+<h2>Niche : assez étroite pour être la référence</h2>
+<p>Se spécialiser fait peur car on a l'impression de perdre des clients. En réalité, <strong>on gagne en mémorisation</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Trop large</th>
+<th>Mieux</th>
+<th>Très bien</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coach business</td>
+<td>Coach pour freelances</td>
+<td>Coach pour graphistes freelances qui veulent dépasser 5 000 €/mois</td>
+</tr>
+<tr>
+<td>Nutritionniste</td>
+<td>Nutrition sportive</td>
+<td>Nutrition pour coureurs amateurs qui préparent un marathon</td>
+</tr>
+<tr>
+<td>Consultant LinkedIn</td>
+<td>LinkedIn pour dirigeants</td>
+<td>LinkedIn pour dirigeants de PME industrielles qui recrutent</td>
+</tr>
+</tbody>
+</table>
+<p>Vous pourrez élargir plus tard. <strong>On se fait connaître par une porte étroite.</strong></p>
+<h2>La phrase de positionnement</h2>
+<p>Utilisez ce modèle :</p>
+<blockquote>
+<p><strong>J'aide</strong> [public précis] <strong>à</strong> [résultat désiré] <strong>grâce à</strong> [méthode / approche] <strong>sans</strong> [la contrainte qu'ils redoutent].</p>
+</blockquote>
+<p>Exemples :
+- <em>J'aide les artisans du bâtiment à trouver des chantiers grâce à Facebook, sans y passer plus de 2 heures par semaine.</em>
+- <em>J'aide les jeunes diplômés en finance à décrocher leur premier CDI grâce à un LinkedIn qui attire les recruteurs, sans envoyer 200 candidatures.</em></p>
+<p>Cette phrase deviendra votre bio, votre accroche en réseau et le fil rouge de vos contenus.</p>
+<h2>Trouver son angle différenciant</h2>
+<p>Dans une niche, d'autres existent déjà. Votre angle, c'est <strong>ce qui vous rend reconnaissable</strong>. Pistes :</p>
+<ul>
+<li><strong>Votre parcours</strong> : « ancien recruteur passé de l'autre côté », « infirmière devenue développeuse ».</li>
+<li><strong>Votre méthode</strong> : un nom, des étapes, un cadre propriétaire (ex. <em>la méthode 3P</em>).</li>
+<li><strong>Votre conviction</strong> : une idée forte, parfois à contre-courant (<em>« Arrêtez de poster tous les jours »</em>).</li>
+<li><strong>Votre ton</strong> : humour, franc-parler, pédagogie ultra-simple, esthétique.</li>
+</ul>
+<p>Un bon angle se résume en une expression que votre audience peut répéter.</p>
+<h2>Exemples et études de cas</h2>
+<h3>De « graphiste » à référence</h3>
+<p>Léa se présentait comme « graphiste freelance ». Elle a combiné son expérience passée en restauration et son métier : <strong>« Je crée l'identité visuelle des restaurants qui veulent remplir leur salle grâce à Instagram. »</strong> Elle parle désormais le langage des restaurateurs, montre des cas concrets de restaurants, et ses clients se la recommandent entre eux.</p>
+<h3>Une conviction comme angle</h3>
+<p>Un conseiller en investissement se démarque avec une conviction répétée dans tous ses contenus : <em>« La meilleure stratégie est ennuyeuse. »</em> Face à un secteur plein de promesses spectaculaires, cette phrase devient sa signature.</p>
+<h2>À retenir</h2>
+<ul>
+<li>Niche = compétences ∩ envie ∩ marché qui paie</li>
+<li>Une niche étroite rend mémorable ; on élargit plus tard</li>
+<li>Phrase clé : J'aide [qui] à [résultat] grâce à [méthode] sans [contrainte]</li>
+<li>L'angle différenciant peut venir du parcours, de la méthode, d'une conviction ou du ton</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Choisir une niche uniquement parce qu'elle « marche » chez les autres</li>
+<li>Rédiger une promesse vague (« réussir », « s'épanouir »)</li>
+<li>Changer de positionnement tous les mois</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Rédiger votre positionnement (moyen, ~40 min)</h3>
+<ol>
+<li>Listez 5 compétences, 5 sujets qui vous passionnent et 5 problèmes pour lesquels des gens paient autour de vous.</li>
+<li>Entourez les combinaisons qui apparaissent dans les trois listes.</li>
+<li>Rédigez <strong>3 versions</strong> de votre phrase de positionnement avec le modèle <em>J'aide… à… grâce à… sans…</em>.</li>
+<li>Choisissez-en une et testez-la sur 3 personnes de votre cible : comprennent-elles en moins de 5 secondes ?</li>
+</ol>
+<details><summary>Voir la solution</summary>
+
+**Exemple corrigé** (profil : ancienne commerciale, passionnée de psychologie, à l'aise sur LinkedIn) :
+
+- Version 1 : *J'aide les entreprises à mieux vendre.* → trop large, aucune différenciation.
+- Version 2 : *J'aide les commerciaux B2B à mieux prospecter grâce à LinkedIn.* → mieux, mais encore banal.
+- Version 3 : *J'aide les commerciaux B2B à décrocher des rendez-vous sur LinkedIn grâce à la psychologie de la persuasion, sans messages automatiques qui font fuir.* → public précis, résultat concret, méthode distinctive, objection traitée.
+
+**Critères de validation** : un inconnu de la cible doit pouvoir répondre à « c'est pour moi ? » en moins de 5 secondes, et vous devez pouvoir produire au moins 50 idées de contenus sur ce positionnement.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Building a StoryBrand — Donald Miller</strong> (livre) — Méthode pour clarifier son message en plaçant le client au centre de l'histoire.</li>
+<li><strong>Positioning — Al Ries et Jack Trout</strong> (livre) — Le classique sur la bataille pour une place dans l'esprit du public.</li>
+</ul><div class="pager"><a href="#m1l1">← 1.1 Ce qu&#x27;est (vraiment) une marque personnelle</a><a href="#m1l3">1.3 Son histoire et son identité de marque →</a></div></section><section id="m1l3"><h1>Leçon 1.3 — Son histoire et son identité de marque</h1>
+<p><em>Durée : 30 min · Format : atelier</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Structurer son histoire personnelle en récit de marque</li>
+<li>Définir 3 valeurs et un ton de voix</li>
+<li>Créer une identité visuelle simple et cohérente</li>
+</ul>
+<p>Les faits informent, les histoires font retenir. Votre histoire donne une raison de vous suivre <strong>vous</strong> plutôt qu'un autre expert aussi compétent. Associée à une identité cohérente (valeurs, ton, visuels), elle rend votre marque reconnaissable en un coup d'œil.</p>
+<h2>Le récit de marque en 5 temps</h2>
+<ol>
+<li><strong>Avant</strong> : d'où vous partez (situation que votre audience vit aujourd'hui).</li>
+<li><strong>Le déclic</strong> : l'événement, l'échec ou la rencontre qui a tout changé.</li>
+<li><strong>Le chemin</strong> : ce que vous avez essayé, appris, construit.</li>
+<li><strong>Le résultat</strong> : où vous en êtes aujourd'hui, preuves à l'appui.</li>
+<li><strong>La mission</strong> : pourquoi vous aidez maintenant les autres à faire ce chemin.</li>
+</ol>
+<p>L'objectif n'est pas de vous mettre en valeur, mais de permettre à votre audience de <strong>se reconnaître dans votre « avant »</strong> et de désirer votre « après ».</p>
+<h2>Valeurs et ton de voix</h2>
+<p>Choisissez <strong>3 valeurs</strong> qui guideront vos contenus et vos décisions (ex. : franchise, simplicité, exigence). Pour chacune, définissez ce qu'elle implique concrètement.</p>
+<p>Puis décrivez votre ton avec des paires « plutôt / plutôt pas » :</p>
+<table>
+<thead>
+<tr>
+<th>Plutôt</th>
+<th>Plutôt pas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direct</td>
+<td>Agressif</td>
+</tr>
+<tr>
+<td>Pédagogue</td>
+<td>Professoral</td>
+</tr>
+<tr>
+<td>Chaleureux</td>
+<td>Familier</td>
+</tr>
+<tr>
+<td>Expert</td>
+<td>Jargonneux</td>
+</tr>
+</tbody>
+</table>
+<p>Ce tableau vous servira aussi si vous déléguez un jour la rédaction.</p>
+<h2>Identité visuelle minimale</h2>
+<p>Pas besoin d'un logo à 3 000 € pour démarrer. Il faut surtout de la <strong>cohérence</strong> :</p>
+<ul>
+<li><strong>Une photo de profil</strong> professionnelle : visage net, lumière naturelle, fond simple, regard caméra, la même partout.</li>
+<li><strong>2 à 3 couleurs</strong> et <strong>1 à 2 polices</strong> utilisées dans tous vos visuels.</li>
+<li><strong>Des modèles réutilisables</strong> (Canva ou équivalent) pour vos carrousels, citations et miniatures.</li>
+<li><strong>Une bannière</strong> (LinkedIn, YouTube, X) qui reprend votre phrase de positionnement.</li>
+</ul>
+<p>Test : si l'on cache votre nom, votre audience reconnaît-elle vos visuels dans son fil ?</p>
+<h2>Exemples et études de cas</h2>
+<h3>L'histoire qui a lancé une marque</h3>
+<p>Thomas, comptable, raconte : <em>« Pendant 8 ans, j'ai vu des indépendants brillants couler à cause de leur trésorerie, pas de leur talent. »</em> Il partage ensuite comment il a construit un tableau de suivi simple, puis son intention : que plus aucun freelance ne découvre un redressement de TVA par surprise. Son récit crée une connexion immédiate avec des indépendants qui ont peur de l'administratif.</p>
+<h2>À retenir</h2>
+<ul>
+<li>L'histoire permet à l'audience de se reconnaître dans votre « avant »</li>
+<li>Structure : avant, déclic, chemin, résultat, mission</li>
+<li>3 valeurs + un ton de voix défini par des « plutôt / plutôt pas »</li>
+<li>Cohérence visuelle : même photo, mêmes couleurs, mêmes modèles partout</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Raconter sa vie sans lien avec le problème de l'audience</li>
+<li>Changer de couleurs et de style de visuels à chaque publication</li>
+<li>Utiliser une photo de profil différente sur chaque réseau</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Écrire votre histoire de marque (moyen, ~35 min)</h3>
+<p>Rédigez votre récit en 5 paragraphes courts (avant, déclic, chemin, résultat, mission), 200 à 300 mots maximum. Puis rédigez votre tableau de ton de voix (4 lignes « plutôt / plutôt pas »).</p>
+<details><summary>Voir la solution</summary>
+
+**Points de contrôle** :
+
+- Le paragraphe « avant » décrit une situation que **votre cible vit aujourd'hui** (et non un détail biographique sans lien).
+- Le déclic est **concret** : une date, une scène, un chiffre, une phrase entendue.
+- Le résultat contient **au moins une preuve** (chiffre, client, réalisation).
+- La mission parle **de l'audience**, pas de vous.
+
+Ce texte sera réutilisé : section « À propos » de LinkedIn, page de vente, premier post épinglé, présentation orale en 60 secondes.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Canva</strong> (outil) — Création de modèles visuels cohérents (carrousels, bannières, miniatures).</li>
+<li><strong>Coolors</strong> (outil) — Générateur de palettes de couleurs pour définir sa charte.</li>
+</ul><div class="pager"><a href="#m1l2">← 1.2 Trouver son positionnement unique</a><a href="#m1q">Quiz du module 1 →</a></div></section><section id="m1q"><h1>Quiz — Les fondations de sa marque</h1><form class="quiz" data-quiz="m1q" data-pass="70">
+<p>Choisissez la ou les bonnes réponses, puis validez pour voir les explications.</p>
+<p class="muted">Seuil de réussite : 70 %</p>
+<fieldset class="question" data-correct="1"><legend>1. Quelle définition correspond le mieux à une marque personnelle ?</legend>
+<label><input type="radio" name="q0" value="0"> Le nombre d&#x27;abonnés sur ses réseaux</label>
+<label><input type="radio" name="q0" value="1"> L&#x27;association durable entre un nom, une promesse et un public précis</label>
+<label><input type="radio" name="q0" value="2"> Un logo et une charte graphique</label>
+<label><input type="radio" name="q0" value="3"> Le fait de publier tous les jours</label>
+<p class="explanation" hidden>La marque est une idée claire dans l&#x27;esprit d&#x27;un public. Abonnés et logo n&#x27;en sont que des outils ou des conséquences.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>2. Un compte à 100 000 abonnés a forcément une marque personnelle forte.</legend>
+<label><input type="radio" name="q1" value="0"> Vrai</label>
+<label><input type="radio" name="q1" value="1"> Faux</label>
+<p class="explanation" hidden>Visibilité n&#x27;est pas marque : sans positionnement clair, le public ne retient rien de précis.</p></fieldset>
+<fieldset class="question" data-correct="2"><legend>3. Laquelle de ces phrases de positionnement est la plus efficace ?</legend>
+<label><input type="radio" name="q2" value="0"> J&#x27;aide les gens à réussir</label>
+<label><input type="radio" name="q2" value="1"> Coach business passionnée</label>
+<label><input type="radio" name="q2" value="2"> J&#x27;aide les graphistes freelances à dépasser 5 000 €/mois grâce à LinkedIn, sans prospection à froid</label>
+<label><input type="radio" name="q2" value="3"> Experte en marketing digital et réseaux sociaux</label>
+<p class="explanation" hidden>Elle précise le public, le résultat, la méthode et l&#x27;objection traitée.</p></fieldset>
+<fieldset class="question" data-correct="0,1,2"><legend>4. Quelles sources peuvent constituer un angle différenciant ?</legend>
+<p class="muted">Plusieurs réponses possibles.</p>
+<label><input type="checkbox" name="q3" value="0"> Votre parcours</label>
+<label><input type="checkbox" name="q3" value="1"> Votre méthode propriétaire</label>
+<label><input type="checkbox" name="q3" value="2"> Une conviction forte</label>
+<label><input type="checkbox" name="q3" value="3"> Copier le ton du créateur le plus suivi de la niche</label>
+<p class="explanation" hidden>Parcours, méthode, conviction et ton personnel différencient. Copier un autre créateur fait de vous une copie.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>5. Dans le récit de marque, à quoi sert l&#x27;étape « avant » ?</legend>
+<label><input type="radio" name="q4" value="0"> À raconter son enfance en détail</label>
+<label><input type="radio" name="q4" value="1"> À permettre à l&#x27;audience de se reconnaître dans votre situation passée</label>
+<label><input type="radio" name="q4" value="2"> À lister ses diplômes</label>
+<label><input type="radio" name="q4" value="3"> À présenter son offre</label>
+<p class="explanation" hidden>L&#x27;« avant » crée l&#x27;identification : le lecteur se dit « c&#x27;est moi aujourd&#x27;hui ».</p></fieldset>
+<button type="submit">Valider mes réponses</button><p class="result" aria-live="polite"></p></form><div class="pager"><a href="#m1l3">← 1.3 Son histoire et son identité de marque</a><a href="#m2">Module 2 — Connaître son audience →</a></div></section><section id="m2"><h1>Module 2 — Connaître son audience</h1><p>Construire son persona, récolter les vrais mots de sa cible et choisir les bonnes plateformes.</p><h2>Objectifs</h2><ul>
+<li>Construire un persona fondé sur des faits</li>
+<li>Collecter des verbatims</li>
+<li>Choisir ses réseaux</li>
+</ul><div class="pager"><a href="#m1q">← Quiz du module 1</a><a href="#m2l1">2.1 Construire son persona →</a></div></section><section id="m2l1"><h1>Leçon 2.1 — Construire son persona</h1>
+<p><em>Durée : 30 min · Format : atelier</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Construire un persona détaillé et réaliste</li>
+<li>Identifier les douleurs, désirs et objections de sa cible</li>
+<li>Utiliser le persona pour choisir ses sujets</li>
+</ul>
+<p>On ne crée pas du contenu « pour les réseaux », on le crée <strong>pour une personne</strong>. Plus vous la connaissez, plus vos contenus donnent l'impression de lire dans ses pensées. C'est ce sentiment qui fait s'abonner, commenter et acheter.</p>
+<h2>Les 6 blocs d'un persona utile</h2>
+<table>
+<thead>
+<tr>
+<th>Bloc</th>
+<th>Questions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Situation</strong></td>
+<td>Âge, métier, contexte de vie et de travail</td>
+</tr>
+<tr>
+<td><strong>Douleurs</strong></td>
+<td>Qu'est-ce qui l'empêche de dormir ? Qu'est-ce qui lui coûte du temps ou de l'argent ?</td>
+</tr>
+<tr>
+<td><strong>Désirs</strong></td>
+<td>À quoi ressemble sa vie idéale dans 12 mois ?</td>
+</tr>
+<tr>
+<td><strong>Objections</strong></td>
+<td>Pourquoi n'a-t-elle pas encore résolu le problème ? (prix, temps, doute, mauvaise expérience)</td>
+</tr>
+<tr>
+<td><strong>Habitudes</strong></td>
+<td>Quels réseaux, à quel moment, quels comptes suit-elle ?</td>
+</tr>
+<tr>
+<td><strong>Vocabulaire</strong></td>
+<td>Avec quels mots exacts décrit-elle son problème ?</td>
+</tr>
+</tbody>
+</table>
+<p>Le dernier bloc est le plus sous-estimé : <strong>utiliser les mots de votre audience</strong> rend vos accroches immédiatement pertinentes.</p>
+<h2>Du persona aux sujets de contenu</h2>
+<p>Chaque bloc devient une source de contenus :</p>
+<ul>
+<li><strong>Douleurs</strong> → contenus qui nomment le problème (<em>« Vous publiez tous les jours et personne ne réagit ? »</em>).</li>
+<li><strong>Désirs</strong> → contenus d'inspiration et de résultats clients.</li>
+<li><strong>Objections</strong> → contenus qui déconstruisent les croyances (<em>« Non, il ne faut pas 10 000 abonnés pour vendre »</em>).</li>
+<li><strong>Vocabulaire</strong> → titres et accroches.</li>
+</ul>
+<h2>Un persona vivant, pas une fiche oubliée</h2>
+<p>Donnez-lui un prénom et une photo, affichez-le près de votre écran. Avant chaque publication, demandez-vous : <strong>« Est-ce que [prénom] s'arrêterait sur ce contenu ? »</strong> Mettez-le à jour tous les trimestres avec ce que vous apprenez en échangeant avec votre audience.</p>
+<h2>Exemples et études de cas</h2>
+<h3>Persona : « Claire, 38 ans »</h3>
+<p><em>Claire, 38 ans, responsable RH dans une PME de 80 salariés. Elle recrute seule, manque de temps, et voit ses offres ignorées sur les jobboards. </em><em>Douleur</em><em> : « Je passe mes soirées à trier des CV qui ne correspondent pas. » </em><em>Désir</em><em> : attirer des candidats qui viennent d'eux-mêmes. </em><em>Objection</em><em> : « LinkedIn, c'est pour les grandes entreprises avec un budget marque employeur. » </em><em>Habitudes</em><em> : LinkedIn le matin dans les transports. </em><em>Vocabulaire</em><em> : « galère de recrutement », « candidats fantômes ».</em></p>
+<p>Un consultant qui cible Claire publiera : <em>« Candidats fantômes : 3 raisons pour lesquelles vos offres n'attirent personne (et ce n'est pas le salaire). »</em></p>
+<h2>À retenir</h2>
+<ul>
+<li>On crée pour une personne, pas pour « tout le monde »</li>
+<li>Persona = situation, douleurs, désirs, objections, habitudes, vocabulaire</li>
+<li>Les mots exacts de l'audience font les meilleures accroches</li>
+<li>Chaque bloc du persona est une source de sujets</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Créer un persona trop large (« les entrepreneurs de 25 à 55 ans »)</li>
+<li>Inventer les douleurs au lieu de les vérifier</li>
+<li>Parler avec son jargon d'expert au lieu des mots de l'audience</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Votre persona en une page (moyen, ~30 min)</h3>
+<p>Remplissez les 6 blocs pour votre client idéal. Donnez-lui un prénom. Puis déduisez-en <strong>10 idées de contenus</strong> : 3 sur ses douleurs, 3 sur ses désirs, 4 sur ses objections.</p>
+<details><summary>Voir la solution</summary>
+
+**Grille d'autocorrection** :
+
+- Les douleurs sont **concrètes et vécues** (« je trie des CV le soir ») et pas abstraites (« manque d'efficacité »).
+- Au moins 3 expressions du bloc vocabulaire viennent de **vraies conversations** ou de commentaires lus, pas de votre imagination.
+- Chaque idée de contenu pourrait commencer par une phrase que votre persona dirait elle-même.
+
+Si vous bloquez sur le vocabulaire, passez directement à la leçon 2.2 : elle vous donne les méthodes pour le récolter.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Méthode Jobs To Be Done — Clayton Christensen (« Competing Against Luck »)</strong> (livre) — Comprendre le « travail » pour lequel un client « embauche » un produit.</li>
+</ul><div class="pager"><a href="#m2">← Module 2 — Connaître son audience</a><a href="#m2l2">2.2 Écouter et étudier son audience →</a></div></section><section id="m2l2"><h1>Leçon 2.2 — Écouter et étudier son audience</h1>
+<p><em>Durée : 30 min · Format : atelier + outils</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Mener des entretiens d'audience efficaces</li>
+<li>Exploiter commentaires, groupes et outils de recherche</li>
+<li>Organiser ses découvertes dans une banque d'idées</li>
+</ul>
+<p>Les meilleurs créateurs ne sont pas ceux qui ont le plus d'idées, mais ceux qui <strong>écoutent le mieux</strong>. Votre audience vous dit chaque jour ce qu'elle veut lire et acheter : il suffit de savoir où regarder.</p>
+<h2>Les entretiens : la méthode la plus puissante</h2>
+<p>Proposez 20 minutes d'échange à 5 à 10 personnes de votre cible. Posez des questions sur <strong>leur passé réel</strong>, pas sur des intentions :</p>
+<ol>
+<li><em>« Raconte-moi la dernière fois que tu as rencontré [problème]. »</em></li>
+<li><em>« Qu'as-tu essayé ? Qu'est-ce qui n'a pas marché ? »</em></li>
+<li><em>« Qu'est-ce qui serait différent si c'était réglé ? »</em></li>
+<li><em>« Où cherches-tu des conseils sur ce sujet ? »</em></li>
+</ol>
+<p>Évitez : <em>« Est-ce que tu achèterais… ? »</em> Les gens répondent oui par politesse. Notez <strong>les phrases exactes</strong> : ce seront vos futures accroches.</p>
+<h2>Les mines d'or en ligne</h2>
+<ul>
+<li><strong>Commentaires</strong> des comptes influents de votre niche : les questions qui reviennent sont des sujets de contenus.</li>
+<li><strong>Groupes</strong> Facebook, LinkedIn, Reddit, Discord : lisez les messages « J'ai besoin d'aide ».</li>
+<li><strong>Avis clients</strong> 1 à 3 étoiles de livres ou formations concurrentes : ils révèlent les attentes déçues.</li>
+<li><strong>Suggestions de recherche</strong> : Google, YouTube et TikTok complètent automatiquement les recherches fréquentes.</li>
+<li><strong>Outils</strong> : Google Trends (tendances), AnswerThePublic (questions posées).</li>
+</ul>
+<h2>Votre banque d'idées</h2>
+<p>Centralisez tout dans un seul outil (Notion, Google Sheets, application de notes) avec 4 colonnes :</p>
+<table>
+<thead>
+<tr>
+<th>Verbatim</th>
+<th>Source</th>
+<th>Type (douleur / désir / objection)</th>
+<th>Idée de contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>« Je n'ose pas me montrer en vidéo »</td>
+<td>Entretien Marie</td>
+<td>Objection</td>
+<td>5 formats pour percer sans montrer son visage</td>
+</tr>
+</tbody>
+</table>
+<p>Objectif : ne plus jamais vous demander « sur quoi je publie aujourd'hui ? ».</p>
+<h2>Exemples et études de cas</h2>
+<h3>20 minutes qui changent une offre</h3>
+<p>Une coach en organisation pensait que sa cible voulait « être plus productive ». En entretien, cinq mères entrepreneures ont toutes employé la même expression : <strong>« J'ai l'impression de courir toute la journée et de ne rien avancer. »</strong> Elle a réécrit sa bio et ses accroches avec cette phrase : ses messages privés ont nettement augmenté, car les lectrices se sont reconnues.</p>
+<h2>À retenir</h2>
+<ul>
+<li>Les entretiens sur des situations passées valent mieux que les sondages</li>
+<li>Commentaires, groupes et avis négatifs sont des sources gratuites de sujets</li>
+<li>Notez les verbatims exacts</li>
+<li>Une banque d'idées supprime la panne d'inspiration</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Demander « est-ce que vous achèteriez ? » en entretien</li>
+<li>Ne consulter que les comptes à succès et jamais les commentaires</li>
+<li>Garder ses idées dans sa tête ou éparpillées</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Mission écoute (moyen, ~120 min)</h3>
+<p>En une semaine : réalisez <strong>3 entretiens</strong> avec des personnes de votre cible et collectez <strong>20 verbatims</strong> en ligne (commentaires, groupes, avis). Rangez-les dans votre banque d'idées et transformez les 5 meilleurs en titres de contenus.</p>
+<details><summary>Voir la solution</summary>
+
+**Exemple de transformation verbatim → titre** :
+
+- « Je poste mais j'ai zéro commentaire » → *Zéro commentaire sur vos posts ? Le problème vient probablement de votre dernière ligne.*
+- « Je ne sais pas quoi raconter » → *47 idées de posts quand on pense n'avoir rien à dire.*
+- « Les gens trouvent ça trop cher » → *Si on vous dit « c'est trop cher », ce n'est (presque) jamais le prix.*
+
+Un bon titre reprend **les mots de l'audience** et promet une **réponse précise**.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Google Trends</strong> (outil) — Visualiser l'évolution de l'intérêt pour un sujet.</li>
+<li><strong>AnswerThePublic</strong> (outil) — Lister les questions que les internautes posent autour d'un mot-clé.</li>
+<li><strong>The Mom Test — Rob Fitzpatrick</strong> (livre) — Comment interroger ses clients sans qu'ils vous mentent par politesse.</li>
+</ul><div class="pager"><a href="#m2l1">← 2.1 Construire son persona</a><a href="#m2l3">2.3 Choisir ses plateformes →</a></div></section><section id="m2l3"><h1>Leçon 2.3 — Choisir ses plateformes</h1>
+<p><em>Durée : 25 min · Format : texte + tableau comparatif</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Comparer les principaux réseaux sociaux</li>
+<li>Choisir un réseau principal et un secondaire</li>
+<li>Définir un rythme de publication tenable</li>
+</ul>
+<p>Être partout, c'est souvent n'être bon nulle part. Mieux vaut <strong>dominer un réseau</strong> que survivre sur cinq. Cette leçon vous aide à choisir où concentrer votre énergie.</p>
+<h2>Panorama des plateformes</h2>
+<table>
+<thead>
+<tr>
+<th>Plateforme</th>
+<th>Forces</th>
+<th>Idéal pour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LinkedIn</strong></td>
+<td>Audience professionnelle, forte portée des posts texte et carrousels</td>
+<td>B2B, consultants, recrutement, services aux entreprises</td>
+</tr>
+<tr>
+<td><strong>Instagram</strong></td>
+<td>Visuel, Reels, stories pour la proximité</td>
+<td>Lifestyle, bien-être, mode, food, créateurs, B2C</td>
+</tr>
+<tr>
+<td><strong>TikTok</strong></td>
+<td>Découverte massive par l'algorithme, vidéos courtes</td>
+<td>Croissance rapide, audiences jeunes et grand public</td>
+</tr>
+<tr>
+<td><strong>YouTube</strong></td>
+<td>Contenu long, recherché, durable (effet moteur de recherche)</td>
+<td>Expertise, tutoriels, confiance profonde</td>
+</tr>
+<tr>
+<td><strong>X (Twitter)</strong></td>
+<td>Idées, actualité, conversations</td>
+<td>Tech, finance, médias, réflexion</td>
+</tr>
+<tr>
+<td><strong>Newsletter</strong></td>
+<td>Canal que vous possédez, relation directe</td>
+<td>Tout le monde, en complément</td>
+</tr>
+</tbody>
+</table>
+<p>Les algorithmes et usages évoluent vite : vérifiez régulièrement où se trouve réellement votre audience.</p>
+<h2>La règle 1 + 1 (+ 1)</h2>
+<ul>
+<li><strong>1 réseau principal</strong> : là où se trouve votre persona et où votre format naturel (écrit, vidéo, image) est roi. 80 % de votre énergie.</li>
+<li><strong>1 réseau secondaire</strong> : où vous recyclez vos contenus. 20 %.</li>
+<li><strong>+ 1 canal possédé</strong> : newsletter ou liste e-mail. Vos abonnés sur un réseau peuvent disparaître si l'algorithme change ; votre liste e-mail vous appartient.</li>
+</ul>
+<h2>Un rythme tenable</h2>
+<p>La régularité bat l'intensité. Mieux vaut <strong>3 publications par semaine pendant 12 mois</strong> que 2 par jour pendant 3 semaines.</p>
+<p>Point de départ conseillé :
+- LinkedIn : 3 posts / semaine
+- Instagram : 3 à 4 publications + stories quasi quotidiennes
+- TikTok : 3 à 5 vidéos / semaine
+- YouTube : 1 vidéo / semaine ou toutes les 2 semaines
+- Newsletter : 1 / semaine ou 1 / 15 jours</p>
+<h2>Exemples et études de cas</h2>
+<h3>Choix raisonné</h3>
+<p>Une avocate en droit du travail qui cible les dirigeants de PME choisit <strong>LinkedIn</strong> en principal (ses clients y sont, elle écrit bien), <strong>YouTube</strong> en secondaire (des vidéos « Peut-on licencier pour… ? » très recherchées) et une <strong>newsletter mensuelle</strong> « L'actu sociale en 5 minutes ».</p>
+<h2>À retenir</h2>
+<ul>
+<li>Mieux vaut dominer un réseau que survivre sur cinq</li>
+<li>Réseau principal = présence du persona + votre format naturel</li>
+<li>Construisez en parallèle un canal possédé (e-mail)</li>
+<li>Régularité &gt; intensité</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Ouvrir 5 comptes en même temps</li>
+<li>Choisir un réseau parce qu'il est à la mode et non parce que la cible y est</li>
+<li>Négliger la liste e-mail</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Votre plan de présence (facile, ~15 min)</h3>
+<p>Choisissez votre réseau principal, votre réseau secondaire et votre canal possédé. Justifiez chaque choix en 2 phrases (audience + format) et fixez un rythme hebdomadaire que vous êtes <strong>sûr</strong> de tenir pendant 3 mois.</p>
+<details><summary>Voir la solution</summary>
+
+**Contrôle** : votre choix est bon si (1) vous pouvez citer au moins 5 comptes suivis par votre persona sur ce réseau, (2) le format dominant du réseau correspond à celui où vous êtes le plus à l'aise ou prêt à progresser, (3) le rythme choisi représente moins de 5 heures par semaine au départ. Si un de ces points manque, revoyez le choix plutôt que de vous épuiser.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Substack / Brevo / Kit</strong> (outil) — Plateformes pour démarrer une newsletter gratuitement.</li>
+</ul><div class="pager"><a href="#m2l2">← 2.2 Écouter et étudier son audience</a><a href="#m2q">Quiz du module 2 →</a></div></section><section id="m2q"><h1>Quiz — Connaître son audience</h1><form class="quiz" data-quiz="m2q" data-pass="70">
+<p>Choisissez la ou les bonnes réponses, puis validez pour voir les explications.</p>
+<p class="muted">Seuil de réussite : 70 %</p>
+<fieldset class="question" data-correct="1"><legend>1. Pourquoi noter les mots exacts de son audience ?</legend>
+<label><input type="radio" name="q0" value="0"> Pour les citer dans ses mentions légales</label>
+<label><input type="radio" name="q0" value="1"> Parce qu&#x27;ils rendent les accroches immédiatement parlantes pour la cible</label>
+<label><input type="radio" name="q0" value="2"> Pour améliorer son orthographe</label>
+<label><input type="radio" name="q0" value="3"> Ce n&#x27;est pas utile</label>
+<p class="explanation" hidden>Utiliser le vocabulaire de la cible lui donne l&#x27;impression que vous lisez dans ses pensées.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>2. En entretien, quelle question est la plus fiable ?</legend>
+<label><input type="radio" name="q1" value="0"> Est-ce que tu achèterais ma formation ?</label>
+<label><input type="radio" name="q1" value="1"> Raconte-moi la dernière fois que tu as rencontré ce problème.</label>
+<label><input type="radio" name="q1" value="2"> Tu trouves mon idée bonne ?</label>
+<label><input type="radio" name="q1" value="3"> Combien tu serais prêt à payer ?</label>
+<p class="explanation" hidden>Les questions sur des faits passés réels donnent des réponses fiables ; les questions hypothétiques entraînent des réponses polies.</p></fieldset>
+<fieldset class="question" data-correct="0,1,2"><legend>3. Quelles sont de bonnes sources pour découvrir les problèmes de votre audience ?</legend>
+<p class="muted">Plusieurs réponses possibles.</p>
+<label><input type="checkbox" name="q2" value="0"> Les commentaires des comptes influents de la niche</label>
+<label><input type="checkbox" name="q2" value="1"> Les avis négatifs sur des produits concurrents</label>
+<label><input type="checkbox" name="q2" value="2"> Les groupes et forums de la niche</label>
+<label><input type="checkbox" name="q2" value="3"> Vos seules intuitions</label>
+<p class="explanation" hidden>Les intuitions doivent être vérifiées ; les trois autres sources donnent des verbatims réels.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>4. Il est recommandé de démarrer sur 5 réseaux sociaux en même temps pour maximiser ses chances.</legend>
+<label><input type="radio" name="q3" value="0"> Vrai</label>
+<label><input type="radio" name="q3" value="1"> Faux</label>
+<p class="explanation" hidden>Mieux vaut un réseau principal, un secondaire et un canal possédé (e-mail).</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>5. Pourquoi construire une liste e-mail en parallèle des réseaux ?</legend>
+<label><input type="radio" name="q4" value="0"> Parce que les e-mails sont gratuits à envoyer</label>
+<label><input type="radio" name="q4" value="1"> Parce que c&#x27;est une audience que vous possédez, indépendante des algorithmes</label>
+<label><input type="radio" name="q4" value="2"> Parce que c&#x27;est obligatoire légalement</label>
+<label><input type="radio" name="q4" value="3"> Pour remplacer totalement les réseaux</label>
+<p class="explanation" hidden>Vos abonnés sur un réseau dépendent de la plateforme ; votre liste vous appartient.</p></fieldset>
+<button type="submit">Valider mes réponses</button><p class="result" aria-live="polite"></p></form><div class="pager"><a href="#m2l3">← 2.3 Choisir ses plateformes</a><a href="#m3">Module 3 — Créer du contenu qui marque →</a></div></section><section id="m3"><h1>Module 3 — Créer du contenu qui marque</h1><p>Définir sa ligne éditoriale, écrire des contenus qui retiennent et produire efficacement.</p><h2>Objectifs</h2><ul>
+<li>Construire un calendrier éditorial équilibré</li>
+<li>Rédiger accroches et CTA</li>
+<li>Mettre en place un système de production</li>
+</ul><div class="pager"><a href="#m2q">← Quiz du module 2</a><a href="#m3l1">3.1 Ses piliers de contenu et la stratégie éditoriale →</a></div></section><section id="m3l1"><h1>Leçon 3.1 — Ses piliers de contenu et la stratégie éditoriale</h1>
+<p><em>Durée : 30 min · Format : atelier</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Définir ses piliers de contenu</li>
+<li>Équilibrer contenus de visibilité, de confiance et de conversion</li>
+<li>Construire un calendrier éditorial</li>
+</ul>
+<p>Sans stratégie éditoriale, on publie au gré de l'humeur et l'audience ne comprend pas pourquoi vous suivre. Les <strong>piliers de contenu</strong> donnent une colonne vertébrale à votre marque.</p>
+<h2>Définir 3 à 4 piliers</h2>
+<p>Un pilier est une <strong>thématique récurrente</strong> liée à votre positionnement. Exemple pour une coach LinkedIn pour dirigeants :</p>
+<ol>
+<li><strong>Écrire sur LinkedIn</strong> (méthodes, structures de posts)</li>
+<li><strong>Leadership visible</strong> (pourquoi et comment un dirigeant prend la parole)</li>
+<li><strong>Coulisses et résultats</strong> (accompagnements, avant / après)</li>
+<li><strong>Convictions</strong> (prises de position sur le secteur)</li>
+</ol>
+<p>Chaque idée de votre banque d'idées doit pouvoir se ranger dans un pilier.</p>
+<h2>Les 3 objectifs d'un contenu</h2>
+<table>
+<thead>
+<tr>
+<th>Objectif</th>
+<th>Rôle</th>
+<th>Exemples</th>
+<th>Part conseillée</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attirer</strong> (visibilité)</td>
+<td>Toucher de nouvelles personnes</td>
+<td>Contenus larges, tendances, opinions fortes, listes</td>
+<td>~40 %</td>
+</tr>
+<tr>
+<td><strong>Nourrir</strong> (confiance)</td>
+<td>Prouver votre expertise, créer du lien</td>
+<td>Tutoriels, méthodes, histoires, coulisses</td>
+<td>~40 %</td>
+</tr>
+<tr>
+<td><strong>Convertir</strong> (vente)</td>
+<td>Transformer en clients</td>
+<td>Études de cas, témoignages, offres, appels à l'action</td>
+<td>~20 %</td>
+</tr>
+</tbody>
+</table>
+<p>Beaucoup de créateurs ne font qu'attirer (beaucoup de vues, zéro vente) ou que vendre (audience qui se lasse).</p>
+<h2>Le calendrier éditorial</h2>
+<p>Sur un tableau simple, planifiez 4 semaines à l'avance :</p>
+<table>
+<thead>
+<tr>
+<th>Jour</th>
+<th>Pilier</th>
+<th>Objectif</th>
+<th>Format</th>
+<th>Sujet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lundi</td>
+<td>Méthode</td>
+<td>Nourrir</td>
+<td>Carrousel</td>
+<td>5 structures de posts qui marchent</td>
+</tr>
+<tr>
+<td>Mercredi</td>
+<td>Conviction</td>
+<td>Attirer</td>
+<td>Texte</td>
+<td>Pourquoi « poster tous les jours » est un mauvais conseil</td>
+</tr>
+<tr>
+<td>Vendredi</td>
+<td>Résultats</td>
+<td>Convertir</td>
+<td>Étude de cas</td>
+<td>Comment Marc a signé 3 clients en 2 mois</td>
+</tr>
+</tbody>
+</table>
+<p>Vous pouvez ainsi ajuster l'équilibre d'un coup d'œil.</p>
+<h2>Exemples et études de cas</h2>
+<h3>Un mois équilibré</h3>
+<p>Une nutritionniste publie 12 contenus par mois : 5 pour attirer (<em>« 3 aliments « healthy » qui ne le sont pas »</em>), 5 pour nourrir (<em>recette express, explication de la satiété</em>), 2 pour convertir (<em>témoignage d'une cliente + ouverture des places de son programme</em>). Son audience grandit <strong>et</strong> ses places se remplissent.</p>
+<h2>À retenir</h2>
+<ul>
+<li>3 à 4 piliers donnent une ligne éditoriale claire</li>
+<li>Chaque contenu a un objectif : attirer, nourrir ou convertir</li>
+<li>Repère : ~40 / 40 / 20</li>
+<li>Planifiez 4 semaines à l'avance</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Ne publier que des contenus de visibilité sans jamais proposer son offre</li>
+<li>Avoir 10 piliers (plus de ligne claire)</li>
+<li>Planifier au jour le jour</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Votre calendrier du mois (moyen, ~45 min)</h3>
+<p>Définissez vos 3 ou 4 piliers, puis remplissez un calendrier de 12 contenus sur 4 semaines en respectant l'équilibre attirer / nourrir / convertir.</p>
+<details><summary>Voir la solution</summary>
+
+**Vérification** :
+
+- Chaque pilier apparaît au moins 2 fois dans le mois.
+- Vous avez 4 à 5 contenus « attirer », 4 à 5 « nourrir » et 2 à 3 « convertir ».
+- Les contenus « convertir » arrivent **après** des contenus « nourrir » sur le même thème (on prouve avant de vendre).
+- Au moins 3 sujets viennent directement de votre banque de verbatims (leçon 2.2).
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Notion</strong> (outil) — Base de données pour gérer banque d'idées et calendrier éditorial.</li>
+<li><strong>Trello</strong> (outil) — Tableau visuel idée → rédaction → programmé → publié.</li>
+</ul><div class="pager"><a href="#m3">← Module 3 — Créer du contenu qui marque</a><a href="#m3l2">3.2 Écrire des accroches et des contenus qui retiennent →</a></div></section><section id="m3l2"><h1>Leçon 3.2 — Écrire des accroches et des contenus qui retiennent</h1>
+<p><em>Durée : 40 min · Format : atelier d'écriture</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Rédiger des accroches qui arrêtent le défilement</li>
+<li>Structurer un contenu avec des modèles éprouvés</li>
+<li>Terminer par un appel à l'action adapté</li>
+</ul>
+<p>Sur les réseaux, vous avez <strong>quelques secondes</strong> pour convaincre quelqu'un d'arrêter de faire défiler. L'accroche décide si votre contenu sera lu ; la structure décide s'il sera retenu ; l'appel à l'action décide s'il sera utile à votre marque.</p>
+<h2>7 types d'accroches</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chiffre précis</strong></td>
+<td>« J'ai analysé 100 profils LinkedIn de freelances. 83 font la même erreur. »</td>
+</tr>
+<tr>
+<td><strong>Contre-intuitif</strong></td>
+<td>« Arrêtez de publier tous les jours. »</td>
+</tr>
+<tr>
+<td><strong>Question qui pique</strong></td>
+<td>« Pourquoi vos concurrents moins bons que vous signent plus de clients ? »</td>
+</tr>
+<tr>
+<td><strong>Histoire</strong></td>
+<td>« Il y a 2 ans, j'ai perdu mon plus gros client en une phrase. »</td>
+</tr>
+<tr>
+<td><strong>Promesse</strong></td>
+<td>« La méthode en 3 étapes pour écrire un post en 20 minutes. »</td>
+</tr>
+<tr>
+<td><strong>Avant / après</strong></td>
+<td>« De 0 à 5 rendez-vous par mois sans prospection à froid. »</td>
+</tr>
+<tr>
+<td><strong>Identification</strong></td>
+<td>« Si vous avez déjà réécrit un post 6 fois avant de le supprimer, lisez ceci. »</td>
+</tr>
+</tbody>
+</table>
+<p>Règle : la première ligne doit donner envie de lire la deuxième, et ainsi de suite.</p>
+<h2>3 structures qui fonctionnent</h2>
+<p><strong>PAS (Problème – Agitation – Solution)</strong>
+1. Nommer le problème. 2. Montrer ce qu'il coûte. 3. Apporter la solution.</p>
+<p><strong>L'histoire en 4 temps</strong>
+1. Situation. 2. Obstacle. 3. Tournant. 4. Leçon pour le lecteur.</p>
+<p><strong>La liste actionnable</strong>
+1. Promesse. 2. 3 à 7 points concrets, un par ligne. 3. Synthèse + question.</p>
+<p>Mise en forme : phrases courtes, une idée par ligne, beaucoup d'espace, pas de pavé.</p>
+<h2>L'appel à l'action (CTA)</h2>
+<p>Chaque contenu se termine par <strong>une seule</strong> action demandée, adaptée à son objectif :</p>
+<ul>
+<li><strong>Attirer</strong> → <em>« Quelle est la pire accroche que vous ayez lue ? »</em> (commentaires)</li>
+<li><strong>Nourrir</strong> → <em>« Enregistrez ce post pour votre prochaine rédaction. »</em> (sauvegardes)</li>
+<li><strong>Convertir</strong> → <em>« Écrivez-moi « AUDIT » en message privé pour recevoir l'analyse de votre profil. »</em></li>
+</ul>
+<p>Un CTA flou (« N'hésitez pas à me suivre ») est rarement suivi d'effet.</p>
+<h2>La valeur avant tout</h2>
+<p>Une accroche forte sur un contenu creux abîme votre marque. Test avant publication : <strong>le lecteur apprend-il quelque chose, se sent-il compris, ou a-t-il envie d'agir ?</strong> Si aucune des trois, retravaillez.</p>
+<h2>Exemples et études de cas</h2>
+<h3>Post LinkedIn réécrit</h3>
+<p><strong>Avant</strong> : <em>« Aujourd'hui je voulais vous parler de l'importance de la photo de profil sur LinkedIn. »</em></p>
+<p><strong>Après</strong> : <em>« Votre photo de profil vous fait perdre des clients avant même qu'ils lisent votre titre.</em></p>
+<p><em>3 erreurs que je vois chaque semaine :</em>
+<em>→ Photo de mariage recadrée</em>
+<em>→ Lunettes de soleil</em>
+<em>→ Visage minuscule sur un paysage</em></p>
+<p><em>La règle : visage net, regard caméra, fond neutre, 60 % du cadre.</em></p>
+<p><em>Quelle est votre photo actuelle : pro ou vacances ? »</em></p>
+<h2>À retenir</h2>
+<ul>
+<li>L'accroche décide si le contenu est lu</li>
+<li>7 types d'accroches : chiffre, contre-intuitif, question, histoire, promesse, avant/après, identification</li>
+<li>Structures : PAS, histoire en 4 temps, liste actionnable</li>
+<li>Un seul appel à l'action, adapté à l'objectif</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Commencer par « Aujourd'hui je voulais vous parler de… »</li>
+<li>Mettre 3 appels à l'action différents</li>
+<li>Accroche racoleuse qui ne tient pas sa promesse</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Atelier d'accroches (moyen, ~40 min)</h3>
+<p>Prenez un sujet de votre calendrier. Écrivez <strong>7 accroches</strong>, une par type. Choisissez la meilleure, rédigez le contenu complet avec l'une des 3 structures et terminez par un CTA adapté à son objectif.</p>
+<details><summary>Voir la solution</summary>
+
+**Exemple corrigé** (sujet : trouver des idées de contenus) :
+
+1. Chiffre : *« 47 idées de posts pour ceux qui pensent n'avoir rien à dire. »*
+2. Contre-intuitif : *« Vous n'avez pas un problème d'inspiration. Vous avez un problème d'écoute. »*
+3. Question : *« Pourquoi certains créateurs ne sont-ils jamais à court d'idées ? »*
+4. Histoire : *« Un lundi, j'ai fixé mon écran 40 minutes sans rien écrire. »*
+5. Promesse : *« La méthode pour ne plus jamais chercher quoi publier. »*
+6. Avant / après : *« Avant, je cherchais une idée par jour. Maintenant j'en ai 200 d'avance. »*
+7. Identification : *« Si vous ouvrez LinkedIn en vous disant « bon, je poste quoi ? », ce post est pour vous. »*
+
+La n°2 est souvent la plus forte : elle surprend et amène naturellement la méthode (banque d'idées), puis un CTA « Enregistrez ce post ».
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Contagious — Jonah Berger</strong> (livre) — Pourquoi certaines idées se partagent et d'autres non.</li>
+<li><strong>Écrire pour convaincre (ressources de copywriting)</strong> (article) — Cherchez les ressources sur les formules AIDA et PAS pour approfondir.</li>
+</ul><div class="pager"><a href="#m3l1">← 3.1 Ses piliers de contenu et la stratégie éditoriale</a><a href="#m3l3">3.3 Les formats et le système de production →</a></div></section><section id="m3l3"><h1>Leçon 3.3 — Les formats et le système de production</h1>
+<p><em>Durée : 35 min · Format : démonstration + atelier</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Choisir les bons formats pour chaque réseau</li>
+<li>Mettre en place un système de production par lots</li>
+<li>Recycler un contenu en plusieurs formats</li>
+</ul>
+<p>La régularité ne dépend pas de la motivation, mais d'un <strong>système</strong>. Cette leçon vous donne une méthode pour produire un mois de contenus en quelques sessions, sans y passer vos soirées.</p>
+<h2>Les formats incontournables</h2>
+<ul>
+<li><strong>Post texte</strong> : rapide, idéal pour les opinions et les histoires (LinkedIn, X).</li>
+<li><strong>Carrousel</strong> : très sauvegardé, parfait pour les méthodes étape par étape (LinkedIn, Instagram).</li>
+<li><strong>Vidéo courte (Reels, TikTok, Shorts)</strong> : forte découverte ; accroche visuelle et orale dans les 2 premières secondes, sous-titres obligatoires (beaucoup regardent sans le son).</li>
+<li><strong>Vidéo longue</strong> : crée une confiance profonde et reste trouvable des années (YouTube).</li>
+<li><strong>Stories / lives</strong> : proximité, coulisses, questions-réponses.</li>
+<li><strong>Newsletter</strong> : relation directe, idéale pour vendre.</li>
+</ul>
+<h2>Le batching : produire par lots</h2>
+<p>Regroupez les tâches semblables au lieu de tout faire chaque jour :</p>
+<table>
+<thead>
+<tr>
+<th>Session</th>
+<th>Durée</th>
+<th>Tâche</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1 h</td>
+<td>Choisir 12 sujets dans la banque d'idées</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2 h</td>
+<td>Rédiger tous les textes et scripts</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2 h</td>
+<td>Tourner toutes les vidéos (même tenue, même lumière)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1 h 30</td>
+<td>Créer les visuels à partir de vos modèles</td>
+</tr>
+<tr>
+<td>5</td>
+<td>30 min</td>
+<td>Programmer les publications</td>
+</tr>
+</tbody>
+</table>
+<p>Environ <strong>7 heures par mois</strong> pour 12 contenus, au lieu de 1 h de stress par jour.</p>
+<h2>Le recyclage : 1 idée, 5 contenus</h2>
+<p>Une même idée peut devenir :</p>
+<ol>
+<li>Une <strong>vidéo longue</strong> ou un article (contenu « pilier »)</li>
+<li>Un <strong>carrousel</strong> avec les étapes clés</li>
+<li>Une <strong>vidéo courte</strong> avec le conseil le plus surprenant</li>
+<li>Un <strong>post texte</strong> racontant l'histoire derrière</li>
+<li>Une <strong>newsletter</strong> qui approfondit avec un exemple</li>
+</ol>
+<p>Votre audience ne voit pas tout : répéter une bonne idée sous une autre forme <strong>n'est pas du radotage, c'est de la pédagogie</strong>.</p>
+<h2>Exemples et études de cas</h2>
+<h3>Une idée, une semaine de contenus</h3>
+<p>Un formateur en prise de parole enregistre une vidéo YouTube de 12 minutes « Comment ne plus trembler avant une présentation ». Il en tire : un carrousel « 5 techniques anti-trac », 3 Reels (respiration, première phrase, regard), un post LinkedIn racontant sa pire présentation et sa newsletter de la semaine. <strong>Une seule session de réflexion, sept publications.</strong></p>
+<h2>À retenir</h2>
+<ul>
+<li>La régularité vient d'un système, pas de la motivation</li>
+<li>Le batching regroupe les tâches similaires</li>
+<li>Une idée pilier peut devenir 5 contenus</li>
+<li>Sous-titrez toujours vos vidéos</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Créer chaque contenu à la dernière minute</li>
+<li>Publier des vidéos sans sous-titres</li>
+<li>Penser qu'il faut toujours de nouvelles idées</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Votre première session de batching (difficile, ~180 min)</h3>
+<p>Planifiez et réalisez une session de production : choisissez 1 idée pilier, puis déclinez-la en au moins 4 formats adaptés à vos réseaux. Chronométrez le temps passé sur chaque étape.</p>
+<details><summary>Voir la solution</summary>
+
+**Déroulé attendu** :
+
+1. Idée pilier choisie dans la banque d'idées (≈ 10 min).
+2. Plan du contenu pilier en 5 points (≈ 20 min).
+3. Rédaction / tournage du contenu pilier (≈ 60 min).
+4. Déclinaisons : carrousel (≈ 30 min avec modèle), vidéo courte (≈ 20 min), post texte (≈ 15 min), newsletter (≈ 25 min).
+
+**Analyse** : repérez l'étape la plus longue. C'est souvent la création visuelle : investissez alors 1 h dans 3 modèles réutilisables, vous la diviserez par deux dès la session suivante.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>CapCut</strong> (outil) — Montage vidéo mobile et ordinateur, sous-titres automatiques.</li>
+<li><strong>Buffer / Metricool</strong> (outil) — Programmation des publications sur plusieurs réseaux.</li>
+</ul><div class="pager"><a href="#m3l2">← 3.2 Écrire des accroches et des contenus qui retiennent</a><a href="#m3q">Quiz du module 3 →</a></div></section><section id="m3q"><h1>Quiz — Créer du contenu qui marque</h1><form class="quiz" data-quiz="m3q" data-pass="70">
+<p>Choisissez la ou les bonnes réponses, puis validez pour voir les explications.</p>
+<p class="muted">Seuil de réussite : 70 %</p>
+<fieldset class="question" data-correct="1"><legend>1. Quel est l&#x27;équilibre de repère entre contenus attirer / nourrir / convertir ?</legend>
+<label><input type="radio" name="q0" value="0"> 100 / 0 / 0</label>
+<label><input type="radio" name="q0" value="1"> 40 / 40 / 20</label>
+<label><input type="radio" name="q0" value="2"> 10 / 10 / 80</label>
+<label><input type="radio" name="q0" value="3"> 33 / 33 / 33 en publiant uniquement des offres</label>
+<p class="explanation" hidden>Environ 40 % pour attirer, 40 % pour créer la confiance et 20 % pour convertir.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>2. Quelle accroche est de type « contre-intuitif » ?</legend>
+<label><input type="radio" name="q1" value="0"> Aujourd&#x27;hui je vais vous parler de LinkedIn</label>
+<label><input type="radio" name="q1" value="1"> Arrêtez de publier tous les jours</label>
+<label><input type="radio" name="q1" value="2"> Voici mon nouveau post</label>
+<label><input type="radio" name="q1" value="3"> Merci pour vos 1 000 abonnés</label>
+<p class="explanation" hidden>Elle prend le contre-pied d&#x27;une idée reçue et crée la surprise.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>3. Combien d&#x27;appels à l&#x27;action faut-il idéalement à la fin d&#x27;un contenu ?</legend>
+<label><input type="radio" name="q2" value="0"> Aucun</label>
+<label><input type="radio" name="q2" value="1"> Un seul, adapté à l&#x27;objectif du contenu</label>
+<label><input type="radio" name="q2" value="2"> Trois pour multiplier les chances</label>
+<label><input type="radio" name="q2" value="3"> Autant que possible</label>
+<p class="explanation" hidden>Plusieurs CTA dispersent l&#x27;attention ; un seul CTA clair est plus souvent suivi.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>4. Republier une bonne idée sous un autre format est une perte de temps pour l&#x27;audience.</legend>
+<label><input type="radio" name="q3" value="0"> Vrai</label>
+<label><input type="radio" name="q3" value="1"> Faux</label>
+<p class="explanation" hidden>Votre audience ne voit pas tout ; la répétition sous d&#x27;autres formes renforce le message.</p></fieldset>
+<fieldset class="question" data-correct="0,1,2"><legend>5. Quels sont les avantages du batching ?</legend>
+<p class="muted">Plusieurs réponses possibles.</p>
+<label><input type="checkbox" name="q4" value="0"> Gain de temps grâce au regroupement des tâches</label>
+<label><input type="checkbox" name="q4" value="1"> Régularité de publication</label>
+<label><input type="checkbox" name="q4" value="2"> Moins de stress quotidien</label>
+<label><input type="checkbox" name="q4" value="3"> Il rend inutile toute planification</label>
+<p class="explanation" hidden>Le batching repose justement sur la planification.</p></fieldset>
+<button type="submit">Valider mes réponses</button><p class="result" aria-live="polite"></p></form><div class="pager"><a href="#m3l3">← 3.3 Les formats et le système de production</a><a href="#m4">Module 4 — Exploser sur les réseaux →</a></div></section><section id="m4"><h1>Module 4 — Exploser sur les réseaux</h1><p>Comprendre les algorithmes, optimiser son profil, activer les leviers de croissance et piloter par les chiffres.</p><h2>Objectifs</h2><ul>
+<li>Optimiser son profil</li>
+<li>Accélérer sa croissance</li>
+<li>Mesurer et ajuster</li>
+</ul><div class="pager"><a href="#m3q">← Quiz du module 3</a><a href="#m4l1">4.1 Comprendre les algorithmes et optimiser son profil →</a></div></section><section id="m4l1"><h1>Leçon 4.1 — Comprendre les algorithmes et optimiser son profil</h1>
+<p><em>Durée : 30 min · Format : texte + audit</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Expliquer les signaux qui favorisent la diffusion d'un contenu</li>
+<li>Optimiser photo, titre, bio et lien de son profil</li>
+<li>Mettre en place un contenu épinglé stratégique</li>
+</ul>
+<p>Chaque plateforme a ses règles, qui changent souvent. Mais toutes cherchent la même chose : <strong>garder les utilisateurs le plus longtemps possible</strong>. Comprendre ce principe vaut mieux que courir après chaque « astuce algorithme ». Et quand un contenu vous amène un visiteur, c'est votre <strong>profil</strong> qui décide s'il s'abonne.</p>
+<h2>Ce que les algorithmes récompensent</h2>
+<p>De manière générale, un contenu est davantage diffusé quand il génère :</p>
+<ul>
+<li><strong>Du temps passé</strong> : vidéo regardée jusqu'au bout, carrousel parcouru, post lu en entier.</li>
+<li><strong>Des interactions de qualité</strong> : commentaires développés, partages, sauvegardes (plus précieux qu'un simple « j'aime »).</li>
+<li><strong>Des réactions rapides</strong> après la publication, qui signalent un intérêt.</li>
+</ul>
+<p>Conséquences pratiques : soignez l'accroche (rétention), posez une vraie question (commentaires), apportez de la valeur réutilisable (sauvegardes), et <strong>répondez aux commentaires</strong> dans la première heure.</p>
+<h2>Le profil : votre vitrine</h2>
+<p>Un visiteur décide en quelques secondes. Checklist :</p>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Bonne pratique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Photo</strong></td>
+<td>Visage net, souriant, fond neutre, identique partout</td>
+</tr>
+<tr>
+<td><strong>Nom</strong></td>
+<td>Votre nom (+ éventuellement votre spécialité sur certains réseaux)</td>
+</tr>
+<tr>
+<td><strong>Titre / bio</strong></td>
+<td>Votre phrase de positionnement : pour qui, quel résultat</td>
+</tr>
+<tr>
+<td><strong>Preuve</strong></td>
+<td>Un chiffre, une référence, un résultat client</td>
+</tr>
+<tr>
+<td><strong>Appel à l'action</strong></td>
+<td>Ce que le visiteur doit faire : télécharger, s'abonner, réserver</td>
+</tr>
+<tr>
+<td><strong>Lien</strong></td>
+<td>Une page claire (ressource gratuite ou prise de rendez-vous), pas 12 liens</td>
+</tr>
+</tbody>
+</table>
+<h2>Le contenu épinglé</h2>
+<p>Épinglez en haut de votre profil 1 à 3 contenus qui répondent à : <strong>Qui êtes-vous ? Que pouvez-vous m'apporter ? Comment travailler avec vous ?</strong> Par exemple : votre histoire (leçon 1.3), votre meilleur contenu de méthode, un témoignage client.</p>
+<h2>Exemples et études de cas</h2>
+<h3>Bio avant / après</h3>
+<p><strong>Avant</strong> : <em>« Passionnée de marketing 🌸 | Maman | Café addict ☕ »</em></p>
+<p><strong>Après</strong> : <em>« J'aide les thérapeutes à remplir leur agenda avec Instagram 🌿 | +120 praticiens accompagnés | 👇 Mon guide gratuit : 30 idées de posts »</em></p>
+<p>La seconde dit <strong>pour qui</strong>, <strong>quel résultat</strong>, apporte <strong>une preuve</strong> et donne <strong>une action</strong>.</p>
+<h2>À retenir</h2>
+<ul>
+<li>Les plateformes récompensent le temps passé et les interactions de qualité</li>
+<li>Commentaires, partages et sauvegardes valent plus que des « j'aime »</li>
+<li>Répondez aux commentaires rapidement</li>
+<li>Profil = photo + promesse + preuve + action + lien unique</li>
+<li>Épinglez vos 3 contenus les plus stratégiques</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Chercher des astuces pour « tromper » l'algorithme</li>
+<li>Bio centrée sur soi au lieu du bénéfice client</li>
+<li>Un lien vers une page d'accueil générique</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Audit de profil (facile, ~30 min)</h3>
+<p>Faites une capture de votre profil actuel. Notez chaque élément de la checklist sur 2 (0 = absent, 1 = moyen, 2 = excellent). Réécrivez tous les éléments notés sous 2, puis choisissez vos 3 contenus à épingler.</p>
+<details><summary>Voir la solution</summary>
+
+**Barème** : sur 12 points (6 éléments × 2).
+
+- **0 à 5** : votre profil fait fuir les visiteurs ; priorité absolue avant de chercher plus de visibilité.
+- **6 à 9** : correct, mais vous perdez des abonnés potentiels ; travaillez la preuve et l'appel à l'action.
+- **10 à 12** : excellent, concentrez-vous sur la création de contenu.
+
+L'erreur la plus fréquente : une bio qui parle de **vous** (passions, traits de caractère) au lieu de parler du **résultat pour le visiteur**.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Centres d'aide officiels des plateformes (LinkedIn, Instagram, TikTok, YouTube)</strong> (documentation) — Les plateformes publient elles-mêmes des conseils sur ce qui favorise la recommandation de contenus.</li>
+</ul><div class="pager"><a href="#m4">← Module 4 — Exploser sur les réseaux</a><a href="#m4l2">4.2 Les leviers de croissance →</a></div></section><section id="m4l2"><h1>Leçon 4.2 — Les leviers de croissance</h1>
+<p><em>Durée : 30 min · Format : texte + plan d'action</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Pratiquer l'engagement stratégique</li>
+<li>Mettre en place des collaborations</li>
+<li>Créer des contenus conçus pour être partagés</li>
+</ul>
+<p>Publier ne suffit pas au début : personne ne vous connaît encore. Pour accélérer, il faut <strong>aller chercher l'attention là où elle se trouve déjà</strong> et donner aux gens des raisons de partager vos contenus.</p>
+<h2>L'engagement stratégique (la routine des 20 minutes)</h2>
+<p>Chaque jour, 20 minutes :</p>
+<ol>
+<li><strong>Listez 20 à 30 comptes</strong> suivis par votre persona (créateurs de la niche, médias, clients potentiels).</li>
+<li><strong>Laissez 5 à 10 commentaires qui apportent de la valeur</strong> : un complément, un exemple, un avis argumenté. Jamais « Super post ! 👏 ».</li>
+<li><strong>Répondez à tous les commentaires</strong> reçus sur vos propres contenus.</li>
+</ol>
+<p>Un commentaire pertinent sur un compte suivi par des milliers de personnes est un <strong>mini-contenu vu par votre cible</strong>.</p>
+<h2>Les collaborations</h2>
+<p>Empruntez l'audience des autres, en échange de valeur :</p>
+<ul>
+<li><strong>Interviews croisées</strong> : vous recevez un expert, il vous reçoit.</li>
+<li><strong>Lives à deux</strong> sur Instagram, LinkedIn ou TikTok.</li>
+<li><strong>Contenus co-signés</strong> (collab Instagram, carrousel commun).</li>
+<li><strong>Invité</strong> dans des podcasts, newsletters, webinaires.</li>
+</ul>
+<p>Ciblez des profils <strong>complémentaires et non concurrents</strong>, avec une audience proche de la vôtre (une nutritionniste et un coach sportif, par exemple). Commencez par des comptes de taille similaire.</p>
+<h2>Créer pour être partagé</h2>
+<p>On partage un contenu quand il nous <strong>fait bien paraître</strong>, nous <strong>est utile</strong> ou <strong>exprime ce qu'on pense</strong>. Formats à fort potentiel :</p>
+<ul>
+<li>Les <strong>ressources de référence</strong> (checklist, modèle, glossaire)</li>
+<li>Les <strong>opinions tranchées</strong> sur un débat de la niche</li>
+<li>Les <strong>contenus d'identification</strong> (« Les 7 étapes de tout freelance le lundi matin »)</li>
+<li>Les <strong>données originales</strong> (votre propre mini-sondage ou analyse)</li>
+</ul>
+<h2>Tendances : à utiliser avec discernement</h2>
+<p>Surfer sur un son, un format ou une actualité peut apporter un pic de vues. Mais adaptez toujours la tendance <strong>à votre positionnement</strong> : une tendance sans lien avec votre expertise attire une audience qui n'achètera jamais.</p>
+<h2>Exemples et études de cas</h2>
+<h3>La routine qui fait décoller</h3>
+<p>Un consultant en cybersécurité démarre LinkedIn avec quelques centaines de relations. Pendant 3 mois, il publie 3 posts par semaine <strong>et</strong> commente chaque matin les publications de 5 DSI et médias tech en ajoutant un vrai retour d'expérience. Plusieurs DSI commencent à le suivre après avoir lu ses commentaires, et deux l'invitent à intervenir dans leur podcast. Ses commentaires ont été sa meilleure source de visibilité les premiers mois.</p>
+<h2>À retenir</h2>
+<ul>
+<li>Au début, commenter chez les autres est aussi important que publier</li>
+<li>Un commentaire doit apporter de la valeur, jamais « Super post »</li>
+<li>Collaborez avec des profils complémentaires</li>
+<li>On partage ce qui est utile, ce qui fait bien paraître ou ce qui exprime notre avis</li>
+<li>Les tendances doivent servir votre positionnement</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Commentaires génériques ou auto-promotionnels</li>
+<li>Proposer une collaboration sans jamais avoir interagi avec la personne</li>
+<li>Suivre toutes les tendances même hors sujet</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Plan de croissance de 30 jours (difficile, ~600 min)</h3>
+<ol>
+<li>Listez 25 comptes stratégiques où se trouve votre persona.</li>
+<li>Tenez la routine des 20 minutes pendant 30 jours (cochez chaque jour).</li>
+<li>Identifiez 5 partenaires de collaboration possibles et envoyez 2 propositions.</li>
+<li>Créez 1 contenu « à partager » (ressource, opinion ou donnée originale).</li>
+</ol>
+<details><summary>Voir la solution</summary>
+
+**Modèle de proposition de collaboration** :
+
+*« Bonjour [prénom], je suis ton contenu sur [sujet] depuis quelques mois, en particulier ton post sur [exemple précis]. Je travaille avec [public] sur [sujet complémentaire]. Je pense que nos audiences se recoupent sans qu'on se fasse concurrence. Ça te dirait de faire un live de 30 minutes sur [sujet commun] ? Je m'occupe de préparer le déroulé. »*
+
+Pourquoi ça marche : message personnalisé, bénéfice mutuel, proposition concrète et effort pris en charge.
+
+**Indicateurs à suivre au bout de 30 jours** : nombre de visites de profil, nouveaux abonnés venus de vos commentaires, réponses aux propositions.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Show Your Work! (Montrez votre travail) — Austin Kleon</strong> (livre) — Chapitres sur l'art de partager et de construire un réseau.</li>
+<li><strong>Podcasts de votre niche</strong> (outil) — Listez ceux qui reçoivent des invités : ce sont des opportunités de visibilité.</li>
+</ul><div class="pager"><a href="#m4l1">← 4.1 Comprendre les algorithmes et optimiser son profil</a><a href="#m4l3">4.3 Mesurer, analyser, ajuster →</a></div></section><section id="m4l3"><h1>Leçon 4.3 — Mesurer, analyser, ajuster</h1>
+<p><em>Durée : 25 min · Format : texte + tableau de bord</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Distinguer indicateurs de vanité et indicateurs utiles</li>
+<li>Mettre en place un tableau de bord mensuel</li>
+<li>Tester et améliorer ses contenus de manière méthodique</li>
+</ul>
+<p>Ce qui ne se mesure pas ne s'améliore pas. Mais mesurer les mauvais chiffres est pire : on optimise des vues au lieu d'optimiser des ventes. Cette leçon vous apprend à lire vos statistiques comme un tableau de bord d'entreprise.</p>
+<h2>Vanité contre utilité</h2>
+<table>
+<thead>
+<tr>
+<th>Indicateur</th>
+<th>Type</th>
+<th>Ce qu'il dit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nombre d'abonnés</td>
+<td>Vanité (seul)</td>
+<td>Taille, pas qualité</td>
+</tr>
+<tr>
+<td>Vues / impressions</td>
+<td>Visibilité</td>
+<td>Portée de l'accroche et du sujet</td>
+</tr>
+<tr>
+<td>Taux d'interaction</td>
+<td>Utile</td>
+<td>Pertinence du contenu</td>
+</tr>
+<tr>
+<td>Sauvegardes et partages</td>
+<td>Très utile</td>
+<td>Valeur perçue</td>
+</tr>
+<tr>
+<td>Visites de profil</td>
+<td>Très utile</td>
+<td>Curiosité envers <strong>vous</strong></td>
+</tr>
+<tr>
+<td>Inscriptions e-mail</td>
+<td>Business</td>
+<td>Audience possédée</td>
+</tr>
+<tr>
+<td>Messages privés / rendez-vous</td>
+<td>Business</td>
+<td>Intention d'achat</td>
+</tr>
+<tr>
+<td>Clients et chiffre d'affaires</td>
+<td>Business</td>
+<td>Le vrai résultat</td>
+</tr>
+</tbody>
+</table>
+<p>Taux d'interaction = (réactions + commentaires + partages + sauvegardes) ÷ vues × 100.</p>
+<h2>Le tableau de bord mensuel</h2>
+<p>Une fois par mois, notez :</p>
+<ol>
+<li>Vos <strong>3 meilleurs contenus</strong> (par sauvegardes, commentaires ou prises de contact) et ce qu'ils ont en commun (sujet, format, accroche).</li>
+<li>Vos <strong>3 moins bons</strong> et une hypothèse pour chacun.</li>
+<li>Les chiffres business : inscrits, rendez-vous, ventes.</li>
+<li><strong>Une décision</strong> pour le mois suivant (faire plus de…, arrêter…, tester…).</li>
+</ol>
+<h2>Tester méthodiquement</h2>
+<p>Changez <strong>une seule variable à la fois</strong> : l'accroche, le format, l'heure ou le sujet. Exemple : publier la même méthode en post texte une semaine, en carrousel la suivante. Comparez sur plusieurs contenus avant de conclure : un seul contenu qui fonctionne ou non peut être dû au hasard.</p>
+<h2>Exemples et études de cas</h2>
+<h3>La leçon des chiffres</h3>
+<p>Une coach constate que ses Reels humoristiques font beaucoup de vues mais aucune prise de contact, alors que ses carrousels « méthode » font moins de vues mais génèrent l'essentiel de ses rendez-vous. Décision : elle garde 1 Reel humoristique par semaine pour attirer et double ses carrousels méthode, en ajoutant un CTA vers son appel découverte.</p>
+<h2>À retenir</h2>
+<ul>
+<li>Les abonnés seuls sont un indicateur de vanité</li>
+<li>Suivez sauvegardes, visites de profil, inscrits, rendez-vous</li>
+<li>Bilan mensuel : top 3, flop 3, une décision</li>
+<li>Testez une variable à la fois, sur plusieurs contenus</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Juger une stratégie sur un seul contenu</li>
+<li>Changer plusieurs choses à la fois</li>
+<li>Ne regarder que les vues</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Votre premier bilan (moyen, ~40 min)</h3>
+<p>Exportez les statistiques de vos 10 derniers contenus. Calculez le taux d'interaction de chacun, identifiez le top 3 et le flop 3, trouvez un point commun à chaque groupe et formulez une décision pour le mois prochain.</p>
+<details><summary>Voir la solution</summary>
+
+**Exemple d'analyse** :
+
+- Top 3 : trois carrousels « étape par étape », accroches avec un chiffre, publiés le mardi. Point commun : **méthode concrète et chiffrée**.
+- Flop 3 : trois posts d'humeur sans conseil actionnable. Point commun : **pas de bénéfice clair pour le lecteur**.
+- Décision : *« Ce mois-ci, 2 carrousels méthode par semaine, et je transforme mes posts d'humeur en histoires avec une leçon concrète. »*
+
+Si vous avez moins de 10 contenus, faites l'exercice quand même : l'habitude compte plus que la taille de l'échantillon.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Statistiques natives des plateformes</strong> (outil) — LinkedIn, Instagram, TikTok et YouTube proposent des statistiques gratuites pour les comptes professionnels / créateurs.</li>
+<li><strong>Google Sheets</strong> (outil) — Suffisant pour un tableau de bord mensuel simple.</li>
+</ul><div class="pager"><a href="#m4l2">← 4.2 Les leviers de croissance</a><a href="#m4q">Quiz du module 4 →</a></div></section><section id="m4q"><h1>Quiz — Exploser sur les réseaux</h1><form class="quiz" data-quiz="m4q" data-pass="70">
+<p>Choisissez la ou les bonnes réponses, puis validez pour voir les explications.</p>
+<p class="muted">Seuil de réussite : 70 %</p>
+<fieldset class="question" data-correct="0,1,2"><legend>1. Quels signaux favorisent généralement la diffusion d&#x27;un contenu ?</legend>
+<p class="muted">Plusieurs réponses possibles.</p>
+<label><input type="checkbox" name="q0" value="0"> Le temps passé sur le contenu</label>
+<label><input type="checkbox" name="q0" value="1"> Les commentaires et partages</label>
+<label><input type="checkbox" name="q0" value="2"> Les sauvegardes</label>
+<label><input type="checkbox" name="q0" value="3"> Le nombre de hashtags, plus il y en a mieux c&#x27;est</label>
+<p class="explanation" hidden>Les plateformes privilégient ce qui retient et engage les utilisateurs ; accumuler des hashtags n&#x27;est pas un levier fiable.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>2. Quelle bio est la plus efficace ?</legend>
+<label><input type="radio" name="q1" value="0"> Passionnée | Maman | Café addict</label>
+<label><input type="radio" name="q1" value="1"> J&#x27;aide les thérapeutes à remplir leur agenda avec Instagram | +120 praticiens accompagnés | Guide gratuit ci-dessous</label>
+<label><input type="radio" name="q1" value="2"> Bienvenue sur mon compte</label>
+<label><input type="radio" name="q1" value="3"> Entrepreneur – Visionnaire – Leader</label>
+<p class="explanation" hidden>Elle indique pour qui, quel résultat, une preuve et une action.</p></fieldset>
+<fieldset class="question" data-correct="2"><legend>3. Un bon commentaire stratégique sur le post d&#x27;un autre créateur, c&#x27;est :</legend>
+<label><input type="radio" name="q2" value="0"> « Super post ! »</label>
+<label><input type="radio" name="q2" value="1"> Un lien vers votre offre</label>
+<label><input type="radio" name="q2" value="2"> Un complément argumenté ou un exemple concret qui apporte de la valeur</label>
+<label><input type="radio" name="q2" value="3"> Un emoji</label>
+<p class="explanation" hidden>Un commentaire utile est un mini-contenu vu par la cible.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>4. Pour tester l&#x27;effet du format, on change en même temps l&#x27;accroche, l&#x27;heure et le sujet.</legend>
+<label><input type="radio" name="q3" value="0"> Vrai</label>
+<label><input type="radio" name="q3" value="1"> Faux</label>
+<p class="explanation" hidden>On change une seule variable à la fois pour savoir ce qui a produit l&#x27;effet.</p></fieldset>
+<fieldset class="question" data-correct="2"><legend>5. Quel indicateur est le plus proche du résultat business ?</legend>
+<label><input type="radio" name="q4" value="0"> Nombre d&#x27;abonnés</label>
+<label><input type="radio" name="q4" value="1"> Impressions</label>
+<label><input type="radio" name="q4" value="2"> Rendez-vous et messages privés qualifiés</label>
+<label><input type="radio" name="q4" value="3"> Nombre de « j&#x27;aime »</label>
+<p class="explanation" hidden>Les conversations et rendez-vous traduisent une intention d&#x27;achat.</p></fieldset>
+<button type="submit">Valider mes réponses</button><p class="result" aria-live="polite"></p></form><div class="pager"><a href="#m4l3">← 4.3 Mesurer, analyser, ajuster</a><a href="#m5">Module 5 — Vendre grâce à son image →</a></div></section><section id="m5"><h1>Module 5 — Vendre grâce à son image</h1><p>Construire son offre, transformer son audience en clients et installer sa réputation dans la durée.</p><h2>Objectifs</h2><ul>
+<li>Créer une offre à forte valeur perçue</li>
+<li>Mettre en place un parcours de vente</li>
+<li>Utiliser la preuve sociale et durer</li>
+</ul><div class="pager"><a href="#m4q">← Quiz du module 4</a><a href="#m5l1">5.1 Construire une offre irrésistible →</a></div></section><section id="m5l1"><h1>Leçon 5.1 — Construire une offre irrésistible</h1>
+<p><em>Durée : 35 min · Format : atelier</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Structurer une offre autour d'une transformation</li>
+<li>Construire une échelle d'offres</li>
+<li>Fixer un prix cohérent avec la valeur perçue</li>
+</ul>
+<p>Une audience sans offre, c'est de la notoriété qui ne paie pas les factures. Une offre bien construite est le <strong>prolongement naturel</strong> de ce que vous enseignez déjà dans vos contenus.</p>
+<h2>Vendre une transformation, pas des heures</h2>
+<p>Votre client n'achète pas « 6 séances de coaching » : il achète <strong>le passage d'une situation A à une situation B</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Mauvaise formulation</th>
+<th>Bonne formulation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6 séances d'1 h de coaching LinkedIn</td>
+<td>En 6 semaines, un profil et une routine de publication qui vous amènent vos premiers rendez-vous clients</td>
+</tr>
+<tr>
+<td>Formation Canva de 4 h</td>
+<td>Créez tous vos visuels du mois en 2 heures, sans graphiste</td>
+</tr>
+</tbody>
+</table>
+<p>Une offre claire répond à : <strong>pour qui, quel résultat, en combien de temps, comment, avec quelles garanties.</strong></p>
+<h2>L'échelle d'offres</h2>
+<p>Proposez plusieurs niveaux pour accompagner la montée en confiance :</p>
+<ol>
+<li><strong>Gratuit</strong> : contenus, ressource téléchargeable (lead magnet) en échange d'un e-mail.</li>
+<li><strong>Petit prix</strong> : guide, modèle, atelier (quelques dizaines d'euros). Transforme un abonné en client.</li>
+<li><strong>Offre principale</strong> : programme, accompagnement, formation complète.</li>
+<li><strong>Premium</strong> : accompagnement individuel, done-for-you, conseil.</li>
+</ol>
+<p>Chaque niveau doit donner un vrai résultat <strong>et</strong> donner envie du suivant.</p>
+<h2>Augmenter la valeur perçue</h2>
+<p>La valeur perçue dépend de 4 facteurs :</p>
+<ul>
+<li>⬆️ <strong>Le résultat promis</strong> (plus il est important et concret)</li>
+<li>⬆️ <strong>La probabilité perçue de l'obtenir</strong> (preuves, méthode, garanties)</li>
+<li>⬇️ <strong>Le délai</strong> avant résultat</li>
+<li>⬇️ <strong>L'effort et les sacrifices</strong> demandés</li>
+</ul>
+<p>Ajoutez des éléments qui agissent sur ces leviers : modèles prêts à l'emploi (moins d'effort), suivi (plus de probabilité), bonus de démarrage rapide (délai réduit).</p>
+<h2>Le prix</h2>
+<p>Fixez-le par rapport à <strong>la valeur du résultat</strong> pour le client, pas à votre temps. Si votre accompagnement aide un freelance à signer un client à 3 000 €, un prix de 900 € reste un bon investissement pour lui. Votre marque personnelle vous permet de vous positionner au-dessus de la moyenne : <strong>plus vous êtes perçu comme la référence, moins on vous compare sur le prix.</strong></p>
+<h2>Exemples et études de cas</h2>
+<h3>Une échelle complète</h3>
+<p>Une photographe culinaire construit : <strong>gratuit</strong> → guide « 10 réglages pour photographier vos plats au smartphone » ; <strong>petit prix</strong> → pack de préréglages à 29 € ; <strong>offre principale</strong> → formation en ligne « Photos de restaurant qui donnent faim » à 390 € ; <strong>premium</strong> → shooting sur place pour restaurants.</p>
+<h2>À retenir</h2>
+<ul>
+<li>On vend une transformation : de A vers B</li>
+<li>Pour qui, quel résultat, quel délai, quelle méthode, quelles garanties</li>
+<li>Échelle : gratuit → petit prix → offre principale → premium</li>
+<li>Valeur perçue : résultat et probabilité ↑, délai et effort ↓</li>
+<li>Le prix se fixe sur la valeur du résultat</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Vendre du temps au lieu d'un résultat</li>
+<li>N'avoir qu'une offre très chère sans étape intermédiaire</li>
+<li>Promettre des résultats qu'on ne peut pas prouver</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Fiche offre (difficile, ~60 min)</h3>
+<p>Rédigez la fiche de votre offre principale : nom, promesse (A → B), public, durée, contenu, bonus, garantie, prix. Puis imaginez votre ressource gratuite et votre offre à petit prix.</p>
+<details><summary>Voir la solution</summary>
+
+**Exemple corrigé** :
+
+- **Nom** : Le Programme Agenda Plein
+- **Promesse** : passer d'un agenda à moitié vide à 10 nouveaux patients par mois grâce à Instagram, en 90 jours.
+- **Public** : ostéopathes et kinés installés depuis moins de 5 ans.
+- **Contenu** : 6 modules vidéo, 30 modèles de publications, 1 appel de groupe par semaine.
+- **Bonus** : audit personnalisé du profil (augmente la probabilité perçue).
+- **Garantie** : si vous appliquez la méthode 60 jours sans résultat, accompagnement prolongé gratuitement.
+- **Prix** : 690 €.
+- **Gratuit** : checklist « Le profil Instagram qui remplit un cabinet ».
+- **Petit prix** : 30 modèles de posts à 27 €.
+
+Vérifiez que votre promesse est **crédible** : ne promettez que des résultats que vous avez déjà obtenus pour vous ou pour des clients.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>$100M Offers — Alex Hormozi</strong> (livre) — Méthode détaillée pour construire une offre à forte valeur perçue (en anglais).</li>
+</ul><div class="pager"><a href="#m5">← Module 5 — Vendre grâce à son image</a><a href="#m5l2">5.2 Transformer son audience en clients →</a></div></section><section id="m5l2"><h1>Leçon 5.2 — Transformer son audience en clients</h1>
+<p><em>Durée : 35 min · Format : atelier + scripts</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Créer un lead magnet et une séquence e-mail</li>
+<li>Mener des conversations de vente en message privé sans être intrusif</li>
+<li>Réaliser un appel découverte qui convertit</li>
+</ul>
+<p>Vendre grâce à son image, ce n'est pas publier « achetez ma formation » en espérant que ça marche. C'est construire un <strong>parcours</strong> où chaque étape rapproche naturellement la personne de l'achat.</p>
+<h2>Le parcours type</h2>
+<ol>
+<li><strong>Contenu</strong> (réseaux) → la personne vous découvre.</li>
+<li><strong>Profil</strong> → elle comprend ce que vous faites.</li>
+<li><strong>Lead magnet</strong> → elle vous donne son e-mail contre une ressource utile.</li>
+<li><strong>Séquence e-mail</strong> → elle apprend à vous faire confiance.</li>
+<li><strong>Conversation / appel découverte</strong> → vous vérifiez ensemble que l'offre lui convient.</li>
+<li><strong>Achat</strong>.</li>
+</ol>
+<h2>Le lead magnet et la séquence de bienvenue</h2>
+<p>Un bon lead magnet résout <strong>un petit problème précis, rapidement</strong> : checklist, modèle, mini-formation vidéo, quiz. Il doit être directement lié à votre offre payante.</p>
+<p>Séquence de bienvenue (5 e-mails sur 10 jours) :</p>
+<ol>
+<li>Livraison de la ressource + qui vous êtes</li>
+<li>Votre histoire (leçon 1.3)</li>
+<li>Une erreur fréquente et comment l'éviter</li>
+<li>Une étude de cas client</li>
+<li>Présentation de l'offre + invitation à un appel ou à l'achat</li>
+</ol>
+<h2>La vente en message privé, sans forcer</h2>
+<p>Principes :</p>
+<ul>
+<li><strong>Répondez aux signaux</strong>, ne démarchez pas à froid en masse : quelqu'un qui commente « c'est exactement mon problème », qui télécharge votre ressource, qui répond à une story.</li>
+<li><strong>Commencez par une question</strong>, pas par un lien : <em>« Merci pour ton commentaire ! C'est quoi ta situation actuelle avec [sujet] ? »</em></li>
+<li><strong>Écoutez</strong>, reformulez, puis proposez <strong>seulement si c'est pertinent</strong> : <em>« Ce que tu décris, c'est exactement ce qu'on travaille dans [offre]. Tu veux qu'on en parle 20 minutes ? »</em></li>
+<li>Acceptez le « non » avec élégance : la relation vaut plus qu'une vente.</li>
+</ul>
+<h2>L'appel découverte en 5 étapes</h2>
+<ol>
+<li><strong>Cadre</strong> : « On a 30 minutes, je vais te poser des questions, et à la fin on voit si je peux t'aider. D'accord ? »</li>
+<li><strong>Situation actuelle</strong> : où en es-tu ?</li>
+<li><strong>Objectif</strong> : où veux-tu être dans 6 mois ? Pourquoi c'est important maintenant ?</li>
+<li><strong>Obstacles</strong> : qu'est-ce qui t'en empêche ?</li>
+<li><strong>Proposition</strong> : si c'est adapté, présentez l'offre comme le pont entre sa situation et son objectif, puis demandez clairement : « Est-ce que tu veux qu'on y aille ensemble ? »</li>
+</ol>
+<p>Le prospect doit parler environ <strong>70 % du temps</strong>.</p>
+<h2>Exemples et études de cas</h2>
+<h3>Un commentaire devenu client</h3>
+<p>Sous un post sur la prise de parole, une manager commente : <em>« Je bloque complètement en réunion de direction. »</em> La formatrice lui écrit : <em>« Merci de l'avoir partagé, c'est très courant. Ça se passe comment concrètement ? »</em> Après quelques échanges, elle propose un appel ; la manager rejoint son programme. <strong>Aucune relance insistante : de l'écoute et une proposition au bon moment.</strong></p>
+<h2>À retenir</h2>
+<ul>
+<li>Contenu → profil → lead magnet → e-mails → conversation → achat</li>
+<li>Le lead magnet résout vite un petit problème lié à l'offre</li>
+<li>En message privé : question d'abord, lien ensuite</li>
+<li>Appel découverte : cadre, situation, objectif, obstacles, proposition</li>
+<li>Le prospect parle 70 % du temps</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Envoyer des messages de vente automatiques à des inconnus</li>
+<li>Proposer l'offre sans avoir compris le besoin</li>
+<li>Parler plus que le prospect pendant l'appel</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Votre parcours de vente (difficile, ~60 min)</h3>
+<ol>
+<li>Choisissez votre lead magnet et rédigez son titre.</li>
+<li>Écrivez le plan de votre séquence de 5 e-mails (objet + idée principale de chacun).</li>
+<li>Rédigez votre script de premier message privé en réponse à un commentaire.</li>
+</ol>
+<details><summary>Voir la solution</summary>
+
+**Exemple d'objets d'e-mails** (thème : prise de parole) :
+
+1. *Ton guide « 5 minutes avant de parler » est là*
+2. *La réunion où j'ai perdu mes mots (et ce qu'elle m'a appris)*
+3. *L'erreur que font 9 managers sur 10 en début de réunion*
+4. *Comment Sophie a présenté son budget sans trembler*
+5. *Les inscriptions à « Voix de leader » sont ouvertes*
+
+**Script de message privé** :
+*« Merci pour ton commentaire [prénom] ! Tu parlais de [reprendre ses mots]. Ça se passe comment pour toi en ce moment ? »*
+
+À éviter : envoyer directement un lien de vente, copier-coller le même message à 50 personnes.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Brevo / Kit / MailerLite</strong> (outil) — Outils d'e-mailing pour lead magnet et séquences automatiques.</li>
+<li><strong>Calendly / Google Agenda (prise de rendez-vous)</strong> (outil) — Permet aux prospects de réserver un appel découverte en un clic.</li>
+</ul><div class="pager"><a href="#m5l1">← 5.1 Construire une offre irrésistible</a><a href="#m5l3">5.3 Preuve sociale, réputation et durée →</a></div></section><section id="m5l3"><h1>Leçon 5.3 — Preuve sociale, réputation et durée</h1>
+<p><em>Durée : 30 min · Format : texte + plan</em></p>
+<h3>Objectifs</h3>
+<ul>
+<li>Collecter et utiliser des témoignages et études de cas</li>
+<li>Gérer les critiques et protéger son e-réputation</li>
+<li>Planifier sa marque sur 12 mois</li>
+</ul>
+<p>Ce que vous dites de vous est une promesse ; ce que vos clients disent de vous est une <strong>preuve</strong>. Une marque forte se construit sur des preuves accumulées, une réputation protégée et une présence qui dure.</p>
+<h2>Collecter la preuve sociale</h2>
+<ul>
+<li><strong>Demandez systématiquement</strong> un retour à la fin de chaque accompagnement, au moment où la satisfaction est la plus haute.</li>
+<li><strong>Posez des questions guidées</strong> : <em>Quelle était ta situation avant ? Qu'est-ce qui t'a fait hésiter ? Qu'est-ce qui a changé concrètement ? À qui recommanderais-tu cet accompagnement ?</em></li>
+<li><strong>Privilégiez les formats crédibles</strong> : vidéo, capture de message avec accord, résultat chiffré, nom et photo réels (avec autorisation).</li>
+<li><strong>Transformez les meilleurs en études de cas</strong> : contexte, problème, solution, résultat chiffré.</li>
+</ul>
+<h2>Gérer les critiques</h2>
+<p>Plus vous êtes visible, plus vous recevrez de critiques. Méthode :</p>
+<ol>
+<li><strong>Ne répondez jamais à chaud.</strong></li>
+<li><strong>Distinguez</strong> critique constructive (à remercier et utiliser), désaccord d'opinion (à discuter avec respect) et attaque gratuite (à ignorer ou modérer).</li>
+<li><strong>Répondez publiquement avec calme</strong> quand c'est utile : l'audience juge surtout votre réaction.</li>
+<li><strong>Réglez les problèmes clients en privé</strong>, rapidement.</li>
+</ol>
+<p>Votre e-réputation, c'est aussi ce que l'on trouve en tapant votre nom sur un moteur de recherche : vérifiez-le régulièrement.</p>
+<h2>Tenir dans la durée</h2>
+<p>La plupart des marques personnelles échouent par <strong>abandon</strong>, pas par manque de talent. Pour durer :</p>
+<ul>
+<li>Un rythme réaliste (leçon 2.3) et un système de production (leçon 3.3).</li>
+<li>Des <strong>objectifs trimestriels</strong> mesurables (inscrits, clients), pas seulement des abonnés.</li>
+<li>Une <strong>évolution progressive</strong> : élargir sa niche, ajouter un format, lancer un produit, une fois les bases solides.</li>
+<li>Des pauses <strong>planifiées</strong> plutôt que des disparitions : prévenez votre audience et programmez du contenu à l'avance.</li>
+</ul>
+<h2>Exemples et études de cas</h2>
+<h3>Étude de cas bien construite</h3>
+<p><em>« </em><em>Contexte</em><em> : Nadia, architecte d'intérieur, 3 ans d'activité, clients uniquement par bouche-à-oreille. </em><em>Problème</em><em> : des mois creux imprévisibles. </em><em>Solution</em><em> : positionnement sur les petites surfaces parisiennes, 3 carrousels « avant / après » par semaine, guide gratuit « Agrandir visuellement un studio ». </em><em>Résultat</em><em> : 340 inscrits à sa liste en 4 mois et 4 projets signés venant d'Instagram. »</em></p>
+<p>Cette structure permet au lecteur de se projeter : <strong>« si elle y est arrivée dans ma situation, moi aussi. »</strong></p>
+<h2>À retenir</h2>
+<ul>
+<li>Ce que vos clients disent de vous vaut plus que ce que vous en dites</li>
+<li>Demandez les témoignages au moment de la satisfaction</li>
+<li>Étude de cas : contexte, problème, solution, résultat chiffré</li>
+<li>Ne répondez jamais à chaud aux critiques</li>
+<li>Les marques échouent surtout par abandon : planifiez la durée</li>
+</ul>
+<h2>Erreurs fréquentes</h2>
+<ul>
+<li>Publier des témoignages sans autorisation ou invérifiables</li>
+<li>Répondre aux critiques sous le coup de l'émotion</li>
+<li>Disparaître plusieurs semaines sans prévenir</li>
+</ul>
+<h2>Exercices pratiques</h2>
+<h3>Plan de marque sur 12 mois (moyen, ~45 min)</h3>
+<p>Rédigez votre feuille de route sur 4 trimestres. Pour chacun : 1 objectif business mesurable, 1 objectif d'audience, 1 action de preuve sociale, 1 projet (nouveau format, collaboration, produit).</p>
+<details><summary>Voir la solution</summary>
+
+**Exemple de feuille de route** :
+
+| Trimestre | Business | Audience | Preuve sociale | Projet |
+|---|---|---|---|---|
+| T1 | 3 clients offre principale | 300 inscrits e-mail | 3 témoignages écrits | Lead magnet + séquence e-mail |
+| T2 | 6 clients | 700 inscrits | 1 étude de cas vidéo | 4 collaborations en live |
+| T3 | Lancement offre petit prix : 50 ventes | 1 200 inscrits | Page témoignages | Réseau secondaire |
+| T4 | 10 clients + 1 premium | 2 000 inscrits | 5 études de cas | Programme de groupe |
+
+Les chiffres sont des exemples : fixez les vôtres selon votre point de départ, et révisez le plan à la fin de chaque trimestre avec votre bilan mensuel.
+
+</details>
+
+<h2>Pour aller plus loin</h2>
+<ul>
+<li><strong>Google Alertes</strong> (outil) — Recevoir une alerte quand votre nom ou votre marque est mentionné en ligne.</li>
+<li><strong>Senja / Testimonial.to</strong> (outil) — Collecte et affichage de témoignages clients.</li>
+</ul><div class="pager"><a href="#m5l2">← 5.2 Transformer son audience en clients</a><a href="#m5q">Quiz du module 5 →</a></div></section><section id="m5q"><h1>Quiz — Vendre grâce à son image</h1><form class="quiz" data-quiz="m5q" data-pass="70">
+<p>Choisissez la ou les bonnes réponses, puis validez pour voir les explications.</p>
+<p class="muted">Seuil de réussite : 70 %</p>
+<fieldset class="question" data-correct="2"><legend>1. Quelle formulation d&#x27;offre est la plus convaincante ?</legend>
+<label><input type="radio" name="q0" value="0"> 6 séances d&#x27;une heure</label>
+<label><input type="radio" name="q0" value="1"> Un accompagnement personnalisé de qualité</label>
+<label><input type="radio" name="q0" value="2"> En 6 semaines, un profil et une routine qui vous amènent vos premiers rendez-vous clients</label>
+<label><input type="radio" name="q0" value="3"> Coaching à 90 € de l&#x27;heure</label>
+<p class="explanation" hidden>Elle vend une transformation concrète dans un délai donné.</p></fieldset>
+<fieldset class="question" data-correct="0,1,2"><legend>2. Quels facteurs augmentent la valeur perçue d&#x27;une offre ?</legend>
+<p class="muted">Plusieurs réponses possibles.</p>
+<label><input type="checkbox" name="q1" value="0"> Un résultat promis important et concret</label>
+<label><input type="checkbox" name="q1" value="1"> Des preuves qui augmentent la probabilité de réussite</label>
+<label><input type="checkbox" name="q1" value="2"> Un délai plus court avant résultat</label>
+<label><input type="checkbox" name="q1" value="3"> Plus d&#x27;efforts demandés au client</label>
+<p class="explanation" hidden>Plus d&#x27;effort demandé diminue la valeur perçue.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>3. En message privé, que faire en premier après un commentaire intéressé ?</legend>
+<label><input type="radio" name="q2" value="0"> Envoyer le lien de paiement</label>
+<label><input type="radio" name="q2" value="1"> Poser une question sur sa situation</label>
+<label><input type="radio" name="q2" value="2"> Envoyer une plaquette de 20 pages</label>
+<label><input type="radio" name="q2" value="3"> Ne rien faire</label>
+<p class="explanation" hidden>On commence par comprendre le besoin avant de proposer quoi que ce soit.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>4. Pendant un appel découverte, le vendeur doit parler la majorité du temps pour présenter son offre.</legend>
+<label><input type="radio" name="q3" value="0"> Vrai</label>
+<label><input type="radio" name="q3" value="1"> Faux</label>
+<p class="explanation" hidden>Le prospect doit parler environ 70 % du temps : c&#x27;est en l&#x27;écoutant qu&#x27;on sait si l&#x27;offre lui convient.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>5. Face à une critique publique virulente, la première règle est :</legend>
+<label><input type="radio" name="q4" value="0"> Répondre immédiatement pour se défendre</label>
+<label><input type="radio" name="q4" value="1"> Ne jamais répondre à chaud</label>
+<label><input type="radio" name="q4" value="2"> Supprimer son compte</label>
+<label><input type="radio" name="q4" value="3"> Répondre par une attaque</label>
+<p class="explanation" hidden>Prendre du recul permet de distinguer critique utile, désaccord et attaque, et de répondre avec calme.</p></fieldset>
+<button type="submit">Valider mes réponses</button><p class="result" aria-live="polite"></p></form><div class="pager"><a href="#m5l3">← 5.3 Preuve sociale, réputation et durée</a><a href="#projet">Projet final →</a></div></section><section id="projet"><h1>Projet final — Lancer sa marque personnelle en 30 jours</h1>
+<p><em>Durée estimée : 25.0 h</em></p>
+<p>Vous allez appliquer l'ensemble de la formation à <strong>votre propre marque</strong>. À l'issue du projet, vous disposez d'un positionnement validé, d'un profil optimisé, d'un mois de contenus publiés, d'une première ressource gratuite et d'un parcours de vente prêt à fonctionner.</p>
+<p>Si vous n'avez pas encore d'activité, choisissez un projet réaliste que vous pourriez lancer, et construisez la marque autour de lui.</p>
+<h2>Livrables</h2>
+<ul>
+<li>Une fiche marque d'une page : positionnement, angle, persona, 3 valeurs, ton de voix</li>
+<li>Captures du profil optimisé (avant / après) sur le réseau principal</li>
+<li>Le calendrier éditorial de 30 jours et au moins 10 contenus publiés</li>
+<li>Un lead magnet et le plan de la séquence e-mail de 5 messages</li>
+<li>La fiche de l'offre principale</li>
+<li>Un bilan chiffré à J+30 avec 3 décisions pour le mois suivant</li>
+</ul>
+<h2>Étapes</h2>
+<ol>
+<li>Jours 1-3 : rédiger positionnement, histoire, valeurs et ton ; valider la phrase de positionnement auprès de 3 personnes de la cible</li>
+<li>Jours 4-6 : réaliser 3 entretiens d'audience et construire le persona et la banque d'idées (30 idées minimum)</li>
+<li>Jour 7 : optimiser le profil (photo, bio, bannière, lien, contenus épinglés)</li>
+<li>Jours 8-9 : définir les piliers et remplir le calendrier de 30 jours ; première session de batching</li>
+<li>Jours 10-30 : publier selon le calendrier et tenir la routine d'engagement de 20 minutes par jour</li>
+<li>Jours 15-20 : créer le lead magnet, la page d'inscription et la séquence e-mail</li>
+<li>Jours 20-25 : rédiger la fiche offre et proposer 2 collaborations</li>
+<li>Jour 30 : réaliser le bilan chiffré et fixer 3 décisions</li>
+</ol>
+<h2>Grille d'évaluation</h2>
+<table>
+<thead>
+<tr>
+<th>Critère</th>
+<th>Description</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Positionnement</td>
+<td>Public précis, résultat concret, angle différenciant, validé auprès de la cible</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Connaissance de l'audience</td>
+<td>Persona fondé sur de vrais verbatims, banque d'idées exploitable</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Profil</td>
+<td>Photo, promesse, preuve, appel à l'action et lien unique cohérents</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Contenus</td>
+<td>Équilibre attirer / nourrir / convertir, accroches travaillées, régularité tenue</td>
+<td>25</td>
+</tr>
+<tr>
+<td>Parcours de vente</td>
+<td>Lead magnet lié à l'offre, séquence e-mail logique, offre claire et crédible</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Analyse</td>
+<td>Bilan chiffré honnête et décisions justifiées par les données</td>
+<td>10</td>
+</tr>
+</tbody>
+</table><div class="pager"><a href="#m5q">← Quiz du module 5</a><a href="#examen">Examen final →</a></div></section><section id="examen"><h1>Examen final — Personal branding</h1><form class="quiz" data-quiz="examen" data-pass="75">
+<p>Choisissez la ou les bonnes réponses, puis validez pour voir les explications.</p>
+<p class="muted">Seuil de réussite : 75 %</p>
+<fieldset class="question" data-correct="1"><legend>1. Julie publie sur la nutrition, le sport, le voyage et la déco. Elle a beaucoup de vues mais aucune demande de clients. Quelle est la cause la plus probable ?</legend>
+<label><input type="radio" name="q0" value="0"> Elle ne publie pas assez</label>
+<label><input type="radio" name="q0" value="1"> Son positionnement est flou : personne ne sait pour quoi la recommander</label>
+<label><input type="radio" name="q0" value="2"> Son algorithme est bloqué</label>
+<label><input type="radio" name="q0" value="3"> Elle devrait acheter des abonnés</label>
+<p class="explanation" hidden>Sans positionnement clair, la visibilité ne se transforme pas en marque ni en ventes.</p></fieldset>
+<fieldset class="question" data-correct="0"><legend>2. Complétez le modèle de positionnement : « J&#x27;aide [qui] à [résultat] grâce à [méthode] sans [...] ».</legend>
+<label><input type="radio" name="q1" value="0"> la contrainte redoutée par la cible</label>
+<label><input type="radio" name="q1" value="1"> mon diplôme</label>
+<label><input type="radio" name="q1" value="2"> mon prix</label>
+<label><input type="radio" name="q1" value="3"> mes concurrents</label>
+<p class="explanation" hidden>Nommer la contrainte redoutée lève une objection dès la première phrase.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>3. Quel est l&#x27;ordre du récit de marque ?</legend>
+<label><input type="radio" name="q2" value="0"> Mission, avant, résultat, déclic, chemin</label>
+<label><input type="radio" name="q2" value="1"> Avant, déclic, chemin, résultat, mission</label>
+<label><input type="radio" name="q2" value="2"> Résultat, mission, avant, chemin, déclic</label>
+<label><input type="radio" name="q2" value="3"> Déclic, mission, avant, résultat, chemin</label>
+<p class="explanation" hidden>Avant → déclic → chemin → résultat → mission.</p></fieldset>
+<fieldset class="question" data-correct="0,1,2"><legend>4. Un créateur veut connaître les vrais problèmes de sa cible. Quelles actions sont pertinentes ?</legend>
+<p class="muted">Plusieurs réponses possibles.</p>
+<label><input type="checkbox" name="q3" value="0"> Mener 5 entretiens sur des situations vécues</label>
+<label><input type="checkbox" name="q3" value="1"> Lire les avis négatifs de produits concurrents</label>
+<label><input type="checkbox" name="q3" value="2"> Lire les questions dans les groupes de la niche</label>
+<label><input type="checkbox" name="q3" value="3"> Demander « tu achèterais ? » à ses amis</label>
+<p class="explanation" hidden>La dernière question produit des réponses de politesse.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>5. Une avocate en droit du travail cible les dirigeants de PME. Quel réseau principal est le plus cohérent ?</legend>
+<label><input type="radio" name="q4" value="0"> TikTok avec des danses</label>
+<label><input type="radio" name="q4" value="1"> LinkedIn</label>
+<label><input type="radio" name="q4" value="2"> Pinterest</label>
+<label><input type="radio" name="q4" value="3"> Twitch</label>
+<p class="explanation" hidden>Son audience professionnelle y est présente et le format écrit/expertise y fonctionne bien.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>6. Sur 12 contenus mensuels, combien devraient environ viser directement la conversion ?</legend>
+<label><input type="radio" name="q5" value="0"> 0</label>
+<label><input type="radio" name="q5" value="1"> 2 à 3</label>
+<label><input type="radio" name="q5" value="2"> 8</label>
+<label><input type="radio" name="q5" value="3"> 12</label>
+<p class="explanation" hidden>Environ 20 % : 2 à 3 contenus sur 12.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>7. Quelle accroche utilise un chiffre précis ?</legend>
+<label><input type="radio" name="q6" value="0"> Voici mes conseils</label>
+<label><input type="radio" name="q6" value="1"> J&#x27;ai analysé 100 profils de freelances : 83 font la même erreur</label>
+<label><input type="radio" name="q6" value="2"> Parlons de LinkedIn</label>
+<label><input type="radio" name="q6" value="3"> Un post important</label>
+<p class="explanation" hidden>Le chiffre précis rend la promesse concrète et crédible.</p></fieldset>
+<fieldset class="question" data-correct="0"><legend>8. Le recyclage consiste à décliner une idée pilier en plusieurs formats adaptés à chaque réseau.</legend>
+<label><input type="radio" name="q7" value="0"> Vrai</label>
+<label><input type="radio" name="q7" value="1"> Faux</label>
+<p class="explanation" hidden>Une idée peut devenir vidéo, carrousel, post, vidéo courte et newsletter.</p></fieldset>
+<fieldset class="question" data-correct="0,1,2"><legend>9. Quels éléments doit contenir un profil qui convertit ?</legend>
+<p class="muted">Plusieurs réponses possibles.</p>
+<label><input type="checkbox" name="q8" value="0"> Une promesse claire pour la cible</label>
+<label><input type="checkbox" name="q8" value="1"> Une preuve (chiffre, résultat)</label>
+<label><input type="checkbox" name="q8" value="2"> Un appel à l&#x27;action et un lien unique</label>
+<label><input type="checkbox" name="q8" value="3"> La liste de tous ses loisirs</label>
+<p class="explanation" hidden>Le profil doit parler du bénéfice pour le visiteur.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>10. Un créateur débute avec peu d&#x27;abonnés. Quelle routine accélère le plus sa visibilité au départ ?</legend>
+<label><input type="radio" name="q9" value="0"> Publier 5 fois par jour</label>
+<label><input type="radio" name="q9" value="1"> Commenter chaque jour avec valeur chez des comptes suivis par sa cible, en plus de publier</label>
+<label><input type="radio" name="q9" value="2"> Acheter de la publicité dès le premier jour</label>
+<label><input type="radio" name="q9" value="3"> Attendre que l&#x27;algorithme le découvre</label>
+<p class="explanation" hidden>Les commentaires utiles exposent son expertise à une audience déjà constituée.</p></fieldset>
+<fieldset class="question" data-correct="2"><legend>11. Ses Reels humoristiques font beaucoup de vues mais aucun rendez-vous, ses carrousels méthode moins de vues mais la plupart des rendez-vous. Quelle décision est la plus pertinente ?</legend>
+<label><input type="radio" name="q10" value="0"> Ne faire que des Reels humoristiques</label>
+<label><input type="radio" name="q10" value="1"> Arrêter les réseaux</label>
+<label><input type="radio" name="q10" value="2"> Garder un peu d&#x27;humour pour attirer et renforcer les carrousels méthode avec un appel à l&#x27;action</label>
+<label><input type="radio" name="q10" value="3"> Supprimer les carrousels</label>
+<p class="explanation" hidden>On optimise d&#x27;après les indicateurs business, pas seulement les vues.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>12. Dans une échelle d&#x27;offres, à quoi sert l&#x27;offre à petit prix ?</legend>
+<label><input type="radio" name="q11" value="0"> À remplacer l&#x27;offre principale</label>
+<label><input type="radio" name="q11" value="1"> À transformer un abonné en client et créer la confiance pour la suite</label>
+<label><input type="radio" name="q11" value="2"> À rien</label>
+<label><input type="radio" name="q11" value="3"> À baisser la valeur de la marque</label>
+<p class="explanation" hidden>Le premier achat est le plus difficile ; un petit prix facilite ce passage.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>13. Quel message privé est le plus adapté après le commentaire « C&#x27;est exactement mon problème » ?</legend>
+<label><input type="radio" name="q12" value="0"> Voici le lien pour acheter ma formation à 690 €</label>
+<label><input type="radio" name="q12" value="1"> Merci pour ton commentaire ! Ça se passe comment pour toi en ce moment ?</label>
+<label><input type="radio" name="q12" value="2"> Abonne-toi à mon compte</label>
+<label><input type="radio" name="q12" value="3"> Tu devrais lire mes 50 derniers posts</label>
+<p class="explanation" hidden>Commencer par une question ouvre la conversation et permet de comprendre le besoin.</p></fieldset>
+<fieldset class="question" data-correct="0,1,2,3"><legend>14. Quels éléments rendent une étude de cas convaincante ?</legend>
+<p class="muted">Plusieurs réponses possibles.</p>
+<label><input type="checkbox" name="q13" value="0"> Un contexte proche de la cible</label>
+<label><input type="checkbox" name="q13" value="1"> Le problème initial</label>
+<label><input type="checkbox" name="q13" value="2"> La solution appliquée</label>
+<label><input type="checkbox" name="q13" value="3"> Un résultat chiffré</label>
+<p class="explanation" hidden>Les quatre éléments permettent au lecteur de se projeter.</p></fieldset>
+<fieldset class="question" data-correct="1"><legend>15. Selon la formation, pourquoi la plupart des marques personnelles échouent-elles ?</legend>
+<label><input type="radio" name="q14" value="0"> Par manque de talent</label>
+<label><input type="radio" name="q14" value="1"> Par abandon faute de système et de rythme tenable</label>
+<label><input type="radio" name="q14" value="2"> À cause des algorithmes</label>
+<label><input type="radio" name="q14" value="3"> Parce qu&#x27;il est trop tard pour commencer</label>
+<p class="explanation" hidden>Régularité, système de production et objectifs trimestriels permettent de durer.</p></fieldset>
+<button type="submit">Valider mes réponses</button><p class="result" aria-live="polite"></p></form><div class="pager"><a href="#projet">← Projet final</a><a href="#glossaire">Glossaire →</a></div></section><section id="glossaire"><h1>Glossaire</h1>
+<ul>
+<li><strong>Marque personnelle</strong> : Association durable entre votre nom, une promesse et un public précis.</li>
+<li><strong>Positionnement</strong> : Place que vous choisissez d'occuper dans l'esprit de votre cible : pour qui, quel résultat, comment.</li>
+<li><strong>Niche</strong> : Segment précis de marché sur lequel vous vous spécialisez.</li>
+<li><strong>Persona</strong> : Portrait détaillé et réaliste de votre client idéal.</li>
+<li><strong>Verbatim</strong> : Phrase exacte prononcée ou écrite par un membre de votre audience.</li>
+<li><strong>Pilier de contenu</strong> : Thématique récurrente de votre ligne éditoriale.</li>
+<li><strong>Accroche (hook)</strong> : Première ligne ou premières secondes d'un contenu, qui donnent envie de continuer.</li>
+<li><strong>CTA (appel à l'action)</strong> : Action précise demandée au lecteur à la fin d'un contenu.</li>
+<li><strong>Carrousel</strong> : Publication composée de plusieurs images ou diapositives à faire défiler.</li>
+<li><strong>Batching</strong> : Production de contenus par lots, en regroupant les tâches similaires.</li>
+<li><strong>Taux d'interaction</strong> : (Réactions + commentaires + partages + sauvegardes) ÷ vues × 100.</li>
+<li><strong>Lead magnet</strong> : Ressource gratuite offerte en échange d'une adresse e-mail.</li>
+<li><strong>Séquence e-mail</strong> : Série d'e-mails envoyés automatiquement après une inscription.</li>
+<li><strong>Appel découverte</strong> : Échange avec un prospect pour comprendre son besoin et vérifier que l'offre lui convient.</li>
+<li><strong>Échelle d'offres</strong> : Ensemble d'offres de valeur et de prix croissants, du gratuit au premium.</li>
+<li><strong>Preuve sociale</strong> : Témoignages, résultats et recommandations qui prouvent la valeur de votre travail.</li>
+<li><strong>E-réputation</strong> : Image de vous qui ressort des recherches et conversations en ligne.</li>
+<li><strong>Canal possédé</strong> : Canal que vous contrôlez (liste e-mail, site), indépendant des algorithmes.</li>
+</ul><div class="pager"><a href="#examen">← Examen final</a><a href="#faq">FAQ →</a></div></section><section id="faq"><h1>Questions fréquentes</h1>
+<h3>Faut-il beaucoup d'abonnés pour vendre ?</h3>
+<p>Non. Une audience <strong>petite mais très ciblée</strong> peut suffire à remplir un accompagnement. Ce qui compte : un positionnement clair, de la confiance et un parcours de vente.</p>
+<h3>Je n'ose pas me montrer en vidéo. Est-ce bloquant ?</h3>
+<p>Non. Les posts texte, carrousels, newsletters et vidéos sans visage (écran, mains, voix off) fonctionnent. Commencez par ce qui vous met à l'aise, puis testez progressivement la vidéo.</p>
+<h3>Combien de temps faut-il par semaine ?</h3>
+<p>Comptez 3 à 5 heures par semaine au démarrage avec la méthode de batching (création + engagement).</p>
+<h3>Au bout de combien de temps voit-on des résultats ?</h3>
+<p>Cela dépend de votre niche, de votre point de départ et de votre régularité. En général, les premiers signaux (interactions, messages) apparaissent en quelques semaines, et une marque solide se construit sur plusieurs mois de publication régulière.</p>
+<h3>Et si je change de positionnement plus tard ?</h3>
+<p>C'est normal d'évoluer. Faites-le progressivement, en expliquant l'évolution à votre audience, plutôt que de repartir de zéro tous les mois.</p>
+<h3>Faut-il être sur tous les réseaux ?</h3>
+<p>Non : un réseau principal, un secondaire et une liste e-mail. Dominez-en un avant d'en ouvrir d'autres.</p>
+<h3>L'intelligence artificielle peut-elle écrire mes contenus ?</h3>
+<p>Elle peut aider à trouver des idées, structurer ou corriger. Mais votre histoire, vos exemples, vos convictions et votre ton sont ce qui fait votre marque : gardez-les au cœur de chaque contenu.</p><div class="pager"><a href="#glossaire">← Glossaire</a><a href="#conclusion">Conclusion &amp; certificat →</a></div></section><section id="conclusion"><h1>Conclusion</h1>
+<p>Félicitations ! Vous avez maintenant tout ce qu'il faut pour construire une marque personnelle qui attire et qui vend : un positionnement clair, une connaissance fine de votre audience, un système de création de contenu, des leviers de croissance et un parcours de vente.</p>
+<p><strong>Prochaines étapes</strong> :
+1. Terminez votre projet de 30 jours.
+2. Faites votre bilan mensuel chaque mois.
+3. Révisez votre feuille de route chaque trimestre.</p>
+<p>La différence entre ceux qui réussissent et les autres n'est pas le talent : c'est <strong>la régularité</strong>. À vous de jouer !</p>
+<h2>Obtenir le certificat</h2>
+<ul>
+<li>Avoir suivi les 15 leçons</li>
+<li>Obtenir au moins 70 % à chacun des 5 quiz de module</li>
+<li>Obtenir au moins 75 % à l'examen final</li>
+<li>Remettre le projet final et obtenir au moins 60 / 100 selon la grille d'évaluation</li>
+</ul><div class="pager"><a href="#faq">← FAQ</a></div></section></main></div><script>
+(function(){
+  var KEY='formation-'+document.body.dataset.course;
+  var state={seen:{},scores:{}};
+  try{state=JSON.parse(localStorage.getItem(KEY))||state}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+  // SCORM 1.2 (si la formation est lancée depuis un LMS)
+  // L'accès à une fenêtre d'une autre origine lève une exception : on l'ignore.
+  function findAPI(w){try{for(var i=0;w&&i<10;i++){if(w.API)return w.API;if(w.parent===w)break;w=w.parent}}catch(e){}return null}
+  var api=findAPI(window)||(window.opener&&findAPI(window.opener));
+  if(api){try{api.LMSInitialize('')}catch(e){api=null}}
+  var sections=[].slice.call(document.querySelectorAll('main section'));
+  var links=[].slice.call(document.querySelectorAll('nav a[data-page]'));
+  function progress(){
+    var n=sections.filter(function(s){return state.seen[s.id]}).length;
+    var pct=Math.round(100*n/sections.length);
+    document.querySelector('.bar>i').style.width=pct+'%';
+    document.getElementById('pct').textContent=pct+' %';
+    if(api){
+      var exam=state.scores.examen, done=n===sections.length;
+      api.LMSSetValue('cmi.core.lesson_location',location.hash.slice(1));
+      if(exam!==undefined)api.LMSSetValue('cmi.core.score.raw',String(exam.score));
+      var status=exam!==undefined?(exam.passed?'passed':'failed'):(done?'completed':'incomplete');
+      api.LMSSetValue('cmi.core.lesson_status',status);api.LMSCommit('');
+    }
+  }
+  function show(id){
+    var target=document.getElementById(id)||sections[0];
+    sections.forEach(function(s){s.hidden=s!==target});
+    links.forEach(function(a){a.classList.toggle('active',a.dataset.page===target.id);a.classList.toggle('seen',!!state.seen[a.dataset.page])});
+    state.seen[target.id]=true;save();progress();
+    document.querySelector('nav').classList.remove('open');window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
+  document.querySelector('.menu').addEventListener('click',function(){document.querySelector('nav').classList.toggle('open')});
+  document.querySelectorAll('form.quiz').forEach(function(form){
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();var good=0,qs=form.querySelectorAll('.question');
+      qs.forEach(function(q){
+        var expected=q.dataset.correct.split(',').sort().join(',');
+        var given=[].slice.call(q.querySelectorAll('input:checked')).map(function(i){return i.value}).sort().join(',');
+        var ok=expected===given;if(ok)good++;
+        q.classList.toggle('ok',ok);q.classList.toggle('ko',!ok);q.querySelector('.explanation').hidden=false;
+      });
+      var score=Math.round(100*good/qs.length),passed=score>=Number(form.dataset.pass);
+      state.scores[form.dataset.quiz]={score:score,passed:passed};save();progress();
+      form.querySelector('.result').textContent='Score : '+score+' % — '+(passed?'Réussi 🎉':'Pas encore, relisez les explications et réessayez.');
+    });
+  });
+  window.addEventListener('beforeunload',function(){if(api){try{api.LMSFinish('')}catch(e){}}});
+  show(location.hash.slice(1)||(api&&api.LMSGetValue('cmi.core.lesson_location'))||sections[0].id);
+})();
+</script></body></html>
