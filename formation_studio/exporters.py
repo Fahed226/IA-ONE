@@ -327,7 +327,8 @@ PLAYER_JS = """
   try{state=JSON.parse(localStorage.getItem(KEY))||state}catch(e){}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
   // SCORM 1.2 (si la formation est lancée depuis un LMS)
-  function findAPI(w){for(var i=0;w&&i<10;i++){if(w.API)return w.API;if(w.parent===w)break;w=w.parent}return null}
+  // L'accès à une fenêtre d'une autre origine lève une exception : on l'ignore.
+  function findAPI(w){try{for(var i=0;w&&i<10;i++){if(w.API)return w.API;if(w.parent===w)break;w=w.parent}}catch(e){}return null}
   var api=findAPI(window)||(window.opener&&findAPI(window.opener));
   if(api){try{api.LMSInitialize('')}catch(e){api=null}}
   var sections=[].slice.call(document.querySelectorAll('main section'));
@@ -384,7 +385,7 @@ def to_html(course: Course) -> str:
     for idx, (pid, _, body) in enumerate(pages):
         prev_link = f'<a href="#{pages[idx - 1][0]}">← {_e(pages[idx - 1][1])}</a>' if idx > 0 else "<span></span>"
         next_link = f'<a href="#{pages[idx + 1][0]}">{_e(pages[idx + 1][1])} →</a>' if idx < len(pages) - 1 else ""
-        sections.append(f'<section id="{pid}" hidden>{body}<div class="pager">{prev_link}{next_link}</div></section>')
+        sections.append(f'<section id="{pid}">{body}<div class="pager">{prev_link}{next_link}</div></section>')
     return f"""<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{_e(course.title)}</title><style>{PLAYER_CSS}</style></head>

@@ -77,7 +77,7 @@ def test_exports(brief):
     course = CourseGenerator(DemoLLM()).generate_course(brief)
 
     page = to_html(course)
-    assert "<section id=\"m1l1\"" in page and "form class=\"quiz\"" in page and "LMSInitialize" in page
+    assert "<section id=\"m1l1\">" in page and "form class=\"quiz\"" in page and "LMSInitialize" in page
 
     with zipfile.ZipFile(io.BytesIO(to_scorm_zip(course))) as z:
         assert set(z.namelist()) == {"imsmanifest.xml", "index.html"}
